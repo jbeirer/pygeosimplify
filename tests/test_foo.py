@@ -1,4 +1,4 @@
-from cookiecutter_poetry_example.foo import foo
+from pygeosimplify.foo import foo
 
 
 def test_foo():
