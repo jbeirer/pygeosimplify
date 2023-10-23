@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
 
-FROM python:3.9-slim-buster
+FROM python:3.11-slim-buster
 
-ENV POETRY_VERSION=1.4 \
+ENV POETRY_VERSION=1.6.1 \
     POETRY_VIRTUALENVS_CREATE=false
 
 # Install poetry
@@ -17,5 +17,3 @@ RUN poetry install --no-interaction --no-ansi --no-root --no-dev
 
 # Copy Python code to the Docker image
 COPY pygeosimplify /code/pygeosimplify/
-
-CMD [ "python", "pygeosimplify/foo.py"]
