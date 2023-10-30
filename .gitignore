@@ -81,6 +81,7 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+.testNotebooks
 
 # IPython
 profile_default/

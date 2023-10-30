@@ -1,28 +1,26 @@
 import uproot
 
 import pygeosimplify as pgs
-from pygeosimplify.io.geo_handler import uprootTreeToDataFrame
-from pygeosimplify.utils.path_resolver import get_project_root
+from pygeosimplify.cfg.test_data import ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME
+from pygeosimplify.io.geo_handler import tree_to_df
 
 
 def test_load_geometry_uproot():
-    projectRootPath = get_project_root()
-    inputPath = f"{projectRootPath}/data/ATLASCaloCells.root"
+    tree = uproot.open(f"{ATLAS_CALO_DATA_DIR}:{ATLAS_CALO_DATA_TREE_NAME}")
 
-    geoTTree = uproot.open(f"{inputPath}:caloDetCells")
+    df = tree_to_df(tree)
 
-    geoDF = uprootTreeToDataFrame(geoTTree)
-
-    keys = geoDF.keys()
+    keys = df.keys()
     nKeys = len(keys)
 
-    assert nKeys == 19
+    assert nKeys == 18
 
 
 def test_load_geometry():
-    projectRootPath = get_project_root()
-    inputPath = f"{projectRootPath}/data/ATLASCaloCells.root"
+    pgs.set_coordinate_branch("XYZ", "isCartesian")
+    pgs.set_coordinate_branch("EtaPhiR", "isCylindrical")
+    pgs.set_coordinate_branch("EtaPhiZ", "isECCylindrical")
 
-    geoDf = pgs.load_geometry(inputPath, "caloDetCells")
+    df = pgs.load_geometry(ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME)
 
-    assert len(geoDf.columns) == 19
+    assert len(df.columns) == 18
