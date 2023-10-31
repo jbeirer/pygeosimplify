@@ -1,9 +1,7 @@
 import pytest
 
-from pygeosimplify.cfg.config import coordinate_branch_names, set_coordinate_branch
-from pygeosimplify.cfg.test_data import ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME
+from pygeosimplify.cfg.config import coordinate_branch_names, set_coordinate_branch, set_coordinate_branch_dict
 from pygeosimplify.coordinate.definitions import XYZ, EtaPhiR, EtaPhiZ
-from pygeosimplify.io.geo_handler import load_geometry
 
 
 def test_set_coordinate_branch():
@@ -11,14 +9,17 @@ def test_set_coordinate_branch():
     set_coordinate_branch("XYZ", "isCartesian")
     assert coordinate_branch_names["XYZ"] == "isCartesian"
 
+    # Test setting coordinate branch via dict
+    set_coordinate_branch_dict({"XYZ": "isCartesian"})
+    assert coordinate_branch_names["XYZ"] == "isCartesian"
+
     # Test setting a unsupported coordinate system
     with pytest.raises(ValueError):
         set_coordinate_branch("invalidCoordinateSystem", "isCartesian")
 
-    # Test setting a coordinate branch that does not exist
-    with pytest.raises(Exception):
-        set_coordinate_branch("XYZ", "invalidBranch")
-        load_geometry(ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME)
+    # Test setting unsupported coordinate system with dict
+    with pytest.raises(ValueError):
+        set_coordinate_branch_dict({"invalidCoordinateSystem": "isCartesian"})
 
 
 def test_XYZ_to_RPhiZ():

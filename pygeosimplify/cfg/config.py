@@ -8,11 +8,24 @@ allowed_coordinate_systems = [name for name, obj in inspect.getmembers(coord_def
 coordinate_branch_names = {}
 
 
-def set_coordinate_branch(coordinateSystem: str, branchName: str) -> None:
-    if coordinateSystem not in allowed_coordinate_systems:
+def set_coordinate_branch(coordinate_system: str, branch_name: str) -> None:
+    if coordinate_system not in allowed_coordinate_systems:
         raise ValueError(
-            f"Coordinate system {coordinateSystem} is not supported. Supported coordinate systems are"
+            f"Coordinate system {coordinate_system} is not supported. Supported coordinate systems are"
             f" {allowed_coordinate_systems}"
         )
 
-    coordinate_branch_names[coordinateSystem] = branchName
+    coordinate_branch_names[coordinate_system] = branch_name
+
+
+def set_coordinate_branch_dict(coordinate_branch_dict: dict) -> None:
+    global coordinate_branch_names
+
+    for coordinate_system in coordinate_branch_dict:
+        if coordinate_system not in allowed_coordinate_systems:
+            raise ValueError(
+                f"Coordinate system {coordinate_system} is not supported. Supported coordinate systems are"
+                f" {allowed_coordinate_systems}"
+            )
+
+    coordinate_branch_names = coordinate_branch_dict

@@ -2,6 +2,7 @@ import pytest
 import uproot
 
 import pygeosimplify as pgs
+from pygeosimplify.cfg.config import set_coordinate_branch, set_coordinate_branch_dict
 from pygeosimplify.cfg.test_data import ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME
 from pygeosimplify.io.geo_handler import tree_to_df
 
@@ -25,3 +26,15 @@ def test_load_geometry():
 
     df = pgs.load_geometry(ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME)
     assert len(df.columns) == 18
+
+
+def test_load_geometry_without_setting_coordinate_branch():
+    set_coordinate_branch_dict({})
+    with pytest.raises(Exception):
+        pgs.load_geometry(ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME)
+
+
+def test_load_geometry_with_non_existing_coordinate_branch():
+    with pytest.raises(Exception):
+        set_coordinate_branch("XYZ", "invalidBranch")
+        pgs.load_geometry(ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME)
