@@ -4,8 +4,6 @@ from typing import Any
 
 import numpy as np
 
-from pygeosimplify.geo.cells import RPhiZCell, XYZCell
-
 
 class VertexSet:
     """
@@ -37,6 +35,8 @@ class VertexSet:
         """
         if self.vertices is None:
             return other
+        elif other.vertices is None:
+            return self
         else:
             return VertexSet(np.vstack((self.vertices, other.vertices)))
 
@@ -127,21 +127,13 @@ class RectangularCuboid(Cuboid):
         # Define the eight vertices of the cuboid with the specified center position
         self.vertices = np.array(
             [
-                [self.pos.x - half_di, self.pos.y - half_dj, self.pos.z - half_dk],
-                [self.pos.x + half_di, self.pos.y - half_dj, self.pos.z - half_dk],
-                [self.pos.x + half_di, self.pos.y + half_dj, self.pos.z - half_dk],
-                [self.pos.x - half_di, self.pos.y + half_dj, self.pos.z - half_dk],
-                [self.pos.x - half_di, self.pos.y - half_dj, self.pos.z + half_dk],
-                [self.pos.x + half_di, self.pos.y - half_dj, self.pos.z + half_dk],
-                [self.pos.x + half_di, self.pos.y + half_dj, self.pos.z + half_dk],
-                [self.pos.x - half_di, self.pos.y + half_dj, self.pos.z + half_dk],
+                [self.pos[0] - half_di, self.pos[1] - half_dj, self.pos[2] - half_dk],
+                [self.pos[0] + half_di, self.pos[1] - half_dj, self.pos[2] - half_dk],
+                [self.pos[0] + half_di, self.pos[1] + half_dj, self.pos[2] - half_dk],
+                [self.pos[0] - half_di, self.pos[1] + half_dj, self.pos[2] - half_dk],
+                [self.pos[0] - half_di, self.pos[1] - half_dj, self.pos[2] + half_dk],
+                [self.pos[0] + half_di, self.pos[1] - half_dj, self.pos[2] + half_dk],
+                [self.pos[0] + half_di, self.pos[1] + half_dj, self.pos[2] + half_dk],
+                [self.pos[0] - half_di, self.pos[1] + half_dj, self.pos[2] + half_dk],
             ]
         )
-
-    def to_RPhiZ(self) -> RPhiZCell:
-        transformed_vertices = np.array([vert.to_RPhiZ() for vert in self.vertices])
-        return RPhiZCell.create_from_vertices(vertices=transformed_vertices)
-
-    def to_XYZ(self) -> XYZCell:
-        transformed_vertices = np.array([vert.to_XYZ() for vert in self.vertices])
-        return XYZCell.create_from_vertices(vertices=transformed_vertices)

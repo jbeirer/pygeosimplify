@@ -28,9 +28,9 @@ class RPhiZCell(RectangularCuboid):
         self.dphi = dphi
         self.dz = dz
         self.pos = pos
-        super().__init__(dr, dphi, dz, XYZ(pos.r, pos.phi, pos.z))
+        super().__init__(dr, dphi, dz, RPhiZ(pos.r, pos.phi, pos.z))
         # Convert all vertices to RPhiZ positions
-        self.vertices = np.array([RPhiZ(vert[0], vert[1], vert[2]) for vert in self.vertices])  # type: ignore[has-type]
+        self.vertices = np.array([RPhiZ(vert[0], vert[1], vert[2]) for vert in self.vertices])
 
     @classmethod
     def create_from_vertices(cls, vertices: np.ndarray) -> RPhiZCell:
@@ -71,7 +71,7 @@ class XYZCell(RectangularCuboid):
         self.pos = pos
         super().__init__(dx, dy, dz, XYZ(pos.x, pos.y, pos.z))
         # Convert all vertices to XYZ positions
-        self.vertices = np.array([XYZ(vert[0], vert[1], vert[2]) for vert in self.vertices])  # type: ignore[has-type]
+        self.vertices = np.array([XYZ(vert[0], vert[1], vert[2]) for vert in self.vertices])
 
     @classmethod
     def create_from_vertices(cls, vertices: np.ndarray) -> XYZCell:
@@ -89,6 +89,10 @@ class XYZCell(RectangularCuboid):
         obj = cls(0, 0, 0, XYZ(0, 0, 0))
         obj.vertices = vertices
         return obj
+
+    def to_RPhiZ(self) -> RPhiZCell:
+        transformed_vertices = np.array([vert.to_RPhiZ() for vert in self.vertices])
+        return RPhiZCell.create_from_vertices(vertices=transformed_vertices)
 
 
 class EtaPhiRCell(RectangularCuboid):
@@ -111,8 +115,8 @@ class EtaPhiRCell(RectangularCuboid):
         self.dphi = dphi
         self.dr = dr
         self.pos = pos
-        super().__init__(deta, dphi, dr, XYZ(pos.eta, pos.phi, pos.r))
-        self.vertices = np.array([EtaPhiR(vert[0], vert[1], vert[2]) for vert in self.vertices])  # type: ignore[has-type]
+        super().__init__(deta, dphi, dr, EtaPhiR(pos.eta, pos.phi, pos.r))
+        self.vertices = np.array([EtaPhiR(vert[0], vert[1], vert[2]) for vert in self.vertices])
 
     @classmethod
     def create_from_vertices(cls, vertices: np.ndarray) -> EtaPhiRCell:
@@ -130,6 +134,14 @@ class EtaPhiRCell(RectangularCuboid):
         obj = cls(0, 0, 0, EtaPhiR(0, 0, 0))
         obj.vertices = vertices
         return obj
+
+    def to_XYZ(self) -> XYZCell:
+        transformed_vertices = np.array([vert.to_XYZ() for vert in self.vertices])
+        return XYZCell.create_from_vertices(vertices=transformed_vertices)
+
+    def to_RPhiZ(self) -> RPhiZCell:
+        transformed_vertices = np.array([vert.to_RPhiZ() for vert in self.vertices])
+        return RPhiZCell.create_from_vertices(vertices=transformed_vertices)
 
 
 class EtaPhiZCell(RectangularCuboid):
@@ -152,8 +164,8 @@ class EtaPhiZCell(RectangularCuboid):
         self.dphi = dphi
         self.dz = dz
         self.pos = pos
-        super().__init__(deta, dphi, dz, XYZ(pos.eta, pos.phi, pos.z))
-        self.vertices = np.array([EtaPhiZ(vert[0], vert[1], vert[2]) for vert in self.vertices])  # type: ignore[has-type]
+        super().__init__(deta, dphi, dz, EtaPhiZ(pos.eta, pos.phi, pos.z))
+        self.vertices = np.array([EtaPhiZ(vert[0], vert[1], vert[2]) for vert in self.vertices])
 
     @classmethod
     def create_from_vertices(cls, vertices: np.ndarray) -> EtaPhiZCell:
@@ -171,3 +183,11 @@ class EtaPhiZCell(RectangularCuboid):
         obj = cls(0, 0, 0, EtaPhiZ(0, 0, 0))
         obj.vertices = vertices
         return obj
+
+    def to_XYZ(self) -> XYZCell:
+        transformed_vertices = np.array([vert.to_XYZ() for vert in self.vertices])
+        return XYZCell.create_from_vertices(vertices=transformed_vertices)
+
+    def to_RPhiZ(self) -> RPhiZCell:
+        transformed_vertices = np.array([vert.to_RPhiZ() for vert in self.vertices])
+        return RPhiZCell.create_from_vertices(vertices=transformed_vertices)
