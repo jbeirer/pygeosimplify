@@ -194,6 +194,51 @@ def test_EtaPhiR_cell_from_vertices_wrong_type():
         EtaPhiRCell.create_from_vertices(vertices)
 
 
+def test_EtaPhiZ_cell_nominal():
+    cell = EtaPhiZCell(2, 3, 4, EtaPhiZ(1, 2, 3))
+    expected_vertices = np.array(
+        [
+            EtaPhiZ(0.0, 0.5, 1.0),
+            EtaPhiZ(2.0, 0.5, 1.0),
+            EtaPhiZ(2.0, 3.5, 1.0),
+            EtaPhiZ(0.0, 3.5, 1.0),
+            EtaPhiZ(0.0, 0.5, 5.0),
+            EtaPhiZ(2.0, 0.5, 5.0),
+            EtaPhiZ(2.0, 3.5, 5.0),
+            EtaPhiZ(0.0, 3.5, 5.0),
+        ]
+    )
+
+    np.testing.assert_array_equal(cell.vertices, expected_vertices)
+    assert cell.deta == 2
+    assert cell.dphi == 3
+    assert cell.dz == 4
+    assert cell.pos == EtaPhiZ(1, 2, 3)
+
+
+def test_EtaPhiZ_cell_from_vertices():
+    vertices = np.array(
+        [
+            EtaPhiZ(0.0, 0.5, 1.0),
+            EtaPhiZ(2.0, 0.5, 1.0),
+            EtaPhiZ(2.0, 3.5, 1.0),
+            EtaPhiZ(0.0, 3.5, 1.0),
+            EtaPhiZ(0.0, 0.5, 5.0),
+            EtaPhiZ(2.0, 0.5, 5.0),
+            EtaPhiZ(2.0, 3.5, 5.0),
+            EtaPhiZ(0.0, 3.5, 5.0),
+        ]
+    )
+    cell = EtaPhiZCell.create_from_vertices(vertices)
+    assert np.all(cell.vertices == vertices)
+
+
+def test_EtaPhiZ_cell_from_vertices_wrong_type():
+    with pytest.raises(ValueError):
+        vertices = np.array([(1, 2, 3), (4, 5, 6), (7, 8, 9)])
+        EtaPhiZCell.create_from_vertices(vertices)
+
+
 def test_XYZ_to_RPhiZ():
     cell = XYZCell(2, 3, 4, XYZ(1, 2, 3))
     expected_vertices = np.array(
