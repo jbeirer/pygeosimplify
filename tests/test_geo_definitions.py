@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from pygeosimplify.coordinate.definitions import XYZ, EtaPhiR, EtaPhiZ, RPhiZ
-from pygeosimplify.geo.base import Cuboid, RectangularCuboid, VertexSet
+from pygeosimplify.geo.base import Cell, RectangularCell, VertexSet
 from pygeosimplify.geo.cells import EtaPhiRCell, EtaPhiZCell, RPhiZCell, XYZCell
 
 
@@ -30,20 +30,20 @@ def test_add_vertex_set():
     assert np.array_equal(vertex_set5.vertices, vertices2)
 
 
-def test_cuboid():
+def test_cell():
     vertices = np.array([[0, 0, 0], [1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
-    cuboid = Cuboid(vertices)
-    assert cuboid.max_extent_in_dim(0) == [0, 7]
-    assert cuboid.max_extent_in_dim(1) == [0, 8]
-    assert cuboid.max_extent_in_dim(2) == [0, 9]
+    cell = Cell(vertices)
+    assert cell.max_extent_in_dim(0) == [0, 7]
+    assert cell.max_extent_in_dim(1) == [0, 8]
+    assert cell.max_extent_in_dim(2) == [0, 9]
 
-    assert cuboid.max_extent() == ([0, 7], [0, 8], [0, 9])
+    assert cell.max_extent() == ([0, 7], [0, 8], [0, 9])
 
 
-def test_rectangular_cuboid():
+def test_cell_vertices():
     # Test that set_vertices sets the vertices correctly
-    cuboid = RectangularCuboid(2, 3, 4, XYZ(1, 2, 3))
+    cell = RectangularCell(2, 3, 4, XYZ(1, 2, 3))
     expected_vertices = np.array(
         [
             [0.0, 0.5, 1.0],
@@ -56,7 +56,7 @@ def test_rectangular_cuboid():
             [0.0, 3.5, 5.0],
         ]
     )
-    np.testing.assert_array_equal(cuboid.vertices, expected_vertices)
+    np.testing.assert_array_equal(cell.vertices, expected_vertices)
 
 
 def test_XYZ_cell_nominal():

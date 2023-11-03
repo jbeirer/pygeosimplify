@@ -3,12 +3,12 @@ from __future__ import annotations
 import numpy as np
 
 from pygeosimplify.coordinate.definitions import XYZ, EtaPhiR, EtaPhiZ, RPhiZ
-from pygeosimplify.geo.base import RectangularCuboid
+from pygeosimplify.geo.base import RectangularCell
 
 
-class RPhiZCell(RectangularCuboid):
+class RPhiZCell(RectangularCell):
     """
-    A class representing a rectangular cuboid in cylindrical coordinates (r, phi, z).
+    A class representing a rectangular cell in cylindrical coordinates (r, phi, z).
     """
 
     def __init__(self, dr: float, dphi: float, dz: float, pos: RPhiZ = RPhiZ(0, 0, 0)) -> None:  # noqa: B008
@@ -50,9 +50,9 @@ class RPhiZCell(RectangularCuboid):
         return obj
 
 
-class XYZCell(RectangularCuboid):
+class XYZCell(RectangularCell):
     """
-    A class representing a rectangular cuboid in 3D space with XYZ coordinates.
+    A class representing a rectangular cell in 3D space with XYZ coordinates.
     """
 
     def __init__(self, dx: float, dy: float, dz: float, pos: XYZ = XYZ(0, 0, 0)) -> None:  # noqa: B008
@@ -60,10 +60,10 @@ class XYZCell(RectangularCuboid):
         Initializes a new instance of the XYZCell class.
 
         Args:
-        - dx (float): The length of the cuboid along the x-axis.
-        - dy (float): The length of the cuboid along the y-axis.
-        - dz (float): The length of the cuboid along the z-axis.
-        - pos (XYZ, optional): The position of the cuboid in 3D space. Defaults to XYZ(0, 0, 0).
+        - dx (float): The length of the cell along the x-axis.
+        - dy (float): The length of the cell along the y-axis.
+        - dz (float): The length of the cell along the z-axis.
+        - pos (XYZ, optional): The position of the cell in 3D space. Defaults to XYZ(0, 0, 0).
         """
         self.dx = dx
         self.dy = dy
@@ -79,7 +79,7 @@ class XYZCell(RectangularCuboid):
         Creates a new instance of the XYZCell class from an array of vertices.
 
         Args:
-        - vertices (np.ndarray): An array of vertices representing the corners of the cuboid.
+        - vertices (np.ndarray): An array of vertices representing the corners of the cell.
 
         Returns:
         - XYZCell: A new instance of the XYZCell class.
@@ -95,7 +95,7 @@ class XYZCell(RectangularCuboid):
         return RPhiZCell.create_from_vertices(vertices=transformed_vertices)
 
 
-class EtaPhiRCell(RectangularCuboid):
+class EtaPhiRCell(RectangularCell):
     """
     A class representing a rectangular cell in the Eta-Phi-R coordinate system.
 
@@ -144,7 +144,7 @@ class EtaPhiRCell(RectangularCuboid):
         return RPhiZCell.create_from_vertices(vertices=transformed_vertices)
 
 
-class EtaPhiZCell(RectangularCuboid):
+class EtaPhiZCell(RectangularCell):
     """
     A class representing a rectangular cell in the Eta-Phi-Z coordinate system.
     """
