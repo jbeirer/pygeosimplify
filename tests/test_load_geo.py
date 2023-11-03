@@ -4,21 +4,15 @@ import uproot
 import pygeosimplify as pgs
 from pygeosimplify.cfg.config import set_coordinate_branch, set_coordinate_branch_dict
 from pygeosimplify.cfg.test_data import ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME
-from pygeosimplify.io.geo_handler import tree_to_df
 
 
-@pytest.fixture
-def loaded_geometry_uproot():
+def test_load_geometry_uproot():
     tree = uproot.open(f"{ATLAS_CALO_DATA_DIR}:{ATLAS_CALO_DATA_TREE_NAME}")
-    df = tree_to_df(tree)
-    return df
-
-
-def test_load_geometry_uproot(loaded_geometry_uproot):
-    nKeys = len(loaded_geometry_uproot.keys())
+    nKeys = len(tree.keys())
     assert nKeys == 18
 
 
+@pytest.fixture
 def test_load_geometry():
     pgs.set_coordinate_branch("XYZ", "isCartesian")
     pgs.set_coordinate_branch("EtaPhiR", "isCylindrical")
@@ -26,6 +20,10 @@ def test_load_geometry():
 
     df = pgs.load_geometry(ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME)
     assert len(df.columns) == 18
+    assert pgs.cfg.config.coordinate_branch_names["XYZ"] == "isCartesian"
+    assert pgs.cfg.config.coordinate_branch_names["EtaPhiR"] == "isCylindrical"
+    assert pgs.cfg.config.coordinate_branch_names["EtaPhiZ"] == "isECCylindrical"
+    return df
 
 
 def test_load_geometry_without_setting_coordinate_branch():

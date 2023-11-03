@@ -61,7 +61,7 @@ class Cell(VertexSet):
     def __init__(
         self,
         vertices: np.ndarray,
-        facecolor: str = "tab:orange",
+        facecolor: tuple[float, float, float] | str = "tab:orange",
         alpha: float = 0.1,
         edgecolor: tuple = (1, 1, 1, 1),
         edgewidth: float = 1,

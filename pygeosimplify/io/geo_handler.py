@@ -20,6 +20,22 @@ def load_geometry(file_path: str, tree_name: str) -> pd.DataFrame:
                 " names have been provided."
             )
 
+    # Add required branches depending on the set coordinate system
+    if "XYZ" in config.coordinate_branch_names:
+        config.required_branches += ["x", "y", "z", "dx", "dy", "dz"]
+    if "EtaPhiR" in config.coordinate_branch_names:
+        config.required_branches += ["eta", "phi", "r", "deta", "dphi", "dr"]
+    if "EtaPhiZ" in config.coordinate_branch_names:
+        config.required_branches += ["eta", "phi", "z", "deta", "dphi", "dz"]
+
+    # Check whether all required branches are available in the tree
+    for required_branch in config.required_branches:
+        if required_branch not in tree.keys():
+            raise Exception(
+                f"Required branch {required_branch} not found in tree {tree_name}. Please provide a tree containing all"
+                f" required branches: {config.required_branches}"
+            )
+
     df = tree_to_df(tree)
 
     return df
