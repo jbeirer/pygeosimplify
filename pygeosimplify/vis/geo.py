@@ -41,7 +41,7 @@ def plot_geometry(
     if layer_list is None:
         layer_list = list(df["layer"].unique())
     if color_list is None:
-        color_list = get_colors(len(layer_list))
+        color_list = get_colors(len(layer_list), rng=0)
     if eta_range is None:
         eta_range = [-5, 5]
     if phi_range is None:
@@ -88,7 +88,7 @@ def add_layer_cells_to_scene(
         scence.add_cell(cell, facecolor=color_list[layer_idx], alpha=0.1, edgewidth=0.01)
 
 
-def get_cell_from_row(row: pd.Pandas, unit_scale: float) -> Cell:
+def get_cell_from_row(row: pd.DataFrame, unit_scale: float) -> Cell:
     if getattr(row, pgs.cfg.config.coordinate_branch_names["XYZ"]):
         cell = XYZCell(
             row.dx * unit_scale,

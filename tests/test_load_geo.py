@@ -12,7 +12,7 @@ def test_load_geometry_uproot():
     assert nKeys == 18
 
 
-@pytest.fixture
+@pytest.fixture(name="atlas_calo_geo")
 def test_load_geometry():
     pgs.set_coordinate_branch("XYZ", "isCartesian")
     pgs.set_coordinate_branch("EtaPhiR", "isCylindrical")
