@@ -101,6 +101,21 @@ def test_plot_single_XYZ_cell(tmpdir):
     assert compare_images(f"{REF_DIR}/single_XYZ_cell.png", f"{tmpdir}/test.png", tol=0) is None
 
 
+def test_plot_single_XYZ_cell_with_user_axis():
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection="3d")
+    cell_scene = CellScene()
+    cell = XYZCell(2, 3, 4, XYZ(1, 2, 3))
+    cell_scene.add_cell(cell)
+    expected_axis = cell_scene.plot()
+    user_axis = cell_scene.plot(ax=ax)
+
+    assert expected_axis.get_xlim() == user_axis.get_xlim()
+    assert expected_axis.get_ylim() == user_axis.get_ylim()
+    assert expected_axis.get_zlim() == user_axis.get_zlim()
+    assert len(expected_axis.collections) == len(user_axis.collections)
+
+
 def test_plot_multi_XYZ_cells(tmpdir):
     cell_scene = CellScene()
     cell1 = XYZCell(2, 3, 4, XYZ(1, 2, 3))
