@@ -1,8 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import pytest
 from matplotlib.testing.compare import compare_images
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from mpl_toolkits.mplot3d.axes3d import Axes3D
+from scipy.spatial._qhull import QhullError
 
 from pygeosimplify.cfg.test_data import REF_DIR
 from pygeosimplify.coordinate.definitions import XYZ
@@ -37,6 +39,27 @@ def test_min_max_cell_list_extent():
     assert cell_scene.min_max_cell_list_extent(2) == (3.0, 8.0)
 
 
+def test_plot_empty_scene():
+    cell_scene = CellScene()
+    with pytest.raises(RuntimeWarning):
+        ax = cell_scene.plot()
+        assert isinstance(ax, Axes3D)
+        assert ax.get_xlim() == (0, 1)
+        assert ax.get_ylim() == (0, 1)
+        assert ax.get_zlim() == (0, 1)
+        assert len(ax.collections) == 0
+
+
+def test_plot_invalid_raw_cell():
+    cell_scene = CellScene()
+    vertices = np.array([[-1, 0, 2]])
+    raw_cell = Cell(vertices)
+    cell_scene.add_cell(raw_cell)
+    axis_limits = [(0, 1), (0, 1), (0, 1)]
+    with pytest.raises(QhullError):
+        cell_scene.plot(axis_limits=axis_limits)
+
+
 def test_plot_raw_cell():
     cell_scene = CellScene()
     vertices = np.array(
@@ -53,7 +76,7 @@ def test_plot_raw_cell():
     )
     raw_cell = Cell(vertices)
     cell_scene.add_cell(raw_cell)
-    ax = cell_scene.plot()
+    ax = cell_scene.plot(axis_labels=["x", "y", "z"])
     assert isinstance(ax, Axes3D)
     assert ax.get_xlim() == (0, 2)
     assert ax.get_ylim() == (0.5, 3.5)
@@ -66,7 +89,7 @@ def test_plot_single_XYZ_cell(tmpdir):
     cell_scene = CellScene()
     cell = XYZCell(2, 3, 4, XYZ(1, 2, 3))
     cell_scene.add_cell(cell)
-    ax = cell_scene.plot()
+    ax = cell_scene.plot(axis_labels=["x", "y", "z"])
     assert isinstance(ax, Axes3D)
     assert ax.get_xlim() == (0, 2)
     assert ax.get_ylim() == (0.5, 3.5)
@@ -75,7 +98,7 @@ def test_plot_single_XYZ_cell(tmpdir):
     assert isinstance(ax.collections[0], Poly3DCollection)
 
     plt.savefig(f"{tmpdir}/test.png", dpi=300, bbox_inches="tight")
-    compare_images(f"{REF_DIR}/single_XYZ_cell.png", f"{tmpdir}/test.png", tol=0.001)
+    assert compare_images(f"{REF_DIR}/single_XYZ_cell.png", f"{tmpdir}/test.png", tol=0) is None
 
 
 def test_plot_multi_XYZ_cells(tmpdir):
@@ -84,7 +107,7 @@ def test_plot_multi_XYZ_cells(tmpdir):
     cell2 = XYZCell(2, 3, 4, XYZ(4, 5, 6))
     cell_scene.add_cell(cell1)
     cell_scene.add_cell(cell2)
-    ax = cell_scene.plot()
+    ax = cell_scene.plot(axis_labels=["x", "y", "z"])
     assert isinstance(ax, Axes3D)
     assert ax.get_xlim() == (0, 5)
     assert ax.get_ylim() == (0.5, 6.5)
@@ -94,4 +117,4 @@ def test_plot_multi_XYZ_cells(tmpdir):
     assert isinstance(ax.collections[1], Poly3DCollection)
 
     plt.savefig(f"{tmpdir}/test.png", dpi=300, bbox_inches="tight")
-    compare_images(f"{REF_DIR}/multi_XYZ_cell.png", f"{tmpdir}/test.png", tol=0.001)
+    assert compare_images(f"{REF_DIR}/multi_XYZ_cell.png", f"{tmpdir}/test.png", tol=0) is None

@@ -1,8 +1,7 @@
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
-import scipy as sp
 from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from scipy.spatial import ConvexHull
@@ -68,35 +67,51 @@ class CellScene:
         max_extent = max([x[1] for x in extent])
         return min_extent, max_extent
 
-    def plot(self, ax: Axes3D = None, axis_labels: Optional[List[str]] = None) -> Axes3D:
+    def plot(
+        self,
+        ax: Axes3D = None,
+        axis_limits: Optional[List[Tuple[float, float]]] = None,
+        axis_labels: Optional[List[str]] = None,
+    ) -> Axes3D:
         if self.n_cells() == 0:
             raise RuntimeWarning("No cells to plot. Add cells using the add_cell method.")
-
-        min_max_x = self.min_max_cell_list_extent(0)
-        min_max_y = self.min_max_cell_list_extent(1)
-        min_max_z = self.min_max_cell_list_extent(2)
 
         if ax is None:
             fig = plt.figure()
             ax = fig.add_subplot(111, projection="3d")
 
+        ax.grid(False)
+        ax.xaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
+        ax.yaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
+        ax.zaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
+
+        if axis_limits is None:
+            min_max_x = self.min_max_cell_list_extent(0)
+            min_max_y = self.min_max_cell_list_extent(1)
+            min_max_z = self.min_max_cell_list_extent(2)
+        else:
+            min_max_x = axis_limits[0]
+            min_max_y = axis_limits[1]
+            min_max_z = axis_limits[2]
+
         ax.set_xlim(min_max_x)
         ax.set_ylim(min_max_y)
         ax.set_zlim(min_max_z)
 
+        if axis_labels is not None:
+            ax.set_xlabel(axis_labels[0])
+            ax.set_ylabel(axis_labels[1])
+            ax.set_zlabel(axis_labels[2])
+
         for cell in tqdm(self.cell_list):
-            try:
-                if type(cell.vertices[0]) == np.ndarray:
-                    raw_vertices = cell.vertices
-                else:
-                    # Convert to raw vertices if cell coordinates are provided in specificy coordinate system
-                    raw_vertices = [(vert[0], vert[1], vert[2]) for vert in cell.vertices]
-                # Compute convex hull of cell vertices
-                hull = ConvexHull(raw_vertices)
-                triangularFaces = hull.points[hull.simplices]
-            except sp.spatial._qhull.QhullError:
-                print("Warning: Convex hull computation failed for cell. Skipping cell.")
-                continue
+            if type(cell.vertices[0]) == np.ndarray:
+                raw_vertices = cell.vertices
+            else:
+                # Convert to raw vertices if cell coordinates are provided in specificy coordinate system
+                raw_vertices = [(vert[0], vert[1], vert[2]) for vert in cell.vertices]
+            # Compute convex hull of cell vertices
+            hull = ConvexHull(raw_vertices)
+            triangularFaces = hull.points[hull.simplices]
 
             ax.add_collection3d(
                 Poly3DCollection(
@@ -107,15 +122,5 @@ class CellScene:
                     alpha=cell.alpha,
                 )
             )
-
-        ax.grid(False)
-        ax.xaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
-        ax.yaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
-        ax.zaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
-
-        if axis_labels is not None:
-            ax.set_xlabel(axis_labels[0])
-            ax.set_ylabel(axis_labels[1])
-            ax.set_zlabel(axis_labels[2])
 
         return ax
