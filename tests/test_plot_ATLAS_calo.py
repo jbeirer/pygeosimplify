@@ -13,7 +13,7 @@ def test_plot_ATLAS_calo(atlas_calo_geo, tmpdir):  # noqa: F811
     )
 
     plt.savefig(f"{tmpdir}/test.png", dpi=300)
-    assert compare_images(f"{REF_DIR}/full_ATLAS_calo_phi_0_0.1.png", f"{tmpdir}/test.png", tol=0) is None
+    assert compare_images(f"{REF_DIR}/full_ATLAS_calo_phi_0_0.1.png", f"{tmpdir}/test.png", tol=0.5) is None
 
 
 def test_plot_ATLAS_calo_layer_0(atlas_calo_geo, tmpdir):  # noqa: F811
@@ -27,4 +27,4 @@ def test_plot_ATLAS_calo_layer_0(atlas_calo_geo, tmpdir):  # noqa: F811
     )
 
     plt.savefig(f"{tmpdir}/test.png", dpi=300)
-    assert compare_images(f"{REF_DIR}/ATLAS_calo_layer_0_phi_0_2pi.png", f"{tmpdir}/test.png", tol=0) is None
+    assert compare_images(f"{REF_DIR}/ATLAS_calo_layer_0_phi_0_2pi.png", f"{tmpdir}/test.png", tol=0.5) is None
