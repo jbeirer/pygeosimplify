@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 
 from pygeosimplify.coordinate.definitions import XYZ, EtaPhiR, EtaPhiZ, RPhiZ
 from pygeosimplify.geo.base import Cuboid, RectangularCuboid, VertexSet
@@ -97,6 +98,12 @@ def test_XYZ_cell_from_vertices():
     assert np.all(cell.vertices == vertices)
 
 
+def test_XYZ_cell_from_vertices_wrong_type():
+    with pytest.raises(ValueError):
+        vertices = np.array([(1, 2, 3), (4, 5, 6), (7, 8, 9)])
+        XYZCell.create_from_vertices(vertices)
+
+
 def test_RPhiZ_cell_nominal():
     cell = RPhiZCell(2, 3, 4, RPhiZ(1, 2, 3))
     expected_vertices = np.array(
@@ -136,7 +143,13 @@ def test_RPhiZ_cell_from_vertices():
     assert np.all(cell.vertices == vertices)
 
 
-def test_EtaPhiRCell_nominal():
+def test_RPhiZ_cell_from_vertices_wrong_type():
+    with pytest.raises(ValueError):
+        vertices = np.array([(1, 2, 3), (4, 5, 6), (7, 8, 9)])
+        RPhiZCell.create_from_vertices(vertices)
+
+
+def test_EtaPhiR_cell_nominal():
     cell = EtaPhiRCell(2, 3, 4, EtaPhiR(1, 2, 3))
     expected_vertices = np.array(
         [
@@ -158,7 +171,7 @@ def test_EtaPhiRCell_nominal():
     assert cell.pos == EtaPhiR(1, 2, 3)
 
 
-def test_EtaPhiRCell_from_vertices():
+def test_EtaPhiR_cell_from_vertices():
     vertices = np.array(
         [
             EtaPhiR(0.0, 0.5, 1.0),
@@ -175,7 +188,13 @@ def test_EtaPhiRCell_from_vertices():
     assert np.all(cell.vertices == vertices)
 
 
-def test_XYZCell_to_RPhiZ():
+def test_EtaPhiR_cell_from_vertices_wrong_type():
+    with pytest.raises(ValueError):
+        vertices = np.array([(1, 2, 3), (4, 5, 6), (7, 8, 9)])
+        EtaPhiRCell.create_from_vertices(vertices)
+
+
+def test_XYZ_to_RPhiZ():
     cell = XYZCell(2, 3, 4, XYZ(1, 2, 3))
     expected_vertices = np.array(
         [
