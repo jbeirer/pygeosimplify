@@ -41,7 +41,7 @@ def test_cell():
     assert cell.max_extent() == ([0, 7], [0, 8], [0, 9])
 
 
-def cell():
+def test_cell_vertices():
     # Test that set_vertices sets the vertices correctly
     cell = RectangularCell(2, 3, 4, XYZ(1, 2, 3))
     expected_vertices = np.array(
