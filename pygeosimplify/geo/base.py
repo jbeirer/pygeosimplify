@@ -41,21 +41,21 @@ class VertexSet:
             return VertexSet(np.vstack((self.vertices, other.vertices)))
 
 
-class Cuboid(VertexSet):
+class Cell(VertexSet):
     """
-    A class representing a cuboid in 3D space. For us a cuboid is simply a collection of vertices attached to a number of attributes.
-    We assume that a cuboid is a convex polyhedra so that we can visualize the cuboid as convex hull of its vertices.
+    A class representing a cell in 3D space. For us a cell is simply a collection of vertices attached to a number of attributes.
+    We assume that a cell is a convex polyhedra so that we can visualize the cell as convex hull of its vertices.
 
     Attributes:
     -----------
     facecolor : str
-        The color of the cuboid's faces.
+        The color of the cell's faces.
     alpha : float
-        The transparency of the cuboid's faces.
+        The transparency of the cell's faces.
     edgecolor : tuple
-        The color of the cuboid's edges.
+        The color of the cell's edges.
     edgewidth : int
-        The width of the cuboid's edges.
+        The width of the cell's edges.
     """
 
     def __init__(
@@ -66,11 +66,16 @@ class Cuboid(VertexSet):
         edgecolor: tuple = (1, 1, 1, 1),
         edgewidth: float = 1,
     ):
+        self.facecolor = facecolor
+        self.alpha = alpha
+        self.edgecolor = edgecolor
+        self.edgewidth = edgewidth
+
         super().__init__(vertices)
 
     def max_extent_in_dim(self, dimIdx: int) -> list:
         """
-        Returns the minimum and maximum values of the cuboid's vertices in the specified dimension.
+        Returns the minimum and maximum values of the cell's vertices in the specified dimension.
 
         Parameters:
         -----------
@@ -80,34 +85,34 @@ class Cuboid(VertexSet):
         Returns:
         --------
         list
-            A list containing the minimum and maximum values of the cuboid's vertices in the specified dimension.
+        w containing the minimum and maximum values of the cell's vertices in the specified dimension.
         """
         values = [vertex[dimIdx] for vertex in self.vertices]
         return [min(values), max(values)]
 
     def max_extent(self) -> tuple:
         """
-        Returns the minimum and maximum values of the cuboid's vertices in all three dimensions.
+        Returns the minimum and maximum values of the cell's vertices in all three dimensions.
 
         Returns:
         --------
         tuple
-            A tuple containing three lists, each containing the minimum and maximum values of the cuboid's vertices
+            A tuple containing three lists, each containing the minimum and maximum values of the cell's vertices
             in one of the three dimensions.
         """
         return self.max_extent_in_dim(0), self.max_extent_in_dim(1), self.max_extent_in_dim(2)
 
 
-class RectangularCuboid(Cuboid):
+class RectangularCell(Cell):
     """
-    A class representing a rectangular cuboid defined by its dimensions and center position.
+    A class representing a rectangular cell defined by its dimensions and center position.
     No implicit coordinate system is assumed at this point.
 
     Args:
-        di (float): The length of the cuboid along the x-axis.
-        dj (float): The length of the cuboid along the y-axis.
-        dk (float): The length of the cuboid along the z-axis.
-        pos (XYZ, optional): The center position of the cuboid. Defaults to XYZ(0,0,0).
+        di (float): The length of the cell along the i-axis.
+        dj (float): The length of the cell along the j-axis.
+        dk (float): The length of the cell along the k-axis.
+        pos optional): The center position of the rectangular cell in (i,j,k)
     """
 
     def __init__(self, di: float, dj: float, dk: float, pos: Any):
@@ -124,7 +129,7 @@ class RectangularCuboid(Cuboid):
         half_dj = self.dj / 2
         half_dk = self.dk / 2
 
-        # Define the eight vertices of the cuboid with the specified center position
+        # Define the eight vertices of the cell with the specified center position
         self.vertices = np.array(
             [
                 [self.pos[0] - half_di, self.pos[1] - half_dj, self.pos[2] - half_dk],
