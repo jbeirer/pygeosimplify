@@ -48,4 +48,4 @@ def test_load_invalid_geometry(tmpdir):
     pgs.set_coordinate_branch("EtaPhiZ", "isECCylindrical")
 
     with pytest.raises(Exception):
-        pgs.load_geometry("invalid_file.root", "treeName")
+        pgs.load_geometry(f"{tmpdir}/invalid_file.root", "treeName")
