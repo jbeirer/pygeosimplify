@@ -43,9 +43,26 @@ def test_load_invalid_geometry(tmpdir):
     file = uproot.create(f"{tmpdir}/invalid_file.root")
     file.mktree("treeName", {"isCartesian": "int", "isCylindrical": "int", "isECCylindrical": "int"})
 
+    # XYZ
+    set_coordinate_branch_dict({})
     pgs.set_coordinate_branch("XYZ", "isCartesian")
-    pgs.set_coordinate_branch("EtaPhiR", "isCylindrical")
-    pgs.set_coordinate_branch("EtaPhiZ", "isECCylindrical")
 
     with pytest.raises(Exception):
         pgs.load_geometry(f"{tmpdir}/invalid_file.root", "treeName")
+
+    assert {"x", "y", "z", "dx", "dy", "dz"} <= set(pgs.cfg.config.required_branches)
+
+    # EtaPhiR
+    set_coordinate_branch_dict({})
+    pgs.set_coordinate_branch("EtaPhiR", "isCylindrical")
+
+    with pytest.raises(Exception):
+        pgs.load_geometry(f"{tmpdir}/invalid_file.root", "treeName")
+
+    assert {"eta", "phi", "r", "deta", "dphi", "dr"} <= set(pgs.cfg.config.required_branches)
+
+    # EtaPhiZ
+    set_coordinate_branch_dict({})
+    pgs.set_coordinate_branch("EtaPhiZ", "isECCylindrical")
+
+    assert {"eta", "phi", "z", "deta", "dphi", "dz"} <= set(pgs.cfg.config.required_branches)
