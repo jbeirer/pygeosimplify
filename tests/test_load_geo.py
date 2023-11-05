@@ -36,3 +36,16 @@ def test_load_geometry_with_non_existing_coordinate_branch():
     with pytest.raises(Exception):
         set_coordinate_branch("XYZ", "invalidBranch")
         pgs.load_geometry(ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME)
+
+
+def test_load_invalid_geometry(tmpdir):
+    # Create an empty file with only coordinate branches
+    file = uproot.create(f"{tmpdir}/invalid_file.root")
+    file.mktree("treeName", {"isCartesian": "int", "isCylindrical": "int", "isECCylindrical": "int"})
+
+    pgs.set_coordinate_branch("XYZ", "isCartesian")
+    pgs.set_coordinate_branch("EtaPhiR", "isCylindrical")
+    pgs.set_coordinate_branch("EtaPhiZ", "isECCylindrical")
+
+    with pytest.raises(Exception):
+        pgs.load_geometry("invalid_file.root", "treeName")
