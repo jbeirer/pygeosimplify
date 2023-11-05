@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import pytest
 from matplotlib.testing.compare import compare_images
 
 from pygeosimplify.cfg.test_data import REF_DIR
@@ -12,3 +13,12 @@ def test_plot_cylinder(tmpdir):
     plt.savefig(f"{tmpdir}/test.png", dpi=300)
     assert compare_images(f"{REF_DIR}/cylinder.png", f"{tmpdir}/test.png", tol=0.5) is None
     plt.close(fig)
+
+
+def test_plot_invalid_cylinder():
+    # invalid z hierarchy
+    with pytest.raises(Exception):
+        plot_cylinder(zmin=0, zmax=-1, rmin=0, rmax=1)
+    # invalid r hierarchy
+    with pytest.raises(Exception):
+        plot_cylinder(zmin=0, zmax=1, rmin=1, rmax=0)

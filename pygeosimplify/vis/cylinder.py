@@ -76,13 +76,14 @@ def plot_cylinder(
     ax.yaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
     ax.zaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
 
+    """Plot a 3d cylinder."""
+    if zmin >= zmax:
+        raise Exception("Cylinder zmin must be less than zmax")
+    if rmin >= rmax:
+        raise Exception("Cylinder rmin must be less than rmax")
     # For the endcaps only translation in z is supported and not rotation
     startPos = np.array([0, 0, zmin])
     endPos = np.array([0, 0, zmax])
-
-    """Plot a 3d cylinder."""
-    if not np.all(startPos == endPos):
-        raise Exception("Cylinder must have length")
 
     # Plot the cylinder face
     x, y, z = generate_cylinder_face_points(startPos, endPos, rmax, rmax, linspace_count=linspace_count)
