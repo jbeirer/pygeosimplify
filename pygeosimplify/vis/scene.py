@@ -1,4 +1,4 @@
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Union
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -43,7 +43,7 @@ class CellScene:
     def add_cell(
         self,
         cell: Cell,
-        facecolor: tuple[float, float, float] | str = "tab:orange",
+        facecolor: Union[tuple[float, float, float], str] = "tab:orange",
         alpha: float = 0.1,
         edgecolor: tuple = (1, 1, 1, 1),
         edgewidth: float = 1,
