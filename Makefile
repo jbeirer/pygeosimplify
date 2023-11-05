@@ -17,9 +17,13 @@ check: ## Run code quality tools.
 	@poetry run deptry .
 
 .PHONY: test
-test: ## Test the code with pytest
-	@echo "🚀 Testing code: Running pytest"
+test: ## Test all and generate code coverage report
+	@echo "🚀 Testing code: Running all tests with code coverage"
 	@poetry run pytest --cov --cov-config=pyproject.toml --cov-report=xml
+
+test-%: ## Test a specific test case with pytest, e.g. make test-load_geometry
+	@echo "🚀 Testing code: Running the specified test case"
+	@poetry run pytest -k $*
 
 .PHONY: build
 build: clean-build ## Build wheel file using poetry

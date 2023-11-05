@@ -584,6 +584,26 @@ pathspec = ">=0.9.0"
 tomli = {version = ">=2.0.1,<3.0.0", markers = "python_version < \"3.11\""}
 
 [[package]]
+name = "distinctipy"
+version = "1.2.3"
+description = "A lightweight package for generating visually distinct colours."
+optional = false
+python-versions = "*"
+files = [
+    {file = "distinctipy-1.2.3-py3-none-any.whl", hash = "sha256:f46aabb671bf5296b406ce32df418dbdda4e2047a207e4094788a61ac104476b"},
+    {file = "distinctipy-1.2.3.tar.gz", hash = "sha256:9dd121cfa29f3d1dc491316edfed093e5eea10504aa52174d439e053a11a58fb"},
+]
+
+[package.dependencies]
+numpy = "*"
+
+[package.extras]
+all = ["black", "codecov", "coverage", "flake8", "ipython", "isort", "matplotlib", "nbsphinx", "numpy", "pandas", "pytest", "pytest-cov", "sphinx-rtd-theme"]
+docs = ["ipython", "nbsphinx", "sphinx-rtd-theme"]
+optional = ["matplotlib", "pandas"]
+tests = ["black", "codecov", "coverage", "flake8", "isort", "pytest", "pytest-cov"]
+
+[[package]]
 name = "distlib"
 version = "0.3.7"
 description = "Distribution utilities"
@@ -2582,4 +2602,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.13"
-content-hash = "1f9b5ad9e16fe54d3277e7ed7e22474e08f22e7460a569e42452228661721683"
+content-hash = "3bed9b96a5be7603021ec1822a64969e64fa6cdd72e3a8180fa943b71457eac0"
