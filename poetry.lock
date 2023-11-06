@@ -31,17 +31,17 @@ test = ["astroid (>=1,<2)", "astroid (>=2,<4)", "pytest"]
 
 [[package]]
 name = "awkward"
-version = "2.4.6"
+version = "2.4.8"
 description = "Manipulate JSON-like data with NumPy-like idioms."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "awkward-2.4.6-py3-none-any.whl", hash = "sha256:c094718b8eecd9652b010dddf4552219382e26b4744527fa4b397109dd191946"},
-    {file = "awkward-2.4.6.tar.gz", hash = "sha256:3119eb3c2857ddadba2442e1e281f99de7f0a10baba6fa69ad95de367cf50b0a"},
+    {file = "awkward-2.4.8-py3-none-any.whl", hash = "sha256:3bb5c505d1ddc78f876d5e2449deedc33e823691bdeaba9a8571284d9f4635e9"},
+    {file = "awkward-2.4.8.tar.gz", hash = "sha256:bcff9777642d381ce2b08c03835161ddf500192a7587a4f8c329ae2d6d271a5a"},
 ]
 
 [package.dependencies]
-awkward-cpp = "24"
+awkward-cpp = "25"
 importlib-metadata = {version = ">=4.13.0", markers = "python_version < \"3.12\""}
 numpy = ">=1.18.0"
 packaging = "*"
@@ -49,55 +49,55 @@ typing-extensions = {version = ">=4.1.0", markers = "python_version < \"3.11\""}
 
 [[package]]
 name = "awkward-cpp"
-version = "24"
+version = "25"
 description = "CPU kernels and compiled extensions for Awkward Array"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "awkward-cpp-24.tar.gz", hash = "sha256:28913fcf0f7ee4d69935742c103fa422ed51f8d83b64ecb0cbe99e6e663f4b06"},
-    {file = "awkward_cpp-24-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:9402e72763768cd32d3abb47f11feae301a2c11f8466d8ec5b4bd002c9f0e49b"},
-    {file = "awkward_cpp-24-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:b545c7beb91ec503a58729d9b2928912a4539da6db00003667612df8547c606d"},
-    {file = "awkward_cpp-24-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3e8e73b93e6c0f241ffde01bbd2855cd82ca69bc1c1417a8e677225743e5e3bb"},
-    {file = "awkward_cpp-24-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8e35c331c3a8170e6e3f13086c4cf5662c007319b3f59056c9d2b75b292d8877"},
-    {file = "awkward_cpp-24-cp310-cp310-musllinux_1_1_aarch64.whl", hash = "sha256:d2f844e41716ab4b809fe3e342a7982f0dfc28c594bc15cac438556b07aee15a"},
-    {file = "awkward_cpp-24-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:efdb28e68b6758561051e9c96ede12e3936953347774c63b7dfe67d0c607e7af"},
-    {file = "awkward_cpp-24-cp310-cp310-win_amd64.whl", hash = "sha256:09ca842c93bf5dfb9712b08bf74eeac588a7dd486463724399ba59c7252edacb"},
-    {file = "awkward_cpp-24-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:523564e35be17e6822cc0dd6df07192010219b6e6ffc6f322982d680073fb53a"},
-    {file = "awkward_cpp-24-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:95879cb512be1337dcb25ab51205310f271202ec10cb0d1165681e6a6c3587f8"},
-    {file = "awkward_cpp-24-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:43dbacd73407c49c6f34e647cbf29942a3a7ae46ce08b2e93d8918485e4c3f96"},
-    {file = "awkward_cpp-24-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f672646758d0b8493fa8beb8cdc107ba5584c3b9f239f097bcc5d72082fb8309"},
-    {file = "awkward_cpp-24-cp311-cp311-musllinux_1_1_aarch64.whl", hash = "sha256:b3dbc6b20826c2cff3e694da6a13a9d234d01db4b999209a5ae1042e8901c357"},
-    {file = "awkward_cpp-24-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:891f7d4c7bad3f8ced39cb32005c65448c3a481d42d9627e1834f869c2025c62"},
-    {file = "awkward_cpp-24-cp311-cp311-win_amd64.whl", hash = "sha256:69b60fc8c2fd7c24542a3e351beb6abf3d53a460f493b939a3c27c133e063b86"},
-    {file = "awkward_cpp-24-cp312-cp312-macosx_10_9_universal2.whl", hash = "sha256:8bdcef2a1b3f34e01f7daa0be02c7f4e1e32ba9ba040f529e710b020b1318375"},
-    {file = "awkward_cpp-24-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:18b9562ffab003688353490944d010b85cdfdacf60551e7b8651db7f13b4251f"},
-    {file = "awkward_cpp-24-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f71b2ef41e12a15f0580c3e654487fc7f78009a3d34508fcb0b1e6afb6abc2a6"},
-    {file = "awkward_cpp-24-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e119298379082c0fdfeb7d01eefe99a1665fd3ba20fe55bfc90d7f311d586aa2"},
-    {file = "awkward_cpp-24-cp312-cp312-musllinux_1_1_aarch64.whl", hash = "sha256:fe8a38c04eb3abc52e56debe1ad1687c76a64a231771ac10203051a0638bd83c"},
-    {file = "awkward_cpp-24-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:a6b91beb904de2d600af1ce7ca04130073041204c8b1392a94dcf35e86e66ded"},
-    {file = "awkward_cpp-24-cp312-cp312-win_amd64.whl", hash = "sha256:3c3e8040ff81ddd99d304ca87f373784736bdd8fe32d7b28cce47e4e837cdcc7"},
-    {file = "awkward_cpp-24-cp38-cp38-macosx_10_9_universal2.whl", hash = "sha256:c176505cbf1a954fb8dcdb343bfa2bba2f04cf2809733ed154de42e348283900"},
-    {file = "awkward_cpp-24-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:7b8fc08b0f66ffe91fcf88a61582658a2a3e7d68f44fd9446df389422a11919d"},
-    {file = "awkward_cpp-24-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f2e36a8beb0d21303cb5d7a8c837b40cb5bc64d58716cfcb45795b6dd1c57b32"},
-    {file = "awkward_cpp-24-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:555b0f9f0bd5592d854e76605d827ea00528680f9cbf00f84bd9f6882f3d2618"},
-    {file = "awkward_cpp-24-cp38-cp38-musllinux_1_1_aarch64.whl", hash = "sha256:50117d22237b933d109a662ad735e01fa7206530ab3ad77273c2e6d50cbd784b"},
-    {file = "awkward_cpp-24-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:05f325e82ffb98ee8c61a7a7f942a1defa0838ba4a394966f99250e0b6612d6d"},
-    {file = "awkward_cpp-24-cp38-cp38-win32.whl", hash = "sha256:e9eb460fa644515eb53d46cd03c2b7c3fa9927ff4c908f88677c331ea85b7879"},
-    {file = "awkward_cpp-24-cp38-cp38-win_amd64.whl", hash = "sha256:f46d8e439be079f077d94af9d4f09e03b1dc3ebdff71bb7adac78f09c0e932a8"},
-    {file = "awkward_cpp-24-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:5e2b2c218d876da01000e7a0e427aa1922faef6d0ec03a0ddd491d2474876895"},
-    {file = "awkward_cpp-24-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:c3529d5a8e420f4c5976a9696d113947bfb26a28524fab493c5e63b08091c2c5"},
-    {file = "awkward_cpp-24-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f65b973bbc8f2156e8e39496c299a1652a4818af34bb5d152028388c2fed9ae4"},
-    {file = "awkward_cpp-24-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f3fb49906674612e248196d6e83ab33c2b5128d70cd04fd92af1ba6361f8f336"},
-    {file = "awkward_cpp-24-cp39-cp39-musllinux_1_1_aarch64.whl", hash = "sha256:e63daf7018953aebc26ac4c2a13a46192c3d31657ca9699c8f4dcbfccf36b7ed"},
-    {file = "awkward_cpp-24-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:35a377b38437e3a321b7eca787264ec59824f7c065c8fdf36fec7bc227955493"},
-    {file = "awkward_cpp-24-cp39-cp39-win32.whl", hash = "sha256:67f39864d0658b523691694b8994c8c84207550f256722495a6cd6d1445bf995"},
-    {file = "awkward_cpp-24-cp39-cp39-win_amd64.whl", hash = "sha256:c641d4a4b2978a74fc07fa05a8d414012ddbadc4c6d412e10c94f9c5f112536c"},
-    {file = "awkward_cpp-24-pp310-pypy310_pp73-macosx_10_9_x86_64.whl", hash = "sha256:1952f0e38dd39977b174c22e4aca08854314acfaef5d3a488dbcd4d0c0e79793"},
-    {file = "awkward_cpp-24-pp310-pypy310_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6a895939a9186a864e63aa1a60a59e8f86d0dc6f91e75bd05fb524db067327bd"},
-    {file = "awkward_cpp-24-pp38-pypy38_pp73-macosx_10_9_x86_64.whl", hash = "sha256:53c6804445e8e03ed2a54ef85c3b1089ad1331176fc9a8df6148519610a0c613"},
-    {file = "awkward_cpp-24-pp38-pypy38_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a1c266a1f615f2d23c5cb64278f4a49bd3a7c2ca07a33893501cfb06c74a9bc7"},
-    {file = "awkward_cpp-24-pp39-pypy39_pp73-macosx_10_9_x86_64.whl", hash = "sha256:69050c2eb689bd0c3b8bb0ed078e9ad1adedc23ebfd37117277e5fbfa3872368"},
-    {file = "awkward_cpp-24-pp39-pypy39_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b1c9dd651add5443d95beb920440731445227ee2b2966740217fab64177e28f5"},
+    {file = "awkward-cpp-25.tar.gz", hash = "sha256:161aba5d4b79098cff97e2dff567029edf6bb376f2310210b3b8457b1af6b633"},
+    {file = "awkward_cpp-25-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:8dcc8e7798745486d62fa52f082f6932e47c620b3c870bab4eadbd0e3f8fb985"},
+    {file = "awkward_cpp-25-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:a2c80ebd046a14870d6e29d56fe09f8f311b1f33bd349e0a5476ca63eeee0d1f"},
+    {file = "awkward_cpp-25-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:724df8825191c4edbf19b69036d9c8c19164c3ce6078749e3a29468df704ba02"},
+    {file = "awkward_cpp-25-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5b6baadc7453a54f5d86005f4cfa50adf19fd28b0499cfbe4e0aa882ec7897d8"},
+    {file = "awkward_cpp-25-cp310-cp310-musllinux_1_1_aarch64.whl", hash = "sha256:a8ce62016957064981009d5ffaebfb2f1da80ee5c1bafd4bbbf827f58ccd7e39"},
+    {file = "awkward_cpp-25-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:f4725223d053ce4a7f03ae20d63763ae7661786dc4ac39472c8747a8cecab6db"},
+    {file = "awkward_cpp-25-cp310-cp310-win_amd64.whl", hash = "sha256:1bf0ec0631cf63363233d7fcb2b597c0f55a7f28c7814affd87e477d871ddb46"},
+    {file = "awkward_cpp-25-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:a77dec6aff4e200863d3c32105b9ef35d37ce0accc6a0852d4bec04a532431da"},
+    {file = "awkward_cpp-25-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:f46e23cd45fd07f512833546a470a7de434f020d9bf03daf72ba1706c07793a1"},
+    {file = "awkward_cpp-25-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:5d812a849aee6e951c0e48efdfc58dc915a4438293c692b99af55e8ea77eb22e"},
+    {file = "awkward_cpp-25-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:bce8a1eba9e7761fea70c1d725d22668dd9c7091e169bbffa4287004f634515d"},
+    {file = "awkward_cpp-25-cp311-cp311-musllinux_1_1_aarch64.whl", hash = "sha256:0f41899cd3ceffb5f533bf72830214ad63d1b45364ce1a284066eb5b6c4a3016"},
+    {file = "awkward_cpp-25-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:e338da32bc3f7160ba24525ebb2c2e55976f4455ec30bd0b174fec3621215c18"},
+    {file = "awkward_cpp-25-cp311-cp311-win_amd64.whl", hash = "sha256:5ef751ae03055f4b259a742f34d0deda9843504d9dfa7f00d97365d718f123e8"},
+    {file = "awkward_cpp-25-cp312-cp312-macosx_10_9_universal2.whl", hash = "sha256:6bd30c950c3666c92a627c709228ab6e9461690317b25565e1a7b395fb5ed415"},
+    {file = "awkward_cpp-25-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:4b8eea7dc4921153d8d5d7dfb1c9bb125636757b1608d11322a61231500817fa"},
+    {file = "awkward_cpp-25-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:bcca9493ae08d3e0ae7c0df3df5f38b442892006cd4c0297dfe7ce6355683b59"},
+    {file = "awkward_cpp-25-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a504fd1275ac094f11ad2c4f9b7c512d032b065df8614e37b36f00443b65026b"},
+    {file = "awkward_cpp-25-cp312-cp312-musllinux_1_1_aarch64.whl", hash = "sha256:9874b51b19ddb883d0d99e5b3e8523af20b881d878245beeedf62fd9e4a87938"},
+    {file = "awkward_cpp-25-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:203a73e5a23a38a23b70514e5d885d5f11ce344a59053fd504fb998b3c5b7c19"},
+    {file = "awkward_cpp-25-cp312-cp312-win_amd64.whl", hash = "sha256:5c6e54509d424bd7e5b7493d53d8618109c2ccabea32f857911f327581ffe9dc"},
+    {file = "awkward_cpp-25-cp38-cp38-macosx_10_9_universal2.whl", hash = "sha256:fa23f06fe63844b1d92b9d5749410f2a85a9c6d7e59499ed44933fc1fe7609cd"},
+    {file = "awkward_cpp-25-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:04b6c64a33d4c96bf18b509f2ba232ec65b1b0ebd02131da31ce64c8e4236cf4"},
+    {file = "awkward_cpp-25-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:707cd00d6526a8cdc6e07aa966f114ec3ccb19384e03ed78eecc33bf08f1208d"},
+    {file = "awkward_cpp-25-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3bdef7be892ecbf17b3e0e5d762d96cb9799473ebba6303d1c124facabadaa20"},
+    {file = "awkward_cpp-25-cp38-cp38-musllinux_1_1_aarch64.whl", hash = "sha256:dbfa29f93d7007f0e91bcff5b8af5861557ec0ba1308b9b27e4058d27efd1139"},
+    {file = "awkward_cpp-25-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:2c77cf69429dfb1ea47cdc93c65737f3db06acc1f6df84879f22f4ce537fa8ac"},
+    {file = "awkward_cpp-25-cp38-cp38-win32.whl", hash = "sha256:071df156dae9ee29d66231766b3129927915faee26b6fe88f656ea0cbd54987b"},
+    {file = "awkward_cpp-25-cp38-cp38-win_amd64.whl", hash = "sha256:d8b7b96845ec2d5bb736bbcebac5e5dcfde23719517d5c4a7774533a6a860bd9"},
+    {file = "awkward_cpp-25-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:55acfaf0ed31bba450d73dbfe1cabd8fd03c02a1f2c40b1ea2ff6fce34438939"},
+    {file = "awkward_cpp-25-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:b106679a616c70f6d5a23b17b0a10070e77d092906f10a7338e1495f327dddbe"},
+    {file = "awkward_cpp-25-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:dad8eb6253282085736514af5893d751ccbd1596231eaff85f1e79343af65564"},
+    {file = "awkward_cpp-25-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:971d3a4481cdc227b426a424ceeae8dd4858254d79bdb53293940a74d60b102f"},
+    {file = "awkward_cpp-25-cp39-cp39-musllinux_1_1_aarch64.whl", hash = "sha256:395f6038bcbefb43c3b94944ae434be7535a37bb432b88232ffc131757c0a1c5"},
+    {file = "awkward_cpp-25-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:45acba140ed12a5b154bf38514fab3bb73ba8ae7a801f9c0bebb69bd8fb6f513"},
+    {file = "awkward_cpp-25-cp39-cp39-win32.whl", hash = "sha256:03f78dcb465771b51e10353c0624ab3e7c4205957515587243036b96d88bc92d"},
+    {file = "awkward_cpp-25-cp39-cp39-win_amd64.whl", hash = "sha256:10ceabdf748d1ffa54c59b5bd83376362f933e07cc6cd0d4649037734311280e"},
+    {file = "awkward_cpp-25-pp310-pypy310_pp73-macosx_10_9_x86_64.whl", hash = "sha256:8bc0e137526a201dd898ca74b01ded5f401ebc07cd15d163e1f14e35c45a6142"},
+    {file = "awkward_cpp-25-pp310-pypy310_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:36b125b1c872fbc439e4d71672ea294da6ee0f88b25def32a863b77ad65c6eaa"},
+    {file = "awkward_cpp-25-pp38-pypy38_pp73-macosx_10_9_x86_64.whl", hash = "sha256:4ccfc81290a4f01016769f8748c554160c9671989bec46e287041f2586750a62"},
+    {file = "awkward_cpp-25-pp38-pypy38_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:752c583c855c4b25c635a76f046dfa8e90dee10a309cd3a0c6d404b9b6ac3dc0"},
+    {file = "awkward_cpp-25-pp39-pypy39_pp73-macosx_10_9_x86_64.whl", hash = "sha256:fd10325bdf3b78dcccea1bf74647c65861d2c9b5341ed236024e9b8fff5e8dfb"},
+    {file = "awkward_cpp-25-pp39-pypy39_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a2bbb73dfc88816b0e91a055443704d28d60673c4122b18ec9abadd584374117"},
 ]
 
 [package.dependencies]
