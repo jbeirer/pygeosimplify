@@ -11,7 +11,7 @@ def reset_coordinate_branches() -> None:
     global required_branches
 
     coordinate_branch_names = {}
-    required_branches = ["eta", "phi", "layer", "z"]
+    required_branches = ["eta", "phi", "layer", "r", "z", "isBarrel"]
 
 
 def set_coordinate_branch(coordinate_system: str, branch_name: str) -> None:
