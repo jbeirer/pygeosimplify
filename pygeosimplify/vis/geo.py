@@ -54,10 +54,10 @@ def plot_geometry(
 
     vis = CellScene()
 
-    for layer_idx in layer_list:
+    for color_idx, layer_idx in enumerate(layer_list):
         # Filter for layer
         layer_cells = df[(df["layer"] == layer_idx)]
-        add_layer_cells_to_scene(layer_cells, vis, layer_idx, unit_scale, color_list)
+        add_layer_cells_to_scene(layer_cells, vis, color_idx, unit_scale, color_list)
 
     ax = vis.plot(ax=ax, axis_labels=axis_labels)
 
@@ -81,11 +81,11 @@ def filter_df_eta_phi(df: pd.DataFrame, eta_range: List, phi_range: List) -> pd.
 
 
 def add_layer_cells_to_scene(
-    df: pd.DataFrame, scence: CellScene, layer_idx: int, unit_scale: float, color_list: List
+    df: pd.DataFrame, scence: CellScene, color_idx: int, unit_scale: float, color_list: List
 ) -> None:
     for row in df.itertuples():
         cell = get_cell_from_row(row, unit_scale)
-        scence.add_cell(cell, facecolor=color_list[layer_idx], alpha=0.1, edgewidth=0.01)
+        scence.add_cell(cell, facecolor=color_list[color_idx], alpha=0.1, edgewidth=0.01)
 
 
 def get_cell_from_row(row: pd.DataFrame, unit_scale: float) -> Cell:

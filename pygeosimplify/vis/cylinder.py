@@ -58,10 +58,10 @@ def generate_cylinder_endcap_points(rmin: float, rmax: float, z: float, linspace
 
 
 def plot_cylinder(
-    zmin: float,
-    zmax: float,
     rmin: float,
     rmax: float,
+    zmin: float,
+    zmax: float,
     ax: Axes3D = None,
     color: Union[tuple[float, float, float], str] = "black",
     alpha: float = 0.2,
@@ -77,10 +77,11 @@ def plot_cylinder(
     ax.zaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
 
     """Plot a 3d cylinder."""
-    if zmin >= zmax:
-        raise Exception("Cylinder zmin must be less than zmax")
     if rmin >= rmax:
         raise Exception("Cylinder rmin must be less than rmax")
+    if zmin >= zmax:
+        raise Exception("Cylinder zmin must be less than zmax")
+
     # For the endcaps only translation in z is supported and not rotation
     startPos = np.array([0, 0, zmin])
     endPos = np.array([0, 0, zmax])
