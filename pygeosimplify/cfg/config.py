@@ -1,7 +1,7 @@
 # supported coordinate systems
 allowed_coordinate_systems = ["XYZ", "EtaPhiR", "EtaPhiZ"]
 # List of branches that are always required to be available
-required_branches = ["eta", "phi", "layer", "z", "isBarrel"]
+required_branches = ["eta", "phi", "layer", "r", "z", "isBarrel"]
 # Dictionary mapping coordinate system to coordinate branch name, e.g. {"XYZ": "isCartesian"}
 coordinate_branch_names = {}  # type: dict[str, str]
 

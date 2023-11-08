@@ -24,7 +24,7 @@ class GeoLayer:
         The index of the layer.
     coordinate_system : str
         The coordinate system used to represent the cell positions.
-    is_barrel_layer : bool
+    is_barrel : bool
         True if the layer is a barrel layer, False otherwise.
     cells : List[Union[XYZCell, EtaPhiRCell, EtaPhiZCell]]
         A list of cell objects representing the cells in the layer.
@@ -59,7 +59,7 @@ class GeoLayer:
         self.df = df[df["layer"] == layer_idx]
         self.idx = layer_idx
         self.coordinate_system = self._get_coordinate_system()
-        self.is_barrel_layer = self.df.isBarrel.all()
+        self.is_barrel = self.df.isBarrel.all()
         self.cells = self._get_cells(self.df)
         self.extent = self._min_max_rz_extent(self.cells)
 
@@ -190,7 +190,7 @@ class GeoLayer:
         """
         cyl_envelope = self.get_cylinder_envelope()
 
-        if self.is_barrel_layer:
+        if self.is_barrel:
             # For barrel layers we thin down the radius of the cylinder with dr = layer_width and r = rmin + (rmax - rmin)/2
             center_r = cyl_envelope["rmin"] + (cyl_envelope["rmax"] - cyl_envelope["rmin"]) * 0.5
             cyl_envelope["rmin"] = center_r - 0.5 * layer_width
