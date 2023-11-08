@@ -12,20 +12,6 @@ def test_load_geometry_uproot():
     assert nKeys == 18
 
 
-@pytest.fixture(name="atlas_calo_geo")
-def test_load_geometry():
-    pgs.set_coordinate_branch("XYZ", "isCartesian")
-    pgs.set_coordinate_branch("EtaPhiR", "isCylindrical")
-    pgs.set_coordinate_branch("EtaPhiZ", "isECCylindrical")
-
-    df = pgs.load_geometry(ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME)
-    assert len(df.columns) == 18
-    assert pgs.cfg.config.coordinate_branch_names["XYZ"] == "isCartesian"
-    assert pgs.cfg.config.coordinate_branch_names["EtaPhiR"] == "isCylindrical"
-    assert pgs.cfg.config.coordinate_branch_names["EtaPhiZ"] == "isECCylindrical"
-    return df
-
-
 def test_load_geometry_without_setting_coordinate_branch():
     with pytest.raises(Exception):
         pgs.load_geometry(ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME)
@@ -66,3 +52,17 @@ def test_load_invalid_geometry(tmpdir):
 
     assert {"eta", "phi", "z", "deta", "dphi", "dz"} <= set(pgs.cfg.config.required_branches)
     reset_coordinate_branches()
+
+
+@pytest.fixture(name="atlas_calo_geo")
+def test_load_geometry():
+    pgs.set_coordinate_branch("XYZ", "isCartesian")
+    pgs.set_coordinate_branch("EtaPhiR", "isCylindrical")
+    pgs.set_coordinate_branch("EtaPhiZ", "isECCylindrical")
+
+    df = pgs.load_geometry(ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME)
+    assert len(df.columns) == 18
+    assert pgs.cfg.config.coordinate_branch_names["XYZ"] == "isCartesian"
+    assert pgs.cfg.config.coordinate_branch_names["EtaPhiR"] == "isCylindrical"
+    assert pgs.cfg.config.coordinate_branch_names["EtaPhiZ"] == "isECCylindrical"
+    return df
