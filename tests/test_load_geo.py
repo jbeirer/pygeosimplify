@@ -2,7 +2,7 @@ import pytest
 import uproot
 
 import pygeosimplify as pgs
-from pygeosimplify.cfg.config import set_coordinate_branch, set_coordinate_branch_dict
+from pygeosimplify.cfg.config import reset_coordinate_branches, set_coordinate_branch
 from pygeosimplify.cfg.test_data import ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME
 
 
@@ -27,7 +27,6 @@ def test_load_geometry():
 
 
 def test_load_geometry_without_setting_coordinate_branch():
-    set_coordinate_branch_dict({})
     with pytest.raises(Exception):
         pgs.load_geometry(ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME)
 
@@ -36,6 +35,7 @@ def test_load_geometry_with_non_existing_coordinate_branch():
     with pytest.raises(Exception):
         set_coordinate_branch("XYZ", "invalidBranch")
         pgs.load_geometry(ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME)
+    reset_coordinate_branches()
 
 
 def test_load_invalid_geometry(tmpdir):
@@ -44,25 +44,25 @@ def test_load_invalid_geometry(tmpdir):
     file.mktree("treeName", {"isCartesian": "int", "isCylindrical": "int", "isECCylindrical": "int"})
 
     # XYZ
-    set_coordinate_branch_dict({})
     pgs.set_coordinate_branch("XYZ", "isCartesian")
 
     with pytest.raises(Exception):
         pgs.load_geometry(f"{tmpdir}/invalid_file.root", "treeName")
 
     assert {"x", "y", "z", "dx", "dy", "dz"} <= set(pgs.cfg.config.required_branches)
+    reset_coordinate_branches()
 
     # EtaPhiR
-    set_coordinate_branch_dict({})
     pgs.set_coordinate_branch("EtaPhiR", "isCylindrical")
 
     with pytest.raises(Exception):
         pgs.load_geometry(f"{tmpdir}/invalid_file.root", "treeName")
 
     assert {"eta", "phi", "r", "deta", "dphi", "dr"} <= set(pgs.cfg.config.required_branches)
+    reset_coordinate_branches()
 
     # EtaPhiZ
-    set_coordinate_branch_dict({})
     pgs.set_coordinate_branch("EtaPhiZ", "isECCylindrical")
 
     assert {"eta", "phi", "z", "deta", "dphi", "dz"} <= set(pgs.cfg.config.required_branches)
+    reset_coordinate_branches()
