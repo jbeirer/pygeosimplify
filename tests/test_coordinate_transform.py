@@ -7,11 +7,17 @@ from pygeosimplify.coordinate.definitions import XYZ, EtaPhiR, EtaPhiZ
 def test_set_coordinate_branch():
     # Test setting a coordinate branch for a valid coordinate system
     set_coordinate_branch("XYZ", "isCartesian")
+    set_coordinate_branch("EtaPhiR", "isCylindrical")
+    set_coordinate_branch("EtaPhiZ", "isECCylindrical")
     assert coordinate_branch_names["XYZ"] == "isCartesian"
+    assert coordinate_branch_names["EtaPhiR"] == "isCylindrical"
+    assert coordinate_branch_names["EtaPhiZ"] == "isECCylindrical"
 
     # Test setting coordinate branch via dict
-    set_coordinate_branch_dict({"XYZ": "isCartesian"})
+    set_coordinate_branch_dict({"XYZ": "isCartesian", "EtaPhiR": "isCylindrical", "EtaPhiZ": "isECCylindrical"})
     assert coordinate_branch_names["XYZ"] == "isCartesian"
+    assert coordinate_branch_names["EtaPhiR"] == "isCylindrical"
+    assert coordinate_branch_names["EtaPhiZ"] == "isECCylindrical"
 
     # Test setting a unsupported coordinate system
     with pytest.raises(ValueError):
