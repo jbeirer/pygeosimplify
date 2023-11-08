@@ -31,13 +31,13 @@ test = ["astroid (>=1,<2)", "astroid (>=2,<4)", "pytest"]
 
 [[package]]
 name = "awkward"
-version = "2.4.8"
+version = "2.4.9"
 description = "Manipulate JSON-like data with NumPy-like idioms."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "awkward-2.4.8-py3-none-any.whl", hash = "sha256:3bb5c505d1ddc78f876d5e2449deedc33e823691bdeaba9a8571284d9f4635e9"},
-    {file = "awkward-2.4.8.tar.gz", hash = "sha256:bcff9777642d381ce2b08c03835161ddf500192a7587a4f8c329ae2d6d271a5a"},
+    {file = "awkward-2.4.9-py3-none-any.whl", hash = "sha256:1f52226dfca1e4fe9283ed83750084e6a8f2ceaca3c7d0d9f361d87df2408967"},
+    {file = "awkward-2.4.9.tar.gz", hash = "sha256:561f90423b498f1d7a8306d70dc5ff968a2f938de596852139bde8febc7277e9"},
 ]
 
 [package.dependencies]
