@@ -44,7 +44,7 @@ def check_world_overlap(
     # Holds pairwise list of overlapping volumes
     overlap_list = re.findall("Layer_(.*?)_Phys", overlap_str)
     # Add Layer prefix to each element
-    overlap_list = ["Layer_" + x for x in overlap_list]
+    overlap_list = list(overlap_list)
     # Get number of overlaps from string
     n_overlaps = [int(s) for s in overlap_str.split() if s.isdigit()].pop()
 

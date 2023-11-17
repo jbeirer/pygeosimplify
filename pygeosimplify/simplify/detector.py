@@ -7,6 +7,7 @@ from pygeosimplify.simplify.cylinder import Cylinder, CylinderGroup
 from pygeosimplify.simplify.helpers import add_cylinder_dict_to_reg, check_pairwise_overlaps, init_world
 from pygeosimplify.simplify.layer import GeoLayer
 from pygeosimplify.simplify.post_process import post_process_cylinders
+from pygeosimplify.utils.message_type import MessageType as mt
 
 
 class SimplifiedDetector:
@@ -15,6 +16,8 @@ class SimplifiedDetector:
         self.cylinders = CylinderGroup()
         self.processed = False
         self.envelope = {}  # type: dict[str, Cylinder]
+        self.min_dist = 1  # mm
+        self.envelope_width = 100  # 10 cm
 
     def _get_cylinder_dict(self, cyl_type: str) -> dict[str, Cylinder]:
         if cyl_type not in ["thinned", "envelope", "processed"]:
@@ -25,17 +28,70 @@ class SimplifiedDetector:
         return cyl_dict
 
     def _resolve_thinned_overlaps(self) -> None:
-        # Note: needs to be expanded to address potential overlaps of thinned layers
-        # Currently a dirty fix to address overlap of layer 2,5 in thinned ATLAS layers
-
         n_overlaps, overlapping_layers = self.check_overlaps(cyl_type="thinned", print_output=False)
 
+        if n_overlaps == 0:
+            return
+
+        for overlap_pair in overlapping_layers:
+            cyl_a_name = overlap_pair[0]
+            cyl_b_name = overlap_pair[1]
+
+            cyl_a = self.cylinders.thinned[cyl_a_name]
+            cyl_b = self.cylinders.thinned[cyl_b_name]
+
+            if cyl_a.is_barrel and not cyl_b.is_barrel:
+                barrel = cyl_a
+                endcap = cyl_b
+            elif cyl_b.is_barrel and not cyl_a.is_barrel:
+                barrel = cyl_b
+                endcap = cyl_a
+            else:
+                raise Exception(
+                    f"{mt.FAIL} Overlap between two barrel or two endcap layers detected: {cyl_a_name}, {cyl_b_name}."
+                    " This is not supposed to happen."
+                )
+
+            print(
+                f"{mt.WARNING} Overlap between thinned layer {cyl_a_name} and layer {cyl_b_name}. Attempting to"
+                " resolve..."
+            )
+
+            # Option A: Shorten the zmax of the barrel layer to the zmin of the endcap layer
+            new_barrel_zmax = endcap.zmin - self.min_dist
+            opt_A_diff = abs(new_barrel_zmax - barrel.zmax)
+            # Option B: Decrease rmax of endcap layer to rmin of barrel layer
+            new_endcap_rmax = barrel.rmin - self.min_dist
+            opt_B_diff = abs(new_endcap_rmax - endcap.rmax)
+            # Option C: Increase rmin of endcap to rmax of barrel layer
+            new_encap_rmin = barrel.rmax + self.min_dist
+            opt_C_diff = abs(endcap.rmin - new_encap_rmin)
+
+            # Use option with minimal change
+            if opt_A_diff < opt_B_diff and opt_A_diff < opt_C_diff:
+                print(f"{mt.BOLD} Setting barrel zmax from {barrel.zmax} to {new_barrel_zmax}")
+                barrel.zmax = new_barrel_zmax
+            elif opt_B_diff < opt_A_diff and opt_B_diff < opt_C_diff:
+                print(f"{mt.BOLD} Setting endcap rmax from {endcap.rmax} to {new_endcap_rmax}")
+                endcap.rmax = new_endcap_rmax
+            else:
+                print(f"{mt.BOLD} Setting endcap rmin from {endcap.rmin} to {new_encap_rmin}")
+                endcap.rmin = new_encap_rmin
+
+            # Update the thinned cylinder dictionary
+            self.cylinders.thinned[cyl_a_name] = barrel if cyl_a.is_barrel else endcap
+            self.cylinders.thinned[cyl_b_name] = barrel if cyl_b.is_barrel else endcap
+
+        # Check if overlaps have been resolved
+        n_overlaps, _ = self.check_overlaps(cyl_type="thinned", print_output=False)
+
         if n_overlaps > 0:
-            for overlap_pair in overlapping_layers:
-                if overlap_pair == ["Layer_2", "Layer_5"]:
-                    self.cylinders.thinned["2"].zmax = (
-                        self.cylinders.thinned["2"].zmax - 0.01 * self.cylinders.thinned["2"].zmax
-                    )
+            raise Exception(
+                f"{mt.FAIL} Overlap resolution of thinned cylinders failed. {n_overlaps} overlaps remain. This is not"
+                " supposed to happen."
+            )
+        else:
+            print(f"{mt.SUCCESS} Thinned cylinder overlaps resolved.")
 
     def _symmetrize_cylinders(self, cyl_type: str = "thinned") -> dict[str, Cylinder]:
         # Get the dimensions for the requested cylinder type
@@ -68,6 +124,10 @@ class SimplifiedDetector:
         self.cylinders.thinned[layer.idx] = layer.get_thinned_cylinder()
 
     def process(self) -> None:
+        if self.processed:
+            raise Exception("Detector has already been processed. Cowardly refusing to re-process...")
+
+        self.processed = True
         # Resolve thinned cylinder overlaps
         self._resolve_thinned_overlaps()
         # Symmetrize thinned cylinders
@@ -75,9 +135,11 @@ class SimplifiedDetector:
         self.cylinders.envelope = self._symmetrize_cylinders(cyl_type="envelope")
         # Grow cylinders
         self.cylinders.processed, self.envelope = post_process_cylinders(
-            cyl_dict=self.cylinders.thinned, cell_envelope=self.cylinders.envelope, min_dist=1
+            cyl_dict=self.cylinders.thinned,
+            cell_envelope=self.cylinders.envelope,
+            min_dist=self.min_dist,
+            envelope_width=self.envelope_width,
         )
-        self.processed = True
 
     def check_overlaps(
         self,

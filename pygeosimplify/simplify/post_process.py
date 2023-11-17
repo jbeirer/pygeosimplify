@@ -14,8 +14,8 @@ def post_process_cylinders(  # noqa: C901
     # Add layer name as column
     df = df.rename_axis("cyl_name").reset_index()
     # Get the endcap and barrel layers
-    endcap_layers = df[df.is_barrel is False]
-    barrel_layers = df[df.is_barrel is True]
+    endcap_layers = df[df.is_barrel is False]  # fmt: off
+    barrel_layers = df[df.is_barrel is True]  # fmt: off
 
     # Fill gaps in r for endcap layers
     for idx, endcap_layer in endcap_layers.iterrows():
