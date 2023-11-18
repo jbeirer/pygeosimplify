@@ -8,6 +8,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from pygeosimplify.cfg import config
 from pygeosimplify.coordinate.definitions import XYZ, EtaPhiR, EtaPhiZ
 from pygeosimplify.geo.cells import EtaPhiRCell, EtaPhiZCell, XYZCell
+from pygeosimplify.simplify.cylinder import Cylinder
 from pygeosimplify.vis.cylinder import plot_cylinder
 from pygeosimplify.vis.geo import plot_geometry
 
@@ -33,10 +34,10 @@ class GeoLayer:
 
     Methods:
     --------
-    get_cylinder_envelope() -> dict:
-        Returns a dictionary containing the minimum and maximum values of r and z coordinates of the cells in the layer.
+    get_cell_envelope() -> Cylinder:
+        Returns cylinder envelope of the cells in the layer.
     get_thinned_cylinder(layer_width: float = 10) -> dict:
-        Returns a dictionary containing the minimum and maximum values of r and z coordinates of a thinned down version of the cells in the layer.
+        Returns cylinder constructed from thinned down version of the cells in the layer.
     plot_cell_centre_rz(ax: Union[None , plt.Axes] = None, color: Union[tuple[float, float, float], str] = 'tab:blue', marker_size: float = 0.01, x_label: str = 'z', y_label: str = 'r') -> plt.Axes:
         Plots the r-z coordinates of the cell centres in the layer.
     plot(ax: Axes3D = None, thinned: bool = False, color: Union[tuple[float, float, float], str] = 'red') -> Axes3D:
@@ -57,11 +58,12 @@ class GeoLayer:
             The index of the layer.
         """
         self.df = df[df["layer"] == layer_idx]
-        self.idx = layer_idx
+        self.idx = str(layer_idx)
         self.coordinate_system = self._get_coordinate_system()
         self.is_barrel = self.df.isBarrel.all()
         self.cells = self._get_cells(self.df)
         self.extent = self._min_max_rz_extent(self.cells)
+        self.thinned_cylinder = self.get_thinned_cylinder()
 
     def _get_coordinate_system(self) -> str:
         """
@@ -157,23 +159,25 @@ class GeoLayer:
 
         return {"rmin": min(r_values), "rmax": max(r_values), "zmin": min(z_values), "zmax": max(z_values)}
 
-    def get_cylinder_envelope(self) -> dict:
+    def get_cell_envelope(self) -> Cylinder:
         """
-        Returns a dictionary containing the definition of the minimal cylinder envelope that contains all cells in the layer.
+        Returns minimal cylinder envelope that contains all cells in the layer.
         As the detector is assumed to be symmetric in +-z, the computation of the envelopes is based on the positive z halfspace, by convention.
 
         Returns:
         --------
         dict:
-            A dictionary containing the definition of the minimal cylinder envelope that contains all cells in the layer.
+            Minimal cylinder envelope that contains all cells in the layer.
         """
         half_space_df = self.df[self.df.z > 0]
 
         cells = self._get_cells(half_space_df)
 
-        return self._min_max_rz_extent(cells)
+        cell_envelope = Cylinder(**self._min_max_rz_extent(cells), is_barrel=self.is_barrel)
 
-    def get_thinned_cylinder(self, layer_width: float = 10) -> dict:
+        return cell_envelope
+
+    def get_thinned_cylinder(self, layer_width: float = 10) -> Cylinder:
         """
         Returns a dictionary containing the cylinder definition of the thinned down version of the layer.
         For barrel layers the radius of the cylinder is thinned down, for endcap layers the z thickness of the cylinder is thinned down.
@@ -188,20 +192,20 @@ class GeoLayer:
         dict:
             A dictionary containing the containing the cylinder definition of the thinned down versions of the layers
         """
-        cyl_envelope = self.get_cylinder_envelope()
+        cyl = self.get_cell_envelope()
 
         if self.is_barrel:
             # For barrel layers we thin down the radius of the cylinder with dr = layer_width and r = rmin + (rmax - rmin)/2
-            center_r = cyl_envelope["rmin"] + (cyl_envelope["rmax"] - cyl_envelope["rmin"]) * 0.5
-            cyl_envelope["rmin"] = center_r - 0.5 * layer_width
-            cyl_envelope["rmax"] = center_r + 0.5 * layer_width
+            center_r = cyl.rmin + (cyl.rmax - cyl.rmin) * 0.5
+            cyl.rmin = center_r - 0.5 * layer_width
+            cyl.rmax = center_r + 0.5 * layer_width
         else:
             # For endcap layers we thin down the z thickness of the cylinder with dz = layer_width and z = zmin + (zmax - zmin)/2
-            center_z = cyl_envelope["zmin"] + (cyl_envelope["zmax"] - cyl_envelope["zmin"]) * 0.5
-            cyl_envelope["zmin"] = center_z - 0.5 * layer_width
-            cyl_envelope["zmax"] = center_z + 0.5 * layer_width
+            center_z = cyl.zmin + (cyl.zmax - cyl.zmin) * 0.5
+            cyl.zmin = center_z - 0.5 * layer_width
+            cyl.zmax = center_z + 0.5 * layer_width
 
-        return cyl_envelope
+        return cyl
 
     def plot_cell_vertices_rz(
         self,
@@ -245,6 +249,72 @@ class GeoLayer:
 
         return ax
 
+    def plot_symmetrized_cylinder(
+        self, cyl: Cylinder, ax: Axes3D = None, color: Union[tuple[float, float, float], str] = "black"
+    ) -> Axes3D:
+        # If layer is continuous in z, plot as single cylinder
+        if self.is_continuous_in_z():
+            cyl_continuous = Cylinder(cyl.rmin, cyl.rmax, -cyl.zmax, cyl.zmax, cyl.is_barrel)
+            plot_cylinder(cyl_continuous, ax=ax, color=color)
+        # Otherwise, plot as two cylinders, one in each z halfspace
+        else:
+            cyl_pos_z_halfspace = Cylinder(cyl.rmin, cyl.rmax, cyl.zmin, cyl.zmax, cyl.is_barrel)
+            cyl_neg_z_halfspace = Cylinder(cyl.rmin, cyl.rmax, -cyl.zmax, -cyl.zmin, cyl.is_barrel)
+            plot_cylinder(cyl_pos_z_halfspace, ax=ax, color=color)
+            plot_cylinder(cyl_neg_z_halfspace, ax=ax, color=color)
+
+    def plot_thinned_cylinder(self, ax: Axes3D = None, color: Union[tuple[float, float, float], str] = "red") -> Axes3D:
+        """
+        Plots the thinned version of the layer in 3D space.
+
+        Parameters:
+        -----------
+        ax : Axes3D, optional
+            The matplotlib 3D axes object to plot on, by default None.
+        color : Union[tuple[float, float, float], str], optional
+            The color of the cylinder, by default 'red'.
+
+        Returns:
+        --------
+        Axes3D:
+            The matplotlib 3D axes object used for plotting.
+        """
+        if ax is None:
+            fig = plt.figure()
+            ax = fig.add_subplot(111, projection="3d")
+
+        cyl = self.get_thinned_cylinder()
+
+        self.plot_symmetrized_cylinder(cyl, ax=ax, color=color)
+
+        return ax
+
+    def plot_cell_envelope(self, ax: Axes3D = None, color: Union[tuple[float, float, float], str] = "red") -> Axes3D:
+        """
+        Plots the envelope of the cells in the layer in 3D space.
+
+        Parameters:
+        -----------
+        ax : Axes3D, optional
+            The matplotlib 3D axes object to plot on, by default None.
+        color : Union[tuple[float, float, float], str], optional
+            The color of the cylinder, by default 'red'.
+
+        Returns:
+        --------
+        Axes3D:
+            The matplotlib 3D axes object used for plotting.
+        """
+        if ax is None:
+            fig = plt.figure()
+            ax = fig.add_subplot(111, projection="3d")
+
+        cyl = self.get_cell_envelope()
+
+        self.plot_symmetrized_cylinder(cyl, ax=ax, color=color)
+
+        return ax
+
     def plot(
         self, ax: Axes3D = None, thinned: bool = False, color: Union[tuple[float, float, float], str] = "red"
     ) -> Axes3D:
@@ -273,15 +343,9 @@ class GeoLayer:
         plot_geometry(self.df, ax=ax, color_list=[color])
 
         # Get either the envelope of the cells or the thinned down version of it
-        cyl = self.get_thinned_cylinder() if thinned else self.get_cylinder_envelope()
-
-        # If layer is continuous in z, plot as single cylinder
-        if self.is_continuous_in_z():
-            plot_cylinder(rmin=cyl["rmin"], rmax=cyl["rmax"], zmin=-cyl["zmax"], zmax=cyl["zmax"], ax=ax)
-        # Otherwise, plot as two cylinders, one in each z halfspace
-        else:
-            plot_cylinder(rmin=cyl["rmin"], rmax=cyl["rmax"], zmin=cyl["zmin"], zmax=cyl["zmax"], ax=ax)
-            plot_cylinder(rmin=cyl["rmin"], rmax=cyl["rmax"], zmin=-cyl["zmax"], zmax=-cyl["zmin"], ax=ax)
+        cyl = self.get_thinned_cylinder() if thinned else self.get_cell_envelope()
+        # plot the cylinder
+        self.plot_symmetrized_cylinder(cyl, ax=ax)
 
         return ax
 

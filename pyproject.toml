@@ -19,6 +19,7 @@ matplotlib = "^3.8.1"
 scipy = "^1.11.3"
 tqdm = "^4.66.1"
 distinctipy = "^1.2.3"
+pyg4ometry = "^1.1.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.0"
@@ -99,6 +100,8 @@ ignore = [
     "E501",
     # DoNotAssignLambda
     "E731",
+    # Comparison to true should be 'if cond is true:'
+    "E712"
 ]
 
 [tool.coverage.report]

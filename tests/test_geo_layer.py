@@ -10,7 +10,7 @@ from pygeosimplify.simplify.layer import GeoLayer
 def test_geo_barrel_layer_14(atlas_calo_geo, tmpdir):  # noqa: F811
     layer = GeoLayer(atlas_calo_geo, layer_idx=14)
 
-    assert layer.idx == 14
+    assert layer.idx == "14"
     assert layer.coordinate_system == "EtaPhiR"
     assert bool(layer.is_barrel) is True
     assert pytest.approx(layer.extent["rmin"]) == 3440
@@ -31,16 +31,16 @@ def test_geo_barrel_layer_14(atlas_calo_geo, tmpdir):  # noqa: F811
     # The thinned down cylinder with infinitesimal dr
     thinned_cyl = layer.get_thinned_cylinder()
 
-    assert pytest.approx(thinned_cyl["rmin"]) == 3625.0
-    assert pytest.approx(thinned_cyl["rmax"]) == 3635.0
-    assert pytest.approx(thinned_cyl["zmin"]) == 344.5736252199143
-    assert pytest.approx(thinned_cyl["zmax"]) == 2897.78986248739
+    assert pytest.approx(thinned_cyl.rmin) == 3625.0
+    assert pytest.approx(thinned_cyl.rmax) == 3635.0
+    assert pytest.approx(thinned_cyl.zmin) == 344.5736252199143
+    assert pytest.approx(thinned_cyl.zmax) == 2897.78986248739
 
 
 def test_geo_barrel_layer_18(atlas_calo_geo, tmpdir):  # noqa: F811
     layer = GeoLayer(atlas_calo_geo, layer_idx=18)
 
-    assert layer.idx == 18
+    assert layer.idx == "18"
     assert layer.coordinate_system == "EtaPhiR"
     assert bool(layer.is_barrel) is True
     assert pytest.approx(layer.extent["rmin"]) == 2300.0
@@ -61,16 +61,16 @@ def test_geo_barrel_layer_18(atlas_calo_geo, tmpdir):  # noqa: F811
     # The thinned down cylinder with infinitesimal dr
     thinned_cyl = layer.get_thinned_cylinder()
 
-    assert pytest.approx(thinned_cyl["rmin"]) == 2445
-    assert pytest.approx(thinned_cyl["rmax"]) == 2455
-    assert pytest.approx(thinned_cyl["zmin"]) == 3108.202897618112
-    assert pytest.approx(thinned_cyl["zmax"]) == 6221.093028802642
+    assert pytest.approx(thinned_cyl.rmin) == 2445
+    assert pytest.approx(thinned_cyl.rmax) == 2455
+    assert pytest.approx(thinned_cyl.zmin) == 3108.202897618112
+    assert pytest.approx(thinned_cyl.zmax) == 6221.093028802642
 
 
 def test_geo_endcap_layer_23(atlas_calo_geo, tmpdir):  # noqa: F811
     layer = GeoLayer(atlas_calo_geo, layer_idx=23)
 
-    assert layer.idx == 23
+    assert layer.idx == "23"
     assert layer.coordinate_system == "XYZ"
     assert bool(layer.is_barrel) is False
     assert pytest.approx(layer.extent["rmin"]) == 84.09978870164535
@@ -91,7 +91,7 @@ def test_geo_endcap_layer_23(atlas_calo_geo, tmpdir):  # noqa: F811
     # The thinned down cylinder with infinitesimal dz
     thinned_cyl = layer.get_thinned_cylinder()
 
-    assert pytest.approx(thinned_cyl["rmin"]) == 84.09978870164535
-    assert pytest.approx(thinned_cyl["rmax"]) == 458.8423527799789
-    assert pytest.approx(thinned_cyl["zmin"]) == 5863.9501953125
-    assert pytest.approx(thinned_cyl["zmax"]) == 5873.9501953125
+    assert pytest.approx(thinned_cyl.rmin) == 84.09978870164535
+    assert pytest.approx(thinned_cyl.rmax) == 458.8423527799789
+    assert pytest.approx(thinned_cyl.zmin) == 5863.9501953125
+    assert pytest.approx(thinned_cyl.zmax) == 5873.9501953125

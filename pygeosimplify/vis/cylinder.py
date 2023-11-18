@@ -5,6 +5,8 @@ import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.linalg import norm
 
+from pygeosimplify.simplify.cylinder import Cylinder
+
 
 def get_normals(v: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     """Get two vectors that form a basis w/ v.
@@ -58,10 +60,7 @@ def generate_cylinder_endcap_points(rmin: float, rmax: float, z: float, linspace
 
 
 def plot_cylinder(
-    rmin: float,
-    rmax: float,
-    zmin: float,
-    zmax: float,
+    cylinder: Cylinder,
     ax: Axes3D = None,
     color: Union[tuple[float, float, float], str] = "black",
     alpha: float = 0.2,
@@ -77,21 +76,23 @@ def plot_cylinder(
     ax.zaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
 
     """Plot a 3d cylinder."""
-    if rmin >= rmax:
+    if cylinder.rmin >= cylinder.rmax:
         raise Exception("Cylinder rmin must be less than rmax")
-    if zmin >= zmax:
+    if cylinder.zmin >= cylinder.zmax:
         raise Exception("Cylinder zmin must be less than zmax")
 
     # For the endcaps only translation in z is supported and not rotation
-    startPos = np.array([0, 0, zmin])
-    endPos = np.array([0, 0, zmax])
+    startPos = np.array([0, 0, cylinder.zmin])
+    endPos = np.array([0, 0, cylinder.zmax])
 
     # Plot the cylinder face
-    x, y, z = generate_cylinder_face_points(startPos, endPos, rmax, rmax, linspace_count=linspace_count)
+    x, y, z = generate_cylinder_face_points(
+        startPos, endPos, cylinder.rmax, cylinder.rmax, linspace_count=linspace_count
+    )
     ax.plot_surface(x, y, z, color=color, alpha=alpha)
     # Plot the cylinder endcaps
     for zValue in [startPos[2], endPos[2]]:
-        x, y, z = generate_cylinder_endcap_points(rmin, rmax, zValue, linspace_count=linspace_count)
+        x, y, z = generate_cylinder_endcap_points(cylinder.rmin, cylinder.rmax, zValue, linspace_count=linspace_count)
         ax.plot_surface(x, y, z, color=color, alpha=alpha)
 
     return ax
