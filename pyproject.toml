@@ -100,6 +100,8 @@ ignore = [
     "E501",
     # DoNotAssignLambda
     "E731",
+    # Comparison to true should be 'if cond is true:'
+    "E712"
 ]
 
 [tool.coverage.report]

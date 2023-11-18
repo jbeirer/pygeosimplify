@@ -15,7 +15,7 @@ def test_add_layer(atlas_calo_geo):  # noqa: F811
     assert layer.idx in detector.layers
     assert layer.idx in detector.cylinders.envelope
     assert layer.idx in detector.cylinders.thinned
-    assert detector.processed is False
+    assert detector.processed == False
     assert detector.min_dist == 1
     assert detector.envelope_width == 100
 
@@ -24,7 +24,7 @@ def test_add_layer(atlas_calo_geo):  # noqa: F811
     assert pytest.approx(envelope.rmax, abs=1e-3) == 2329.110247656521
     assert pytest.approx(envelope.zmin, abs=1e-3) == 4735.5
     assert pytest.approx(envelope.zmax, abs=1e-3) == 5003.5
-    assert envelope.is_barrel is False
+    assert envelope.is_barrel == False
 
     thinned = detector.cylinders.thinned[layer.idx]
     assert pytest.approx(thinned.rmin, abs=1e-3) == 425.2125616816107
@@ -50,42 +50,42 @@ def test_process(atlas_calo_geo):  # noqa: F811
         detector.add_layer(layer)
     detector.process()
 
-    assert detector.processed is True
+    assert detector.processed == True
     assert pytest.approx(detector.cylinders.processed["0_POS"].rmin, abs=1e-3) == 1451.6619
     assert pytest.approx(detector.cylinders.processed["0_POS"].rmax, abs=1e-3) == 1461.6619
     assert pytest.approx(detector.cylinders.processed["0_POS"].zmin, abs=1e-3) == 0.0
     assert pytest.approx(detector.cylinders.processed["0_POS"].zmax, abs=1e-3) == 3663.0
-    assert detector.cylinders.processed["0_POS"].is_barrel is True
+    assert detector.cylinders.processed["0_POS"].is_barrel == True
 
     assert pytest.approx(detector.cylinders.processed["21_POS"].rmin, abs=1e-3) == 69.9850
     assert pytest.approx(detector.cylinders.processed["21_POS"].rmax, abs=1e-3) == 1702.5874
     assert pytest.approx(detector.cylinders.processed["21_POS"].zmin, abs=1e-3) == 4824.5500
     assert pytest.approx(detector.cylinders.processed["21_POS"].zmax, abs=1e-3) == 4940.600
-    assert detector.cylinders.processed["21_POS"].is_barrel is False
+    assert detector.cylinders.processed["21_POS"].is_barrel == False
 
     assert pytest.approx(detector.cylinders.processed["4_POS"].rmin, abs=1e-3) == 69.9850
     assert pytest.approx(detector.cylinders.processed["4_POS"].rmax, abs=1e-3) == 1702.5874
     assert pytest.approx(detector.cylinders.processed["4_POS"].zmin, abs=1e-3) == 3668.0
     assert pytest.approx(detector.cylinders.processed["4_POS"].zmax, abs=1e-3) == 3670.0
-    assert detector.cylinders.processed["4_POS"].is_barrel is False
+    assert detector.cylinders.processed["4_POS"].is_barrel == False
 
     assert pytest.approx(detector.cylinders.processed["0_NEG"].rmin, abs=1e-3) == 1451.6619
     assert pytest.approx(detector.cylinders.processed["0_NEG"].rmax, abs=1e-3) == 1461.6619
     assert pytest.approx(detector.cylinders.processed["0_NEG"].zmin, abs=1e-3) == -3663.0
     assert pytest.approx(detector.cylinders.processed["0_NEG"].zmax, abs=1e-3) == 0.0
-    assert detector.cylinders.processed["0_NEG"].is_barrel is True
+    assert detector.cylinders.processed["0_NEG"].is_barrel == True
 
     assert pytest.approx(detector.cylinders.processed["21_NEG"].rmin, abs=1e-3) == 69.9850194
     assert pytest.approx(detector.cylinders.processed["21_NEG"].rmax, abs=1e-3) == 1702.58747
     assert pytest.approx(detector.cylinders.processed["21_NEG"].zmin, abs=1e-3) == -4940.6000
     assert pytest.approx(detector.cylinders.processed["21_NEG"].zmax, abs=1e-3) == -4824.5500
-    assert detector.cylinders.processed["21_NEG"].is_barrel is False
+    assert detector.cylinders.processed["21_NEG"].is_barrel == False
 
     assert pytest.approx(detector.cylinders.processed["4_NEG"].rmin, abs=1e-3) == 69.9850
     assert pytest.approx(detector.cylinders.processed["4_NEG"].rmax, abs=1e-3) == 1702.587
     assert pytest.approx(detector.cylinders.processed["4_NEG"].zmin, abs=1e-3) == -3670.0
     assert pytest.approx(detector.cylinders.processed["4_NEG"].zmax, abs=1e-3) == -3668.0
-    assert detector.cylinders.processed["4_NEG"].is_barrel is False
+    assert detector.cylinders.processed["4_NEG"].is_barrel == False
 
 
 def test_process_already_processed(atlas_calo_geo):  # noqa: F811
