@@ -110,10 +110,45 @@ def test_check_overlaps(atlas_calo_geo):  # noqa: F811
     n_overlaps, overlapping_layers = detector.check_overlaps(cyl_type="envelope")
     assert n_overlaps == 2
     assert overlapping_layers == [["2_POS", "3_POS"], ["2_NEG", "3_NEG"]]
-    # # Thinned cylinders should not overlap
+    # Thinned cylinders should not overlap
     n_overlaps, overlapping_layers = detector.check_overlaps(cyl_type="thinned")
     assert n_overlaps == 0
     assert overlapping_layers == []
+
+
+def test_thinned_overlap_resolution(atlas_calo_geo):  # noqa: F811
+    detector = SimplifiedDetector()
+    layer2 = GeoLayer(atlas_calo_geo, layer_idx=2)
+    layer5 = GeoLayer(atlas_calo_geo, layer_idx=5)
+    detector.add_layer(layer2)
+    detector.add_layer(layer5)
+
+    assert pytest.approx(detector.cylinders.thinned["2"].rmin, abs=1e-3) == 1715.6034660339355
+    assert pytest.approx(detector.cylinders.thinned["2"].rmax, abs=1e-3) == 1725.6034660339355
+    assert pytest.approx(detector.cylinders.thinned["2"].zmin, abs=1e-3) == 1.7594393291894477
+    assert pytest.approx(detector.cylinders.thinned["2"].zmax, abs=1e-3) == 3794.336377579775
+    assert detector.cylinders.thinned["2"].is_barrel == True
+
+    assert pytest.approx(detector.cylinders.thinned["5"].rmin, abs=1e-3) == 613.1037147741002
+    assert pytest.approx(detector.cylinders.thinned["5"].rmax, abs=1e-3) == 2034.6091306983928
+    assert pytest.approx(detector.cylinders.thinned["5"].zmin, abs=1e-3) == 3782.3005814552307
+    assert pytest.approx(detector.cylinders.thinned["5"].zmax, abs=1e-3) == 3792.3005814552307
+    assert detector.cylinders.thinned["5"].is_barrel == False
+
+    # Resolve overlaps between thinned EM barrel layer 2 and thinned EC layer 5
+    detector._resolve_thinned_overlaps()
+
+    assert pytest.approx(detector.cylinders.thinned["2"].rmin, abs=1e-3) == 1715.6034660339355
+    assert pytest.approx(detector.cylinders.thinned["2"].rmax, abs=1e-3) == 1725.6034660339355
+    assert pytest.approx(detector.cylinders.thinned["2"].zmin, abs=1e-3) == 1.7594393291894477
+    assert pytest.approx(detector.cylinders.thinned["2"].zmax, abs=1e-3) == 3781.3005814552307
+    assert detector.cylinders.thinned["2"].is_barrel == True
+
+    assert pytest.approx(detector.cylinders.thinned["5"].rmin, abs=1e-3) == 613.1037147741002
+    assert pytest.approx(detector.cylinders.thinned["5"].rmax, abs=1e-3) == 2034.6091306983928
+    assert pytest.approx(detector.cylinders.thinned["5"].zmin, abs=1e-3) == 3782.3005814552307
+    assert pytest.approx(detector.cylinders.thinned["5"].zmax, abs=1e-3) == 3792.3005814552307
+    assert detector.cylinders.thinned["5"].is_barrel == False
 
 
 def test_save_to_gdml(atlas_calo_geo, tmpdir):  # noqa: F811
