@@ -11,13 +11,13 @@ from pygeosimplify.utils.message_type import MessageType as mt
 
 
 class SimplifiedDetector:
-    def __init__(self) -> None:
+    def __init__(self, min_layer_dist: float = 1, envelope_width: float = 100) -> None:
         self.layers = {}  # type: dict[str, GeoLayer]
         self.cylinders = CylinderGroup()
         self.processed = False
         self.envelope = {}  # type: dict[str, Cylinder]
-        self.min_dist = 1  # mm
-        self.envelope_width = 100  # 10 cm
+        self.min_dist = min_layer_dist
+        self.envelope_width = envelope_width
 
     def _get_cylinder_dict(self, cyl_type: str) -> dict[str, Cylinder]:
         if cyl_type not in ["thinned", "envelope", "processed"]:

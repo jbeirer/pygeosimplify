@@ -254,11 +254,14 @@ class GeoLayer:
     ) -> Axes3D:
         # If layer is continuous in z, plot as single cylinder
         if self.is_continuous_in_z():
-            plot_cylinder(rmin=cyl.rmin, rmax=cyl.rmax, zmin=-cyl.zmax, zmax=cyl.zmax, ax=ax, color=color)
+            cyl_continuous = Cylinder(cyl.rmin, cyl.rmax, -cyl.zmax, cyl.zmax, cyl.is_barrel)
+            plot_cylinder(cyl_continuous, ax=ax, color=color)
         # Otherwise, plot as two cylinders, one in each z halfspace
         else:
-            plot_cylinder(rmin=cyl.rmin, rmax=cyl.rmax, zmin=cyl.zmin, zmax=cyl.zmax, ax=ax, color=color)
-            plot_cylinder(rmin=cyl.rmin, rmax=cyl.rmax, zmin=-cyl.zmax, zmax=-cyl.zmin, ax=ax, color=color)
+            cyl_pos_z_halfspace = Cylinder(cyl.rmin, cyl.rmax, cyl.zmin, cyl.zmax, cyl.is_barrel)
+            cyl_neg_z_halfspace = Cylinder(cyl.rmin, cyl.rmax, -cyl.zmax, -cyl.zmin, cyl.is_barrel)
+            plot_cylinder(cyl_pos_z_halfspace, ax=ax, color=color)
+            plot_cylinder(cyl_neg_z_halfspace, ax=ax, color=color)
 
     def plot_thinned_cylinder(self, ax: Axes3D = None, color: Union[tuple[float, float, float], str] = "red") -> Axes3D:
         """
