@@ -1,4 +1,4 @@
-<img src="docs/logo.svg" alt="Logo" width="250">
+<img src=https://github.com/jbeirer/pygeosimplify/raw/main/docs/logo.svg alt="Logo" width="250">
 
 
 [![Release](https://img.shields.io/github/v/release/jbeirer/pygeosimplify)](https://img.shields.io/github/v/release/jbeirer/pygeosimplify)
@@ -45,4 +45,4 @@ detector.save_to_gdml(cyl_type='processed', output_path='processed.gdml')
 ## LICENSE
 
 pyGeoSimplify is free of use and open-source. All versions are
-published under the [MIT License](LICENSE).
+published under the [MIT License](https://github.com/jbeirer/pygeosimplify/blob/main/LICENSE).
