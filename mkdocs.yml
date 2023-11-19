@@ -1,7 +1,7 @@
 site_name: pygeosimplify
 repo_url: https://github.com/jbeirer/pygeosimplify
 site_url: https://jbeirer.github.io/pygeosimplify
-site_description: This is a template repository for Python projects that use Poetry for their dependency management.
+site_description:  Python package for automatic, cell-based inference of clash-free simplified detector geometry.
 site_author: Joshua Falco Beirer
 edit_uri: edit/main/docs/
 repo_name: jbeirer/pygeosimplify
