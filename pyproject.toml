@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "pygeosimplify"
 version = "0.0.2"
-description = "This is a template repository for Python projects that use Poetry for their dependency management."
+description = "Python package for automatic, cell-based inference of clash-free simplified detector geometry."
 authors = ["Joshua Falco Beirer <jbeirer@cern.ch>"]
 repository = "https://github.com/jbeirer/pygeosimplify"
 documentation = "https://jbeirer.github.io/pygeosimplify/"
