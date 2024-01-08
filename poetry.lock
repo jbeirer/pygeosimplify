@@ -2,12 +2,13 @@
 
 [[package]]
 name = "antlr4-python3-runtime"
-version = "4.9.3"
-description = "ANTLR 4.9.3 runtime for Python 3.7"
+version = "4.13.1"
+description = "ANTLR 4.13.1 runtime for Python 3"
 optional = false
 python-versions = "*"
 files = [
-    {file = "antlr4-python3-runtime-4.9.3.tar.gz", hash = "sha256:f224469b4168294902bb1efa80a8bf7855f24c99aef99cbefc1bcd3cce77881b"},
+    {file = "antlr4-python3-runtime-4.13.1.tar.gz", hash = "sha256:3cd282f5ea7cfb841537fe01f143350fdb1c0b1ce7981443a2fa8513fddb6d1a"},
+    {file = "antlr4_python3_runtime-4.13.1-py3-none-any.whl", hash = "sha256:78ec57aad12c97ac039ca27403ad61cb98aaec8a3f9bb8144f889aa0fa28b943"},
 ]
 
 [[package]]
@@ -1033,13 +1034,13 @@ test = ["coverage", "ipykernel (>=6.14)", "mypy", "paramiko", "pre-commit", "pyt
 
 [[package]]
 name = "jupyter-core"
-version = "5.7.0"
+version = "5.7.1"
 description = "Jupyter core package. A base package on which Jupyter projects rely."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "jupyter_core-5.7.0-py3-none-any.whl", hash = "sha256:16eea462f7dad23ba9f86542bdf17f830804e2028eb48d609b6134d91681e983"},
-    {file = "jupyter_core-5.7.0.tar.gz", hash = "sha256:cb8d3ed92144d2463a3c5664fdd686a3f0c1442ea45df8babb1c1a9e6333fe03"},
+    {file = "jupyter_core-5.7.1-py3-none-any.whl", hash = "sha256:c65c82126453a723a2804aa52409930434598fd9d35091d63dfb919d2b765bb7"},
+    {file = "jupyter_core-5.7.1.tar.gz", hash = "sha256:de61a9d7fc71240f688b2fb5ab659fbb56979458dc66a71decd098e03c79e218"},
 ]
 
 [package.dependencies]
@@ -1460,13 +1461,13 @@ python-legacy = ["mkdocstrings-python-legacy (>=0.2.1)"]
 
 [[package]]
 name = "mkdocstrings-python"
-version = "1.7.5"
+version = "1.8.0"
 description = "A Python handler for mkdocstrings."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "mkdocstrings_python-1.7.5-py3-none-any.whl", hash = "sha256:5f6246026353f0c0785135db70c3fe9a5d9318990fc7ceb11d62097b8ffdd704"},
-    {file = "mkdocstrings_python-1.7.5.tar.gz", hash = "sha256:c7d143728257dbf1aa550446555a554b760dcd40a763f077189d298502b800be"},
+    {file = "mkdocstrings_python-1.8.0-py3-none-any.whl", hash = "sha256:4209970cc90bec194568682a535848a8d8489516c6ed4adbe58bbc67b699ca9d"},
+    {file = "mkdocstrings_python-1.8.0.tar.gz", hash = "sha256:1488bddf50ee42c07d9a488dddc197f8e8999c2899687043ec5dd1643d057192"},
 ]
 
 [package.dependencies]
@@ -1978,30 +1979,27 @@ files = [
 
 [[package]]
 name = "pyg4ometry"
-version = "1.1.2"
+version = "1.2.1"
 description = "Geometry package for high energy physics (Geant4, Fluka)"
 optional = false
 python-versions = ">=3.6.8"
 files = [
-    {file = "pyg4ometry-1.1.2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:ef7386e24a6f825863313be26af1fcbe27dff708110c6201689eb7f63688bc50"},
-    {file = "pyg4ometry-1.1.2-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:4c29258aa0d1559dc3fc57fb7b5ac022391a3586ebd089540502369eb1b13afd"},
-    {file = "pyg4ometry-1.1.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:16410f1dc5c2b134c848da1b08ee7ad9cd9d0a6590ecc5c52d723d894fa812e2"},
-    {file = "pyg4ometry-1.1.2-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:2fb6b45d59fc19041851281f078ec428bbf82c64042ddf5c1f72868c5e4fc6b2"},
-    {file = "pyg4ometry-1.1.2-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:0919b1f2c0e95c32414d0ca8a0c38e509b439d96d7ea5de0d6d20c2814c2d901"},
-    {file = "pyg4ometry-1.1.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7f779cdf147adc3c869a783d49d4f4186ee106ca27c58486722272fd0647db0d"},
-    {file = "pyg4ometry-1.1.2-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:d025dad00f2fb19fa052ec82a16e3f519644b14f64fe632d343dd76218b17e9d"},
-    {file = "pyg4ometry-1.1.2-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:51482fe6232f3bff187110c5848bb90bc82833494d265f01e4249b01812cd664"},
-    {file = "pyg4ometry-1.1.2-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:13af075399ef96f1bbd815371d93371ab6ee79bcfaf8504b4a7c8525e61a14af"},
-    {file = "pyg4ometry-1.1.2-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:b660c00c753c7634519195d397526eaea7078c4527664a1330311f0e67f5fa3f"},
-    {file = "pyg4ometry-1.1.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:0073b2a80eeb589cc912d2d1ebf5c91556c69732e184921100dcb70993b6ab8a"},
-    {file = "pyg4ometry-1.1.2-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:4efc4f72d7ee4e02aaf0e948096178de441eb84b12f917610fab86143fea4ec5"},
-    {file = "pyg4ometry-1.1.2-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:e08424be352dd81a80cfc1ec4f9f0b808e94e0a4f11ae44c3f8ffa45eb3e8b3f"},
-    {file = "pyg4ometry-1.1.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f1f4694e269f6a80ba8d6eb3d5b6e193871f1f1916977e50643809fef2908c40"},
-    {file = "pyg4ometry-1.1.2.tar.gz", hash = "sha256:f4d25a64c52020bd3fd81c57dc85808dfed1235d25dc7869872ee35513826012"},
+    {file = "pyg4ometry-1.2.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:848a86c754a2cea832686b21e2eac579203cbc31a462cafe7162f462fd8e6afe"},
+    {file = "pyg4ometry-1.2.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:52ba0db4ee4bcd8a839a9dc1c9bdae3b8fc90b019433fb9971e6ec48a3be6157"},
+    {file = "pyg4ometry-1.2.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:501bce8b7f366d0cb3f29672512bd4d86819594a94e9f766a960e1c2f02dd5b5"},
+    {file = "pyg4ometry-1.2.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e59a204c128b09b3d9095d7a43816f2eabbf56b2c5ef0d0a3ba6a780dd4d53cc"},
+    {file = "pyg4ometry-1.2.1-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:060fc8b0655a28579298df01c412753ca63922cf5f8c9592e8fbae46fe817286"},
+    {file = "pyg4ometry-1.2.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2dd5775c4da25ea55dcfee5d414e833cac8f358f0b49829fa91afde7706b38ee"},
+    {file = "pyg4ometry-1.2.1-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:a6916c336d824069051ec6879f8a08bfda717f2e1246c896842f3de5577fdae2"},
+    {file = "pyg4ometry-1.2.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5f7ae6f1e3615c4fd613cd779dbcf8c763e608384cdf53fe392d5517f9c36149"},
+    {file = "pyg4ometry-1.2.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:9cb0a2ddcf3c80295f54081c43be2ccfe7d719d8dd449f3e7b40d7d11459022b"},
+    {file = "pyg4ometry-1.2.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c59c41d87a20ea953e269de57eb8493d0b9e97b5e3d8aaebdc1ab23fd1737ace"},
+    {file = "pyg4ometry-1.2.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:7458642ee888ace049c4cc75fab0ba4abca11301d92c9e1fa8711d2765eea959"},
+    {file = "pyg4ometry-1.2.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:50866ce542f645bb28b15ec2831d69b63fc7321aa203baa6ee7a1a50ec4f61ea"},
 ]
 
 [package.dependencies]
-antlr4-python3-runtime = "4.9.3"
+antlr4-python3-runtime = "4.13.1"
 configparser = "*"
 importlib-resources = "*"
 matplotlib = "*"
