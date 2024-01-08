@@ -168,9 +168,7 @@ def get_cyl_limiting_r_extension(df: pd.DataFrame, layer: pd.DataFrame, side: st
     side_sel = df.cyl_name.str.contains("POS") if z_half_space == "POS" else df.cyl_name.str.contains("NEG")
 
     # Consider only (barrel and endcap) layer candidates that could overlap in z when extending r of the layer
-    z_overlap_sel = df.apply(z_overlap_filter, args=(layer.zmin, layer.zmax), axis=1) & ~(
-        df.cyl_name.str == layer.cyl_name
-    )
+    z_overlap_sel = df.apply(z_overlap_filter, args=(layer.zmin, layer.zmax), axis=1) & df.cyl_name.ne(layer.cyl_name)
 
     r_sel = df.rmin > layer.rmax if side == "OUT" else df.rmax < layer.rmin
 
@@ -208,9 +206,7 @@ def get_cyl_limiting_z_extension(df: pd.DataFrame, layer: pd.DataFrame, side: st
     side_sel = df.cyl_name.str.contains("POS") if z_half_space == "POS" else df.cyl_name.str.contains("NEG")
 
     # Consider only (barrel and endcap) layer candidates that could overlap in z when extending r of the layer
-    r_overlap_sel = df.apply(r_overlap_filter, args=(layer.rmin, layer.rmax), axis=1) & ~(
-        df.cyl_name.str == layer.cyl_name
-    )
+    r_overlap_sel = df.apply(r_overlap_filter, args=(layer.rmin, layer.rmax), axis=1) & df.cyl_name.ne(layer.cyl_name)
 
     z_sel = df.zmin > layer.zmax if side == "RIGHT" else df.zmax < layer.zmin
 
