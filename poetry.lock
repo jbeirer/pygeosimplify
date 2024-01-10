@@ -1254,22 +1254,22 @@ files = [
 
 [[package]]
 name = "marshmallow"
-version = "3.20.1"
+version = "3.20.2"
 description = "A lightweight library for converting complex datatypes to and from native Python datatypes."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "marshmallow-3.20.1-py3-none-any.whl", hash = "sha256:684939db93e80ad3561392f47be0230743131560a41c5110684c16e21ade0a5c"},
-    {file = "marshmallow-3.20.1.tar.gz", hash = "sha256:5d2371bbe42000f2b3fb5eaa065224df7d8f8597bc19a1bbfa5bfe7fba8da889"},
+    {file = "marshmallow-3.20.2-py3-none-any.whl", hash = "sha256:c21d4b98fee747c130e6bc8f45c4b3199ea66bc00c12ee1f639f0aeca034d5e9"},
+    {file = "marshmallow-3.20.2.tar.gz", hash = "sha256:4c1daff273513dc5eb24b219a8035559dc573c8f322558ef85f5438ddd1236dd"},
 ]
 
 [package.dependencies]
 packaging = ">=17.0"
 
 [package.extras]
-dev = ["flake8 (==6.0.0)", "flake8-bugbear (==23.7.10)", "mypy (==1.4.1)", "pre-commit (>=2.4,<4.0)", "pytest", "pytz", "simplejson", "tox"]
-docs = ["alabaster (==0.7.13)", "autodocsumm (==0.2.11)", "sphinx (==7.0.1)", "sphinx-issues (==3.0.1)", "sphinx-version-warning (==1.1.2)"]
-lint = ["flake8 (==6.0.0)", "flake8-bugbear (==23.7.10)", "mypy (==1.4.1)", "pre-commit (>=2.4,<4.0)"]
+dev = ["pre-commit (>=2.4,<4.0)", "pytest", "pytz", "simplejson", "tox"]
+docs = ["alabaster (==0.7.15)", "autodocsumm (==0.2.12)", "sphinx (==7.2.6)", "sphinx-issues (==3.0.1)", "sphinx-version-warning (==1.1.2)"]
+lint = ["pre-commit (>=2.4,<4.0)"]
 tests = ["pytest", "pytz", "simplejson"]
 
 [[package]]
@@ -1985,17 +1985,25 @@ optional = false
 python-versions = ">=3.6.8"
 files = [
     {file = "pyg4ometry-1.2.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:848a86c754a2cea832686b21e2eac579203cbc31a462cafe7162f462fd8e6afe"},
+    {file = "pyg4ometry-1.2.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:7e4cd0a70616f8f475051201f0773095989c375eb43d00df2d46e3a8f926ebe9"},
     {file = "pyg4ometry-1.2.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:52ba0db4ee4bcd8a839a9dc1c9bdae3b8fc90b019433fb9971e6ec48a3be6157"},
     {file = "pyg4ometry-1.2.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:501bce8b7f366d0cb3f29672512bd4d86819594a94e9f766a960e1c2f02dd5b5"},
+    {file = "pyg4ometry-1.2.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:2d8c11220e93934369ba1d6090a4c1685d0b1bdf59b0a8fe74ebdc39d525ff41"},
     {file = "pyg4ometry-1.2.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e59a204c128b09b3d9095d7a43816f2eabbf56b2c5ef0d0a3ba6a780dd4d53cc"},
     {file = "pyg4ometry-1.2.1-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:060fc8b0655a28579298df01c412753ca63922cf5f8c9592e8fbae46fe817286"},
+    {file = "pyg4ometry-1.2.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:d14f474c27481b2cbbf4000ac94de5515866c8d9aa1beb395553358b53b1a242"},
     {file = "pyg4ometry-1.2.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2dd5775c4da25ea55dcfee5d414e833cac8f358f0b49829fa91afde7706b38ee"},
     {file = "pyg4ometry-1.2.1-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:a6916c336d824069051ec6879f8a08bfda717f2e1246c896842f3de5577fdae2"},
     {file = "pyg4ometry-1.2.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5f7ae6f1e3615c4fd613cd779dbcf8c763e608384cdf53fe392d5517f9c36149"},
     {file = "pyg4ometry-1.2.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:9cb0a2ddcf3c80295f54081c43be2ccfe7d719d8dd449f3e7b40d7d11459022b"},
+    {file = "pyg4ometry-1.2.1-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:2a0243c5b579e284a83f46f15a75172f2c3e9b71a35dfe992583bdee8b62cf86"},
     {file = "pyg4ometry-1.2.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c59c41d87a20ea953e269de57eb8493d0b9e97b5e3d8aaebdc1ab23fd1737ace"},
     {file = "pyg4ometry-1.2.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:7458642ee888ace049c4cc75fab0ba4abca11301d92c9e1fa8711d2765eea959"},
+    {file = "pyg4ometry-1.2.1-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:b18465f0202efd095fafc9a0944c6fd7e204fcebab24c34807036d39d6ec0a8d"},
     {file = "pyg4ometry-1.2.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:50866ce542f645bb28b15ec2831d69b63fc7321aa203baa6ee7a1a50ec4f61ea"},
+    {file = "pyg4ometry-1.2.1-pp310-pypy310_pp73-macosx_11_0_arm64.whl", hash = "sha256:9017fe96a8432c2d1aba511726eabb76892328e159dd9a6dd79f6acf9ea58d46"},
+    {file = "pyg4ometry-1.2.1-pp38-pypy38_pp73-macosx_11_0_arm64.whl", hash = "sha256:2b52e5ad71f9ec9991534449bf0b5988b0aa0f2d947c6ad6bc3af2a2e71ec19f"},
+    {file = "pyg4ometry-1.2.1-pp39-pypy39_pp73-macosx_11_0_arm64.whl", hash = "sha256:760f651199ae0b4db1e2ced23a1a35ae6fa9760e8fc7b84d1edc8200e8fddf0b"},
 ]
 
 [package.dependencies]
