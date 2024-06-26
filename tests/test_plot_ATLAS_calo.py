@@ -1,6 +1,5 @@
-import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.testing.compare import compare_images
+from helpers import save_and_compare
 from test_load_geo import test_load_geometry as atlas_calo_geo  # noqa: F401
 
 import pygeosimplify as pgs
@@ -12,8 +11,7 @@ def test_plot_ATLAS_calo(atlas_calo_geo, tmpdir):  # noqa: F811
         atlas_calo_geo, phi_range=[0, 0.1], eta_range=[-5, 5], axis_labels=["x [m]", "y [m]", "z [m]"], unit_scale=0.001
     )
 
-    plt.savefig(f"{tmpdir}/test.png", dpi=300)
-    assert compare_images(f"{REF_DIR}/full_ATLAS_calo_phi_0_0.1.png", f"{tmpdir}/test.png", tol=0.5) is None
+    assert save_and_compare("full_ATLAS_calo_phi_0_0.1.png", REF_DIR, tmpdir, tol=0.5)
 
 
 def test_plot_ATLAS_calo_layer_0(atlas_calo_geo, tmpdir):  # noqa: F811
@@ -26,5 +24,4 @@ def test_plot_ATLAS_calo_layer_0(atlas_calo_geo, tmpdir):  # noqa: F811
         unit_scale=0.001,
     )
 
-    plt.savefig(f"{tmpdir}/test.png", dpi=300)
-    assert compare_images(f"{REF_DIR}/ATLAS_calo_layer_0_phi_0_2pi.png", f"{tmpdir}/test.png", tol=0.5) is None
+    assert save_and_compare("ATLAS_calo_layer_0_phi_0_2pi.png", REF_DIR, tmpdir, tol=0.5)

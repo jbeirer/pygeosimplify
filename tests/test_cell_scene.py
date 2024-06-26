@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pytest
-from matplotlib.testing.compare import compare_images
+from helpers import save_and_compare
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 from scipy.spatial._qhull import QhullError
@@ -97,8 +97,7 @@ def test_plot_single_XYZ_cell(tmpdir):
     assert len(ax.collections) == 1
     assert isinstance(ax.collections[0], Poly3DCollection)
 
-    plt.savefig(f"{tmpdir}/test.png", dpi=300, bbox_inches="tight")
-    assert compare_images(f"{REF_DIR}/single_XYZ_cell.png", f"{tmpdir}/test.png", tol=0) is None
+    assert save_and_compare("single_XYZ_cell.png", REF_DIR, tmpdir, tol=0)
 
 
 def test_plot_single_XYZ_cell_with_user_axis():
@@ -131,5 +130,4 @@ def test_plot_multi_XYZ_cells(tmpdir):
     assert isinstance(ax.collections[0], Poly3DCollection)
     assert isinstance(ax.collections[1], Poly3DCollection)
 
-    plt.savefig(f"{tmpdir}/test.png", dpi=300, bbox_inches="tight")
-    assert compare_images(f"{REF_DIR}/multi_XYZ_cell.png", f"{tmpdir}/test.png", tol=0) is None
+    assert save_and_compare("multi_XYZ_cell.png", REF_DIR, tmpdir, tol=0)
