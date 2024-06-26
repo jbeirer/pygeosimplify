@@ -1,6 +1,5 @@
-import matplotlib.pyplot as plt
 import pytest
-from matplotlib.testing.compare import compare_images
+from helpers import save_and_compare
 from test_load_geo import test_load_geometry as atlas_calo_geo  # noqa: F401
 
 from pygeosimplify.cfg.test_data import REF_DIR
@@ -20,13 +19,11 @@ def test_geo_barrel_layer_14(atlas_calo_geo, tmpdir):  # noqa: F811
 
     # Plot layer and envelope in 3D
     layer.plot(thinned=False)
-    plt.savefig(f"{tmpdir}/test.png", dpi=300)
-    assert compare_images(f"{REF_DIR}/ATLAS_barrel_layer14_validation.png", f"{tmpdir}/test.png", tol=0.5) is None
+    assert save_and_compare("ATLAS_barrel_layer14_validation.png", REF_DIR, tmpdir, tol=0.5)
 
     # Plots the r-z positions of the cell vertices in the layer
     layer.plot_cell_vertices_rz()
-    plt.savefig(f"{tmpdir}/test.png", dpi=300)
-    assert compare_images(f"{REF_DIR}/ATLAS_barrel_layer14_cell_vertices_rz.png", f"{tmpdir}/test.png", tol=0.5) is None
+    assert save_and_compare("ATLAS_barrel_layer14_cell_vertices_rz.png", REF_DIR, tmpdir, tol=0.5)
 
     # The thinned down cylinder with infinitesimal dr
     thinned_cyl = layer.get_thinned_cylinder()
@@ -50,13 +47,11 @@ def test_geo_barrel_layer_18(atlas_calo_geo, tmpdir):  # noqa: F811
 
     # Plot layer and envelope in 3D
     layer.plot(thinned=False)
-    plt.savefig(f"{tmpdir}/test.png", dpi=300)
-    assert compare_images(f"{REF_DIR}/ATLAS_barrel_layer18_validation.png", f"{tmpdir}/test.png", tol=0.5) is None
+    assert save_and_compare("ATLAS_barrel_layer18_validation.png", REF_DIR, tmpdir, tol=0.5)
 
     # Plots the r-z positions of the cell vertices in the layer
     layer.plot_cell_vertices_rz()
-    plt.savefig(f"{tmpdir}/test.png", dpi=300)
-    assert compare_images(f"{REF_DIR}/ATLAS_barrel_layer18_cell_vertices_rz.png", f"{tmpdir}/test.png", tol=0.5) is None
+    assert save_and_compare("ATLAS_barrel_layer18_cell_vertices_rz.png", REF_DIR, tmpdir, tol=0.5)
 
     # The thinned down cylinder with infinitesimal dr
     thinned_cyl = layer.get_thinned_cylinder()
@@ -80,13 +75,11 @@ def test_geo_endcap_layer_23(atlas_calo_geo, tmpdir):  # noqa: F811
 
     # Plot layer and envelope in 3D
     layer.plot(thinned=False)
-    plt.savefig(f"{tmpdir}/test.png", dpi=300)
-    assert compare_images(f"{REF_DIR}/ATLAS_endcap_layer23_validation.png", f"{tmpdir}/test.png", tol=0.5) is None
+    assert save_and_compare("ATLAS_endcap_layer23_validation.png", REF_DIR, tmpdir, tol=0.5)
 
     # Plots the r-z positions of the cell vertices in the layer
     layer.plot_cell_vertices_rz()
-    plt.savefig(f"{tmpdir}/test.png", dpi=300)
-    assert compare_images(f"{REF_DIR}/ATLAS_endcap_layer23_cell_vertices_rz.png", f"{tmpdir}/test.png", tol=0.5) is None
+    assert save_and_compare("ATLAS_endcap_layer23_cell_vertices_rz.png", REF_DIR, tmpdir, tol=0.5)
 
     # The thinned down cylinder with infinitesimal dz
     thinned_cyl = layer.get_thinned_cylinder()
