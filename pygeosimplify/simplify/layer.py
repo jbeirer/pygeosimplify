@@ -315,9 +315,7 @@ class GeoLayer:
 
         return ax
 
-    def plot(
-        self, ax: Axes3D = None, thinned: bool = False, color: Union[tuple[float, float, float], str] = "red"
-    ) -> Axes3D:
+    def plot(self, ax: Axes3D = None, thinned: bool = False, color: str = "red") -> Axes3D:
         """
         Plots the cells in the layer and either the cylinder envelope or the thinned down approximation in 3D space.
 
@@ -327,7 +325,7 @@ class GeoLayer:
             The matplotlib 3D axes object to plot on, by default None.
         thinned : bool, optional
             Whether to plot a thinned down version of the cells in the layer, by default False.
-        color : Union[tuple[float, float, float], str], optional
+        color : str, optional
             The color of the cells, by default 'red'.
 
         Returns:
@@ -340,7 +338,7 @@ class GeoLayer:
             ax = fig.add_subplot(111, projection="3d")
 
         # Plot the actual calorimeter cells
-        plot_geometry(self.df, ax=ax, color_list=[color])
+        plot_geometry(self.df, ax=ax, color=color)
 
         # Get either the envelope of the cells or the thinned down version of it
         cyl = self.get_thinned_cylinder() if thinned else self.get_cell_envelope()
