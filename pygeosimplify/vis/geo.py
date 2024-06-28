@@ -14,9 +14,9 @@ from pygeosimplify.geo.cells import EtaPhiRCell, EtaPhiZCell, XYZCell
 from pygeosimplify.vis.scene import CellScene
 
 
-def plot_geometry(
+def plot_geometry(  # noqa: C901
     df: pd.DataFrame,
-    ax: Axes3D = None,
+    ax: Optional[Axes3D] = None,
     layer_list: Optional[List[int]] = None,
     eta_range: Optional[List] = None,
     phi_range: Optional[List] = None,
@@ -48,6 +48,10 @@ def plot_geometry(
     Returns:
         Axes3D: The 3D axes object containing the plot.
     """
+
+    if ax is None:
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection="3d")
 
     if eta_range is None:
         eta_range = [-5, 5]
@@ -103,7 +107,7 @@ def plot_geometry(
             norm=norm,
         )
 
-    ax = vis.plot(ax=ax, axis_labels=axis_labels)
+    vis.plot(ax=ax, axis_labels=axis_labels)
 
     if cell_energy_col:
         mappable = plt.cm.ScalarMappable(norm=norm, cmap=plt.get_cmap(color_map))
