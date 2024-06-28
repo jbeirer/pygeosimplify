@@ -16,7 +16,7 @@ from pygeosimplify.vis.scene import CellScene
 
 def plot_geometry(  # noqa: C901
     df: pd.DataFrame,
-    ax: Optional[Axes3D] = None,
+    ax: Axes3D = None,
     layer_list: Optional[List[int]] = None,
     eta_range: Optional[List] = None,
     phi_range: Optional[List] = None,
