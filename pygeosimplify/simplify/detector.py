@@ -70,7 +70,7 @@ class SimplifiedDetector:
                     "diff": abs((endcap.zmin - self.min_dist) - barrel.zmax),
                     "locked": barrel.is_locked("zmax"),
                     "action": lambda barrel=barrel, endcap=endcap: (
-                        setattr(barrel, "zmax", endcap.zmin - self.min_dist),
+                        setattr(barrel, "zmax", endcap.zmin - self.min_dist),  # type: ignore[func-returns-value]
                         barrel.lock("zmax"),
                     ),
                 },
@@ -82,7 +82,7 @@ class SimplifiedDetector:
                     "diff": abs((barrel.rmin - self.min_dist) - endcap.rmax),
                     "locked": endcap.is_locked("rmax"),
                     "action": lambda barrel=barrel, endcap=endcap: (
-                        setattr(endcap, "rmax", barrel.rmin - self.min_dist),
+                        setattr(endcap, "rmax", barrel.rmin - self.min_dist),  # type: ignore[func-returns-value]
                         endcap.lock("rmax"),
                     ),
                 },
@@ -94,7 +94,7 @@ class SimplifiedDetector:
                     "diff": abs(endcap.rmin - (barrel.rmax + self.min_dist)),
                     "locked": endcap.is_locked("rmin"),
                     "action": lambda barrel=barrel, endcap=endcap: (
-                        setattr(endcap, "rmin", barrel.rmax + self.min_dist),
+                        setattr(endcap, "rmin", barrel.rmax + self.min_dist),  # type: ignore[func-returns-value]
                         endcap.lock("rmin"),
                     ),
                 },
@@ -105,10 +105,10 @@ class SimplifiedDetector:
 
             # Choose the option with the lowest difference in values
             if available_options:
-                best_option = min(available_options, key=lambda x: x["diff"])
+                best_option = min(available_options, key=lambda x: x["diff"])  # type: ignore[arg-type, return-value]
                 print(f"Choosing {best_option['name']} with diff {best_option['diff']}\n")
                 # Apply the best resolution option
-                best_option["action"]()
+                best_option["action"]()  # type: ignore[operator]
             else:
                 raise Exception(
                     f"{mt.FAIL} Overlap resolution between thinned layer {cyl_a_name} and layer {cyl_b_name} not"
