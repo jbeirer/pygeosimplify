@@ -2874,13 +2874,13 @@ files = [
 
 [[package]]
 name = "uproot"
-version = "5.3.7"
+version = "5.3.10"
 description = "ROOT I/O in pure Python and NumPy."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "uproot-5.3.7-py3-none-any.whl", hash = "sha256:cb8d2855e7d12ac92f39fddd50269f9f96e259de01ce0af66acc95d52b26d27e"},
-    {file = "uproot-5.3.7.tar.gz", hash = "sha256:a34743431478d3e20a01164729ee9223ed50a58de1a0e3d772f4876afc4c69ab"},
+    {file = "uproot-5.3.10-py3-none-any.whl", hash = "sha256:44c67da12f80e2ea14ff5271749713fdca1ed58f5b47d683402a243768a7d453"},
+    {file = "uproot-5.3.10.tar.gz", hash = "sha256:b2f0cc2ccb7b11dca476bf1e513fa4a4b986eb560207c9b89c7b9610794c4ecb"},
 ]
 
 [package.dependencies]
