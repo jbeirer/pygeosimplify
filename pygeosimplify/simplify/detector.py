@@ -33,7 +33,10 @@ class SimplifiedDetector:
         if n_overlaps == 0:
             return
 
-        for overlap_pair in overlapping_layers:
+        while n_overlaps > 0:
+            # Take the first overlapping pair
+            overlap_pair = overlapping_layers[0]
+            # Take the cylinders from the overlapping pair
             cyl_a_name = overlap_pair[0]
             cyl_b_name = overlap_pair[1]
 
@@ -57,41 +60,69 @@ class SimplifiedDetector:
                 " resolve..."
             )
 
-            # Option A: Shorten the zmax of the barrel layer to the zmin of the endcap layer
-            new_barrel_zmax = endcap.zmin - self.min_dist
-            opt_A_diff = abs(new_barrel_zmax - barrel.zmax)
-            # Option B: Decrease rmax of endcap layer to rmin of barrel layer
-            new_endcap_rmax = barrel.rmin - self.min_dist
-            opt_B_diff = abs(new_endcap_rmax - endcap.rmax)
-            # Option C: Increase rmin of endcap to rmax of barrel layer
-            new_encap_rmin = barrel.rmax + self.min_dist
-            opt_C_diff = abs(endcap.rmin - new_encap_rmin)
+            # Calculate new values and their differences
+            options = [
+                {
+                    "name": (
+                        f"Option A: Shorten the zmax of the barrel layer ({barrel.zmax}) to the zmin of the endcap"
+                        f" layer ({endcap.zmin - self.min_dist})"
+                    ),
+                    "diff": abs((endcap.zmin - self.min_dist) - barrel.zmax),
+                    "locked": barrel.is_locked("zmax"),
+                    "action": lambda barrel=barrel, endcap=endcap: (
+                        setattr(barrel, "zmax", endcap.zmin - self.min_dist),  # type: ignore[func-returns-value]
+                        barrel.lock("zmax"),
+                    ),
+                },
+                {
+                    "name": (
+                        f"Option B: Decrease rmax of endcap layer ({endcap.rmax}) to rmin of barrel layer"
+                        f" ({barrel.rmin - self.min_dist})"
+                    ),
+                    "diff": abs((barrel.rmin - self.min_dist) - endcap.rmax),
+                    "locked": endcap.is_locked("rmax"),
+                    "action": lambda barrel=barrel, endcap=endcap: (
+                        setattr(endcap, "rmax", barrel.rmin - self.min_dist),  # type: ignore[func-returns-value]
+                        endcap.lock("rmax"),
+                    ),
+                },
+                {
+                    "name": (
+                        f"Option C: Increase rmin of endcap layer ({endcap.rmin}) to rmax of barrel layer"
+                        f" ({barrel.rmax + self.min_dist})"
+                    ),
+                    "diff": abs(endcap.rmin - (barrel.rmax + self.min_dist)),
+                    "locked": endcap.is_locked("rmin"),
+                    "action": lambda barrel=barrel, endcap=endcap: (
+                        setattr(endcap, "rmin", barrel.rmax + self.min_dist),  # type: ignore[func-returns-value]
+                        endcap.lock("rmin"),
+                    ),
+                },
+            ]
 
-            # Use option with minimal change
-            if opt_A_diff < opt_B_diff and opt_A_diff < opt_C_diff:
-                print(f"{mt.BOLD} Setting barrel zmax from {barrel.zmax} to {new_barrel_zmax}")
-                barrel.zmax = new_barrel_zmax
-            elif opt_B_diff < opt_A_diff and opt_B_diff < opt_C_diff:
-                print(f"{mt.BOLD} Setting endcap rmax from {endcap.rmax} to {new_endcap_rmax}")
-                endcap.rmax = new_endcap_rmax
+            # Filter out locked options which have already been modified by previous overlap resolutions
+            available_options = [opt for opt in options if not opt["locked"]]
+
+            # Choose the option with the lowest difference in values
+            if available_options:
+                best_option = min(available_options, key=lambda x: x["diff"])  # type: ignore[arg-type, return-value]
+                print(f"Choosing {best_option['name']} with diff {best_option['diff']}\n")
+                # Apply the best resolution option
+                best_option["action"]()  # type: ignore[operator]
             else:
-                print(f"{mt.BOLD} Setting endcap rmin from {endcap.rmin} to {new_encap_rmin}")
-                endcap.rmin = new_encap_rmin
+                raise Exception(
+                    f"{mt.FAIL} Overlap resolution between thinned layer {cyl_a_name} and layer {cyl_b_name} not"
+                    " possible. All possible options are locked. Manual check required."
+                )
 
             # Update the thinned cylinder dictionary
             self.cylinders.thinned[cyl_a_name] = barrel if cyl_a.is_barrel else endcap
             self.cylinders.thinned[cyl_b_name] = barrel if cyl_b.is_barrel else endcap
 
-        # Check if overlaps have been resolved
-        n_overlaps, _ = self.check_overlaps(cyl_type="thinned", print_output=False)
+            # Check again for overlapping layers
+            n_overlaps, overlapping_layers = self.check_overlaps(cyl_type="thinned", print_output=False)
 
-        if n_overlaps > 0:
-            raise Exception(
-                f"{mt.FAIL} Overlap resolution of thinned cylinders failed. {n_overlaps} overlaps remain. This is not"
-                " supposed to happen."
-            )
-        else:
-            print(f"{mt.SUCCESS} Thinned cylinder overlaps resolved.")
+        print(f"{mt.SUCCESS} Thinned cylinder overlaps resolved.")
 
     def _symmetrize_cylinders(self, cyl_type: str = "thinned") -> dict[str, Cylinder]:
         # Get the dimensions for the requested cylinder type
