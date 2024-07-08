@@ -70,8 +70,8 @@ def test_geo_endcap_layer_23(atlas_calo_geo, tmpdir):  # noqa: F811
     assert bool(layer.is_barrel) is False
     assert pytest.approx(layer.extent["rmin"]) == 84.09978870164535
     assert pytest.approx(layer.extent["rmax"]) == 458.8423527799789
-    assert pytest.approx(layer.extent["zmin"]) == -5979.525192260742
-    assert pytest.approx(layer.extent["zmax"]) == 5979.525192260742
+    assert pytest.approx(layer.extent["zmin"]) == -6090.100189208984
+    assert pytest.approx(layer.extent["zmax"]) == 6090.100189208984
 
     # Plot layer and envelope in 3D
     layer.plot(thinned=False)

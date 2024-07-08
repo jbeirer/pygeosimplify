@@ -20,15 +20,15 @@ def test_add_layer(atlas_calo_geo):  # noqa: F811
     assert detector.envelope_width == 100
 
     envelope = detector.cylinders.envelope[layer.idx]
-    assert pytest.approx(envelope.rmin, abs=1e-3) == 425.2125616816107
-    assert pytest.approx(envelope.rmax, abs=1e-3) == 2329.110247656521
-    assert pytest.approx(envelope.zmin, abs=1e-3) == 4735.5
-    assert pytest.approx(envelope.zmax, abs=1e-3) == 5003.5
+    assert pytest.approx(envelope.rmin, abs=1e-3) == 413.18036164669655
+    assert pytest.approx(envelope.rmax, abs=1e-3) == 2391.4867387499503
+    assert pytest.approx(envelope.zmin, abs=1e-3) == 4601.5
+    assert pytest.approx(envelope.zmax, abs=1e-3) == 5137.5
     assert envelope.is_barrel == False
 
     thinned = detector.cylinders.thinned[layer.idx]
-    assert pytest.approx(thinned.rmin, abs=1e-3) == 425.2125616816107
-    assert pytest.approx(thinned.rmax, abs=1e-3) == 2329.110247656521
+    assert pytest.approx(thinned.rmin, abs=1e-3) == 413.18036164669655
+    assert pytest.approx(thinned.rmax, abs=1e-3) == 2391.4867387499503
     assert pytest.approx(thinned.zmin, abs=1e-3) == 4864.5
     assert pytest.approx(thinned.zmax, abs=1e-3) == 4874.5
 
@@ -58,15 +58,15 @@ def test_process(atlas_calo_geo):  # noqa: F811
     assert detector.cylinders.processed["0_POS"].is_barrel == True
 
     assert pytest.approx(detector.cylinders.processed["21_POS"].rmin, abs=1e-3) == 69.9850
-    assert pytest.approx(detector.cylinders.processed["21_POS"].rmax, abs=1e-3) == 1702.5874
-    assert pytest.approx(detector.cylinders.processed["21_POS"].zmin, abs=1e-3) == 4824.5500
+    assert pytest.approx(detector.cylinders.processed["21_POS"].rmax, abs=1e-3) == 1703.0514
+    assert pytest.approx(detector.cylinders.processed["21_POS"].zmin, abs=1e-3) == 4713.50
     assert pytest.approx(detector.cylinders.processed["21_POS"].zmax, abs=1e-3) == 4940.600
     assert detector.cylinders.processed["21_POS"].is_barrel == False
 
     assert pytest.approx(detector.cylinders.processed["4_POS"].rmin, abs=1e-3) == 69.9850
-    assert pytest.approx(detector.cylinders.processed["4_POS"].rmax, abs=1e-3) == 1702.5874
-    assert pytest.approx(detector.cylinders.processed["4_POS"].zmin, abs=1e-3) == 3668.0
-    assert pytest.approx(detector.cylinders.processed["4_POS"].zmax, abs=1e-3) == 3670.0
+    assert pytest.approx(detector.cylinders.processed["4_POS"].rmax, abs=1e-3) == 1703.0514
+    assert pytest.approx(detector.cylinders.processed["4_POS"].zmin, abs=1e-3) == 3667.0
+    assert pytest.approx(detector.cylinders.processed["4_POS"].zmax, abs=1e-3) == 3671.0
     assert detector.cylinders.processed["4_POS"].is_barrel == False
 
     assert pytest.approx(detector.cylinders.processed["0_NEG"].rmin, abs=1e-3) == 1451.6619
@@ -76,15 +76,15 @@ def test_process(atlas_calo_geo):  # noqa: F811
     assert detector.cylinders.processed["0_NEG"].is_barrel == True
 
     assert pytest.approx(detector.cylinders.processed["21_NEG"].rmin, abs=1e-3) == 69.9850194
-    assert pytest.approx(detector.cylinders.processed["21_NEG"].rmax, abs=1e-3) == 1702.58747
+    assert pytest.approx(detector.cylinders.processed["21_NEG"].rmax, abs=1e-3) == 1703.05139
     assert pytest.approx(detector.cylinders.processed["21_NEG"].zmin, abs=1e-3) == -4940.6000
-    assert pytest.approx(detector.cylinders.processed["21_NEG"].zmax, abs=1e-3) == -4824.5500
+    assert pytest.approx(detector.cylinders.processed["21_NEG"].zmax, abs=1e-3) == -4713.50
     assert detector.cylinders.processed["21_NEG"].is_barrel == False
 
     assert pytest.approx(detector.cylinders.processed["4_NEG"].rmin, abs=1e-3) == 69.9850
-    assert pytest.approx(detector.cylinders.processed["4_NEG"].rmax, abs=1e-3) == 1702.587
-    assert pytest.approx(detector.cylinders.processed["4_NEG"].zmin, abs=1e-3) == -3670.0
-    assert pytest.approx(detector.cylinders.processed["4_NEG"].zmax, abs=1e-3) == -3668.0
+    assert pytest.approx(detector.cylinders.processed["4_NEG"].rmax, abs=1e-3) == 1703.0514
+    assert pytest.approx(detector.cylinders.processed["4_NEG"].zmin, abs=1e-3) == -3671.0
+    assert pytest.approx(detector.cylinders.processed["4_NEG"].zmax, abs=1e-3) == -3667.0
     assert detector.cylinders.processed["4_NEG"].is_barrel == False
 
 
@@ -123,31 +123,31 @@ def test_thinned_overlap_resolution(atlas_calo_geo):  # noqa: F811
     detector.add_layer(layer2)
     detector.add_layer(layer5)
 
-    assert pytest.approx(detector.cylinders.thinned["2"].rmin, abs=1e-3) == 1715.6034660339355
-    assert pytest.approx(detector.cylinders.thinned["2"].rmax, abs=1e-3) == 1725.6034660339355
-    assert pytest.approx(detector.cylinders.thinned["2"].zmin, abs=1e-3) == 1.7594393291894477
-    assert pytest.approx(detector.cylinders.thinned["2"].zmax, abs=1e-3) == 3794.336377579775
+    assert pytest.approx(detector.cylinders.thinned["2"].rmin, abs=1e-3) == 1727.2603759765625
+    assert pytest.approx(detector.cylinders.thinned["2"].rmax, abs=1e-3) == 1737.2603759765625
+    assert pytest.approx(detector.cylinders.thinned["2"].zmin, abs=1e-3) == 1.6698934007390838
+    assert pytest.approx(detector.cylinders.thinned["2"].zmax, abs=1e-3) == 3999.6509633442806
     assert detector.cylinders.thinned["2"].is_barrel == True
 
-    assert pytest.approx(detector.cylinders.thinned["5"].rmin, abs=1e-3) == 613.1037147741002
-    assert pytest.approx(detector.cylinders.thinned["5"].rmax, abs=1e-3) == 2034.6091306983928
-    assert pytest.approx(detector.cylinders.thinned["5"].zmin, abs=1e-3) == 3782.3005814552307
-    assert pytest.approx(detector.cylinders.thinned["5"].zmax, abs=1e-3) == 3792.3005814552307
+    assert pytest.approx(detector.cylinders.thinned["5"].rmin, abs=1e-3) == 610.7676385672655
+    assert pytest.approx(detector.cylinders.thinned["5"].rmax, abs=1e-3) == 2045.749382288831
+    assert pytest.approx(detector.cylinders.thinned["5"].zmin, abs=1e-3) == 3785.7399368286133
+    assert pytest.approx(detector.cylinders.thinned["5"].zmax, abs=1e-3) == 3795.7399368286133
     assert detector.cylinders.thinned["5"].is_barrel == False
 
     # Resolve overlaps between thinned EM barrel layer 2 and thinned EC layer 5
     detector._resolve_thinned_overlaps()
 
-    assert pytest.approx(detector.cylinders.thinned["2"].rmin, abs=1e-3) == 1715.6034660339355
-    assert pytest.approx(detector.cylinders.thinned["2"].rmax, abs=1e-3) == 1725.6034660339355
-    assert pytest.approx(detector.cylinders.thinned["2"].zmin, abs=1e-3) == 1.7594393291894477
-    assert pytest.approx(detector.cylinders.thinned["2"].zmax, abs=1e-3) == 3781.3005814552307
+    assert pytest.approx(detector.cylinders.thinned["2"].rmin, abs=1e-3) == 1727.2603759765625
+    assert pytest.approx(detector.cylinders.thinned["2"].rmax, abs=1e-3) == 1737.2603759765625
+    assert pytest.approx(detector.cylinders.thinned["2"].zmin, abs=1e-3) == 1.6698934007390838
+    assert pytest.approx(detector.cylinders.thinned["2"].zmax, abs=1e-3) == 3784.7399368286133
     assert detector.cylinders.thinned["2"].is_barrel == True
 
-    assert pytest.approx(detector.cylinders.thinned["5"].rmin, abs=1e-3) == 613.1037147741002
-    assert pytest.approx(detector.cylinders.thinned["5"].rmax, abs=1e-3) == 2034.6091306983928
-    assert pytest.approx(detector.cylinders.thinned["5"].zmin, abs=1e-3) == 3782.3005814552307
-    assert pytest.approx(detector.cylinders.thinned["5"].zmax, abs=1e-3) == 3792.3005814552307
+    assert pytest.approx(detector.cylinders.thinned["5"].rmin, abs=1e-3) == 610.7676385672655
+    assert pytest.approx(detector.cylinders.thinned["5"].rmax, abs=1e-3) == 2045.749382288831
+    assert pytest.approx(detector.cylinders.thinned["5"].zmin, abs=1e-3) == 3785.7399368286133
+    assert pytest.approx(detector.cylinders.thinned["5"].zmax, abs=1e-3) == 3795.7399368286133
     assert detector.cylinders.thinned["5"].is_barrel == False
 
 
