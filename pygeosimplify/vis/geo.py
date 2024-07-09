@@ -170,7 +170,6 @@ def add_cells_to_scene(
 
         # Get color from color dict if provided, else use colormap
         if layer_color_dict:
-            print("row.layer ", row.layer)
             color = layer_color_dict[row.layer]
         else:
             if colormap is None or norm is None:
