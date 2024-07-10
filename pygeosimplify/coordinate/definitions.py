@@ -61,7 +61,7 @@ class XYZ:
         z = self.z
 
         return RPhiZ(r, phi, z)
-        
+
     def to_EtaPhiR(self) -> EtaPhiR:
         r = np.sqrt(self.x**2 + self.y**2)
         theta = np.arctan2(r, self.z)
