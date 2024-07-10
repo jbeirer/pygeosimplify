@@ -61,6 +61,22 @@ class XYZ:
         z = self.z
 
         return RPhiZ(r, phi, z)
+        
+    def to_EtaPhiR(self) -> EtaPhiR:
+        r = np.sqrt(self.x**2 + self.y**2)
+        theta = np.arctan2(r, self.z)
+        eta = -np.log(np.tan(theta / 2)) if theta != 0 else 0
+        phi = np.arctan2(self.y, self.x)
+
+        return EtaPhiR(eta, phi, r)
+
+    def to_EtaPhiZ(self) -> EtaPhiZ:
+        theta = np.arctan2(np.sqrt(self.x**2 + self.y**2), self.z)
+        eta = -np.log(np.tan(theta / 2)) if theta != 0 else 0
+        phi = np.arctan2(self.y, self.x)
+        z = self.z
+
+        return EtaPhiZ(eta, phi, z)
 
 
 @dataclass
