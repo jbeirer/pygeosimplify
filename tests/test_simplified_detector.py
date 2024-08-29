@@ -51,11 +51,11 @@ def test_process(atlas_calo_geo):  # noqa: F811
     detector.process()
 
     assert detector.processed == True
-    assert pytest.approx(detector.cylinders.processed["0_POS"].rmin, abs=1e-3) == 1451.6619
-    assert pytest.approx(detector.cylinders.processed["0_POS"].rmax, abs=1e-3) == 1461.6619
-    assert pytest.approx(detector.cylinders.processed["0_POS"].zmin, abs=1e-3) == 0.0
-    assert pytest.approx(detector.cylinders.processed["0_POS"].zmax, abs=1e-3) == 3663.0
-    assert detector.cylinders.processed["0_POS"].is_barrel == True
+    assert pytest.approx(detector.cylinders.processed["0"].rmin, abs=1e-3) == 1451.6619
+    assert pytest.approx(detector.cylinders.processed["0"].rmax, abs=1e-3) == 1461.6619
+    assert pytest.approx(detector.cylinders.processed["0"].zmin, abs=1e-3) == -3663.0
+    assert pytest.approx(detector.cylinders.processed["0"].zmax, abs=1e-3) == 3663.0
+    assert detector.cylinders.processed["0"].is_barrel == True
 
     assert pytest.approx(detector.cylinders.processed["21_POS"].rmin, abs=1e-3) == 69.9850
     assert pytest.approx(detector.cylinders.processed["21_POS"].rmax, abs=1e-3) == 1703.0514
@@ -68,12 +68,6 @@ def test_process(atlas_calo_geo):  # noqa: F811
     assert pytest.approx(detector.cylinders.processed["4_POS"].zmin, abs=1e-3) == 3667.0
     assert pytest.approx(detector.cylinders.processed["4_POS"].zmax, abs=1e-3) == 3671.0
     assert detector.cylinders.processed["4_POS"].is_barrel == False
-
-    assert pytest.approx(detector.cylinders.processed["0_NEG"].rmin, abs=1e-3) == 1451.6619
-    assert pytest.approx(detector.cylinders.processed["0_NEG"].rmax, abs=1e-3) == 1461.6619
-    assert pytest.approx(detector.cylinders.processed["0_NEG"].zmin, abs=1e-3) == -3663.0
-    assert pytest.approx(detector.cylinders.processed["0_NEG"].zmax, abs=1e-3) == 0.0
-    assert detector.cylinders.processed["0_NEG"].is_barrel == True
 
     assert pytest.approx(detector.cylinders.processed["21_NEG"].rmin, abs=1e-3) == 69.9850194
     assert pytest.approx(detector.cylinders.processed["21_NEG"].rmax, abs=1e-3) == 1703.05139

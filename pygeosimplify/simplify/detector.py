@@ -160,8 +160,8 @@ class SimplifiedDetector:
                 # ignore barrel layers which are not continuous at z=0
                 if self.cylinders.processed[pos_cyl_name].zmin != 0 or self.cylinders.processed[neg_cyl_name].zmax != 0:
                     print(
-                        f"{mt.WARNING} Cannot merge barrel layer {merged_cyc_name}. "
-                        "Layer is not continuous at z=0. Ignoring!"
+                        f"{mt.WARNING} Barrel layer {merged_cyc_name} will not be merged. "
+                        "Layer is not continuous at z=0."
                     )
                     continue
 
