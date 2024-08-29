@@ -37,7 +37,6 @@ detector.add_layer(layer)
 
 # Process detector
 detector.process()
-detector.merge_barrel()
 
 # Save simplified detector to gdml file
 detector.save_to_gdml(cyl_type='processed', output_path='processed.gdml')
