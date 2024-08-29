@@ -172,6 +172,33 @@ class SimplifiedDetector:
             envelope_width=self.envelope_width,
         )
 
+    def merge_barrel(self) -> None:
+        """
+        Produce a single barrel layer by merging its positive and negative halves.
+        """
+        if not self.processed:
+            raise Exception("Detector has not been processed yet. Process first with detector.process()")
+
+        # merge positve and negative halves of barrel layers
+        processed_cyl_names = [*self.cylinders.processed.keys()]
+        for each_cyl_name in processed_cyl_names:
+            if "_POS" in each_cyl_name and self.cylinders.processed[each_cyl_name].is_barrel:
+                pos_cyl_name = each_cyl_name
+                neg_cyl_name = each_cyl_name.replace("_POS", "_NEG")
+                merged_cyc_name = each_cyl_name.replace("_POS", "")
+                
+                # ignore barrel layers which are not continuous at z=0
+                if (self.cylinders.processed[pos_cyl_name].zmin != 0 or
+                    self.cylinders.processed[neg_cyl_name].zmax != 0):
+                    print(f"{mt.WARNING} Cannot merge barrel layer {merged_cyc_name}. "
+                            "Layer is not continuous at z=0. Ignoring!")
+                    continue
+
+                self.cylinders.processed[pos_cyl_name].zmin = self.cylinders.processed[neg_cyl_name].zmin
+                self.cylinders.processed[merged_cyc_name] = self.cylinders.processed[pos_cyl_name]
+                del self.cylinders.processed[pos_cyl_name]
+                del self.cylinders.processed[neg_cyl_name]
+
     def check_overlaps(
         self,
         cyl_type: str = "thinned",
