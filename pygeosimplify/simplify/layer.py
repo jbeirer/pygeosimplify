@@ -6,8 +6,8 @@ import pandas as pd
 from mpl_toolkits.mplot3d import Axes3D
 
 from pygeosimplify.cfg import config
-from pygeosimplify.coordinate.definitions import XYZ, EtaPhiR, EtaPhiZ
-from pygeosimplify.geo.cells import EtaPhiRCell, EtaPhiZCell, XYZCell
+from pygeosimplify.coordinate.definitions import XYZ, EtaPhiR, EtaPhiZ, RPhiZ
+from pygeosimplify.geo.cells import EtaPhiRCell, EtaPhiZCell, XYZCell, RPhiZCell
 from pygeosimplify.simplify.cylinder import Cylinder
 from pygeosimplify.vis.cylinder import plot_cylinder
 from pygeosimplify.vis.geo import plot_geometry
@@ -27,7 +27,7 @@ class GeoLayer:
         The coordinate system used to represent the cell positions.
     is_barrel : bool
         True if the layer is a barrel layer, False otherwise.
-    cells : List[Union[XYZCell, EtaPhiRCell, EtaPhiZCell]]
+    cells : List[Union[XYZCell, EtaPhiRCell, EtaPhiZCell, RPhiZCell]]
         A list of cell objects representing the cells in the layer.
     extent : dict
         A dictionary containing the minimum and maximum values of r and z coordinates of the cells in the layer.
@@ -79,7 +79,7 @@ class GeoLayer:
                 return coordinate_system
         raise Exception(f"Could not infer set coordinate system found for layer {self.idx}.")
 
-    def _get_cells(self, df: pd.DataFrame) -> Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell]]:
+    def _get_cells(self, df: pd.DataFrame) -> Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell], List[RPhiZCell]]:
         """
         Returns a list of cell objects representing the cells in the layer.
 
@@ -90,7 +90,7 @@ class GeoLayer:
 
         Returns:
         --------
-        Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell]]:
+        Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell], List[RPhiZCell]]:
             A list of cell objects representing the cells in the layer.
         """
         if self.coordinate_system == "XYZ":
@@ -108,19 +108,24 @@ class GeoLayer:
                 EtaPhiZCell(deta, dphi, dz, pos=EtaPhiZ(eta, phi, z))
                 for deta, dphi, dz, eta, phi, z in zip(df.deta, df.dphi, df.dz, df.eta, df.phi, df.z)
             ]
+        elif self.coordinate_system == "RPhiZ":
+            return [
+                RPhiZCell(dr, dphi, dz, pos=RPhiZ(r, phi, z))
+                for dr, dphi, dz, r, phi, z in zip(df.dr, df.dphi, df.dz, df.r, df.phi, df.z)
+            ]
         else:
             raise Exception(f"Invalid coordinate system {self.coordinate_system}.")
 
     def _cell_vertices_rz(
-        self, cells: Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell]]
+        self, cells: Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell], List[RPhiZCell]]
     ) -> Tuple[List[float], List[float]]:
         """
         Returns the r and z values of the cell vertices in the layer.
 
         Parameters:
         -----------
-        cells : Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell]]
-            A list of XYZ, EtaPhiR or EtaPhiZ cells.
+        cells : Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell], List[RPhiZCell]]
+            A list of XYZ, EtaPhiR, EtaPhiZ or RPhiZCell cells.
 
         Returns:
         --------
@@ -138,16 +143,19 @@ class GeoLayer:
         elif self.coordinate_system == "EtaPhiZ":
             z_values = [vertex.z for vertex in vertex_list]
             r_values = [vertex.to_RPhiZ().r for vertex in vertex_list]
+        elif self.coordinate_system == "RPhiZ":
+            z_values = [vertex.z for vertex in vertex_list]
+            r_values = [vertex.r for vertex in vertex_list]
 
         return r_values, z_values
 
-    def _min_max_rz_extent(self, cells: Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell]]) -> dict:
+    def _min_max_rz_extent(self, cells: Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell], List[RPhiZCell]]) -> dict:
         """
         Returns a dictionary containing the minimum and maximum values of r and z coordinates of the cells in the layer.
 
         Parameters:
         -----------
-        cells : Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell]]
+        cells : Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell], List[RPhiZCell]]
             A list of cell objects representing the cells in the layer.
 
         Returns:
@@ -372,7 +380,7 @@ class GeoLayer:
         max_z = half_space_df.z.max()
         neg_cell = half_space_df[half_space_df.z == max_z].iloc[0]
 
-        if self.coordinate_system in ["XYZ", "EtaPhiZ"]:
+        if self.coordinate_system in ["XYZ", "EtaPhiZ", "RPhiZ"]:
             dz_pos = pos_cell.dz
             dz_neg = neg_cell.dz
         elif self.coordinate_system == "EtaPhiR":
