@@ -1,5 +1,5 @@
 # supported coordinate systems
-allowed_coordinate_systems = ["XYZ", "EtaPhiR", "EtaPhiZ"]
+allowed_coordinate_systems = ["XYZ", "EtaPhiR", "EtaPhiZ", "RPhiZ"]
 # List of branches that are always required to be available
 required_branches = ["eta", "phi", "layer", "r", "z", "isBarrel"]
 # Dictionary mapping coordinate system to coordinate branch name, e.g. {"XYZ": "isCartesian"}
@@ -35,6 +35,8 @@ def set_coordinate_branch(coordinate_system: str, branch_name: str) -> None:
         required_branches += ["eta", "phi", "r", "deta", "dphi", "dr"]
     elif "EtaPhiZ" in coordinate_system:
         required_branches += ["eta", "phi", "z", "deta", "dphi", "dz"]
+    elif "RPhiZ" in coordinate_system:
+        required_branches += ["r", "phi", "z", "dr", "dphi", "dz"]
 
 
 def set_coordinate_branch_dict(coordinate_branch_dict: dict) -> None:
@@ -62,3 +64,5 @@ def set_coordinate_branch_dict(coordinate_branch_dict: dict) -> None:
             required_branches += ["eta", "phi", "r", "deta", "dphi", "dr"]
         elif "EtaPhiZ" in coordinate_system:
             required_branches += ["eta", "phi", "z", "deta", "dphi", "dz"]
+        elif "RPhiZ" in coordinate_system:
+            required_branches += ["r", "phi", "z", "dr", "dphi", "dz"]
