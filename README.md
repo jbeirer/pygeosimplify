@@ -6,6 +6,7 @@
 [![codecov](https://codecov.io/gh/jbeirer/pygeosimplify/graph/badge.svg?token=ZCJV384TXF)](https://codecov.io/gh/jbeirer/pygeosimplify)
 [![Commit activity](https://img.shields.io/github/commit-activity/m/jbeirer/pygeosimplify)](https://img.shields.io/github/commit-activity/m/jbeirer/pygeosimplify)
 [![License](https://img.shields.io/github/license/jbeirer/pygeosimplify)](https://img.shields.io/github/license/jbeirer/pygeosimplify)
+[![DOI](https://zenodo.org/badge/707731497.svg)](https://doi.org/10.5281/zenodo.14308339)
 
 
 Welcome to pyGeoSimplify!
