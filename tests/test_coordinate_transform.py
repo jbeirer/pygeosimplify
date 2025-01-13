@@ -72,6 +72,7 @@ def test_EtaPhiZ_to_RPhiZ():
     assert pytest.approx(rphiz.phi, abs=1e-7) == 2
     assert pytest.approx(rphiz.z, abs=1e-7) == 3
 
+
 def test_RPhiZ_to_XYZ():
     rphiz = RPhiZ(1, 2, 3)
     xyz = rphiz.to_XYZ()
@@ -80,6 +81,7 @@ def test_RPhiZ_to_XYZ():
     assert pytest.approx(xyz.y, abs=1e-7) == 0.90929742
     assert pytest.approx(xyz.z, abs=1e-7) == 3
 
+
 def test_RPhiZ_to_EtaPhiZ():
     rphiz = RPhiZ(1, 2, 3)
     etaphiz = rphiz.to_EtaPhiZ()
@@ -87,6 +89,7 @@ def test_RPhiZ_to_EtaPhiZ():
     assert pytest.approx(etaphiz.eta, abs=1e-7) == 1.81844645
     assert pytest.approx(etaphiz.phi, abs=1e-7) == 2
     assert pytest.approx(etaphiz.z, abs=1e-7) == 3
+
 
 def test_RPhiZ_to_EtaPhiR():
     rphiz = RPhiZ(1, 2, 3)
