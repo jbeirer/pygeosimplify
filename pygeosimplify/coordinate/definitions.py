@@ -52,6 +52,7 @@ class RPhiZ:
 
         return XYZ(x, y, z)
 
+
 @dataclass
 class XYZ:
     x: float

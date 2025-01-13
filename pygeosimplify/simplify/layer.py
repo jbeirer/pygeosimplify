@@ -7,7 +7,7 @@ from mpl_toolkits.mplot3d import Axes3D
 
 from pygeosimplify.cfg import config
 from pygeosimplify.coordinate.definitions import XYZ, EtaPhiR, EtaPhiZ, RPhiZ
-from pygeosimplify.geo.cells import EtaPhiRCell, EtaPhiZCell, XYZCell, RPhiZCell
+from pygeosimplify.geo.cells import EtaPhiRCell, EtaPhiZCell, RPhiZCell, XYZCell
 from pygeosimplify.simplify.cylinder import Cylinder
 from pygeosimplify.vis.cylinder import plot_cylinder
 from pygeosimplify.vis.geo import plot_geometry
@@ -79,7 +79,9 @@ class GeoLayer:
                 return coordinate_system
         raise Exception(f"Could not infer set coordinate system found for layer {self.idx}.")
 
-    def _get_cells(self, df: pd.DataFrame) -> Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell], List[RPhiZCell]]:
+    def _get_cells(
+        self, df: pd.DataFrame
+    ) -> Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell], List[RPhiZCell]]:
         """
         Returns a list of cell objects representing the cells in the layer.
 
@@ -149,7 +151,9 @@ class GeoLayer:
 
         return r_values, z_values
 
-    def _min_max_rz_extent(self, cells: Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell], List[RPhiZCell]]) -> dict:
+    def _min_max_rz_extent(
+        self, cells: Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell], List[RPhiZCell]]
+    ) -> dict:
         """
         Returns a dictionary containing the minimum and maximum values of r and z coordinates of the cells in the layer.
 
