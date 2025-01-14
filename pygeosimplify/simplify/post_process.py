@@ -1,5 +1,3 @@
-from typing import Tuple, Union
-
 import pandas as pd
 
 from pygeosimplify.simplify.cylinder import Cylinder
@@ -8,7 +6,7 @@ from pygeosimplify.simplify.helpers import r_overlap_filter, z_overlap_filter
 
 def post_process_cylinders(  # noqa: C901
     cyl_dict: dict[str, Cylinder], cell_envelope: dict[str, Cylinder], min_dist: float = 1, envelope_width: float = 100
-) -> Tuple[dict[str, Cylinder], dict[str, Cylinder]]:
+) -> tuple[dict[str, Cylinder], dict[str, Cylinder]]:
     # Convert cylinder dictionary to a dataframe
     df = pd.DataFrame.from_dict(cyl_dict, orient="index")
     # Add layer name as column
@@ -157,7 +155,7 @@ def get_cylinder_envelope(df: pd.DataFrame, min_dist: float, envelope_width: flo
     return envelope_dict
 
 
-def get_cyl_limiting_r_extension(df: pd.DataFrame, layer: pd.DataFrame, side: str = "OUT") -> Union[Cylinder, None]:
+def get_cyl_limiting_r_extension(df: pd.DataFrame, layer: pd.DataFrame, side: str = "OUT") -> Cylinder | None:
     if side not in ["OUT", "IN"]:
         raise ValueError("side must be either OUT or IN")
 
@@ -195,7 +193,7 @@ def get_cyl_limiting_r_extension(df: pd.DataFrame, layer: pd.DataFrame, side: st
     return limiting_cyl
 
 
-def get_cyl_limiting_z_extension(df: pd.DataFrame, layer: pd.DataFrame, side: str = "RIGHT") -> Union[Cylinder, None]:
+def get_cyl_limiting_z_extension(df: pd.DataFrame, layer: pd.DataFrame, side: str = "RIGHT") -> Cylinder | None:
     if side not in ["RIGHT", "LEFT"]:
         raise ValueError("side must be either RIGHT or LEFT")
 

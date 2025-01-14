@@ -1,5 +1,3 @@
-from typing import Tuple, Union
-
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
@@ -8,7 +6,7 @@ from scipy.linalg import norm
 from pygeosimplify.simplify.cylinder import Cylinder
 
 
-def get_normals(v: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
+def get_normals(v: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     """Get two vectors that form a basis w/ v.
 
     Note: returned vectors are unit
@@ -42,7 +40,7 @@ def generate_cylinder_face_points(
     return np.array([start[i] + v[i] * length_values + n1[i] * rsin + n2[i] * rcos for i in range(3)])
 
 
-def generate_cylinder_endcap_points(rmin: float, rmax: float, z: float, linspace_count: int = 300) -> Tuple:
+def generate_cylinder_endcap_points(rmin: float, rmax: float, z: float, linspace_count: int = 300) -> tuple:
     # Create an array of angles
     theta = np.linspace(0, 2 * np.pi, linspace_count)
     # Create an array of radii in the specified range
@@ -62,7 +60,7 @@ def generate_cylinder_endcap_points(rmin: float, rmax: float, z: float, linspace
 def plot_cylinder(
     cylinder: Cylinder,
     ax: Axes3D = None,
-    color: Union[tuple[float, float, float], str] = "black",
+    color: tuple[float, float, float] | str = "black",
     alpha: float = 0.2,
     linspace_count: int = 300,
 ) -> Axes3D:
