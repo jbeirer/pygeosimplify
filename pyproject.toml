@@ -1,14 +1,19 @@
-[tool.poetry]
+[project]
 name = "pygeosimplify"
 version = "0.0.2"
 description = "Python package for automatic, cell-based inference of clash-free simplified detector geometry."
-authors = ["Joshua Falco Beirer <jbeirer@cern.ch>"]
+authors = [
+  { name = "Joshua Falco Beirer", email = "jbeirer@cern.ch" }
+]
 repository = "https://github.com/jbeirer/pygeosimplify"
 documentation = "https://jbeirer.github.io/pygeosimplify/"
 readme = "README.md"
 packages = [
-  {include = "pygeosimplify"}
+  { include = "pygeosimplify" }
 ]
+
+requires-python = ">=3.9,<3.13"
+dynamic = ["dependencies"]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.13"
