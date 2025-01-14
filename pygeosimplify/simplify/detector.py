@@ -1,5 +1,3 @@
-from typing import Tuple
-
 from pyg4ometry.gdml import Writer
 from pyg4ometry.geant4 import MaterialPredefined
 
@@ -209,7 +207,7 @@ class SimplifiedDetector:
         recursive: bool = False,
         coplanar: bool = False,
         debugIO: bool = False,
-    ) -> Tuple[int, list[list[str]]]:
+    ) -> tuple[int, list[list[str]]]:
         cyl_dict = self._get_cylinder_dict(cyl_type)
 
         return check_pairwise_overlaps(cyl_dict, print_output, recursive, coplanar, debugIO)
