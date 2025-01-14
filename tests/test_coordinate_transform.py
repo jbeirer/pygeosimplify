@@ -1,7 +1,7 @@
 import pytest
 
 from pygeosimplify.cfg.config import coordinate_branch_names, set_coordinate_branch, set_coordinate_branch_dict
-from pygeosimplify.coordinate.definitions import XYZ, EtaPhiR, EtaPhiZ
+from pygeosimplify.coordinate.definitions import XYZ, EtaPhiR, EtaPhiZ, RPhiZ
 
 
 def test_set_coordinate_branch():
@@ -9,15 +9,25 @@ def test_set_coordinate_branch():
     set_coordinate_branch("XYZ", "isCartesian")
     set_coordinate_branch("EtaPhiR", "isCylindrical")
     set_coordinate_branch("EtaPhiZ", "isECCylindrical")
+    set_coordinate_branch("RPhiZ", "isECCylindricalRPhiZ")
     assert coordinate_branch_names["XYZ"] == "isCartesian"
     assert coordinate_branch_names["EtaPhiR"] == "isCylindrical"
     assert coordinate_branch_names["EtaPhiZ"] == "isECCylindrical"
+    assert coordinate_branch_names["RPhiZ"] == "isECCylindricalRPhiZ"
 
     # Test setting coordinate branch via dict
-    set_coordinate_branch_dict({"XYZ": "isCartesian", "EtaPhiR": "isCylindrical", "EtaPhiZ": "isECCylindrical"})
+    set_coordinate_branch_dict(
+        {
+            "XYZ": "isCartesian",
+            "EtaPhiR": "isCylindrical",
+            "EtaPhiZ": "isECCylindrical",
+            "RPhiZ": "isECCylindricalRPhiZ",
+        }
+    )
     assert coordinate_branch_names["XYZ"] == "isCartesian"
     assert coordinate_branch_names["EtaPhiR"] == "isCylindrical"
     assert coordinate_branch_names["EtaPhiZ"] == "isECCylindrical"
+    assert coordinate_branch_names["RPhiZ"] == "isECCylindricalRPhiZ"
 
     # Test setting a unsupported coordinate system
     with pytest.raises(ValueError):
@@ -71,3 +81,30 @@ def test_EtaPhiZ_to_RPhiZ():
     assert pytest.approx(rphiz.r, abs=1e-7) == 2.55275438
     assert pytest.approx(rphiz.phi, abs=1e-7) == 2
     assert pytest.approx(rphiz.z, abs=1e-7) == 3
+
+
+def test_RPhiZ_to_XYZ():
+    rphiz = RPhiZ(1, 2, 3)
+    xyz = rphiz.to_XYZ()
+
+    assert pytest.approx(xyz.x, abs=1e-7) == -0.4161468
+    assert pytest.approx(xyz.y, abs=1e-7) == 0.90929742
+    assert pytest.approx(xyz.z, abs=1e-7) == 3
+
+
+def test_RPhiZ_to_EtaPhiZ():
+    rphiz = RPhiZ(1, 2, 3)
+    etaphiz = rphiz.to_EtaPhiZ()
+
+    assert pytest.approx(etaphiz.eta, abs=1e-7) == 1.81844645
+    assert pytest.approx(etaphiz.phi, abs=1e-7) == 2
+    assert pytest.approx(etaphiz.z, abs=1e-7) == 3
+
+
+def test_RPhiZ_to_EtaPhiR():
+    rphiz = RPhiZ(1, 2, 3)
+    etaphir = rphiz.to_EtaPhiR()
+
+    assert pytest.approx(etaphir.eta, abs=1e-7) == 1.81844645
+    assert pytest.approx(etaphir.phi, abs=1e-7) == 2
+    assert pytest.approx(etaphir.r, abs=1e-7) == 1

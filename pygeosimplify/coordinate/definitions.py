@@ -30,6 +30,28 @@ class RPhiZ:
     def __abs__(self) -> float:
         return math.sqrt(self.r**2 + self.phi**2 + self.z**2)
 
+    def to_EtaPhiR(self) -> EtaPhiR:
+        r = self.r
+        theta = np.arctan2(r, self.z)
+        eta = -np.log(np.tan(theta / 2)) if theta != 0 else 0
+        phi = self.phi
+
+        return EtaPhiR(eta, phi, r)
+
+    def to_EtaPhiZ(self) -> EtaPhiZ:
+        theta = np.arctan2(self.r, self.z)
+        eta = -np.log(np.tan(theta / 2)) if theta != 0 else 0
+        phi = self.phi
+        z = self.z
+        return EtaPhiZ(eta, phi, z)
+
+    def to_XYZ(self) -> XYZ:
+        x = self.r * np.cos(self.phi)
+        y = self.r * np.sin(self.phi)
+        z = self.z
+
+        return XYZ(x, y, z)
+
 
 @dataclass
 class XYZ:
