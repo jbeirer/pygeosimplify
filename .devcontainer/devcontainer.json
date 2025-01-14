@@ -3,7 +3,8 @@
 {
 	"name": "pygeosimplify",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
+	// Full list of images: https://mcr.microsoft.com/v2/devcontainers/python/tags/list
+	"image": "mcr.microsoft.com/devcontainers/python:1-3.13-bullseye",
 	"features": {
 		"ghcr.io/devcontainers-contrib/features/poetry:2": {
 			"version": "2.0.1"
