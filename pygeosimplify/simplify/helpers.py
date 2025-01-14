@@ -1,5 +1,4 @@
 from itertools import combinations
-from typing import List, Tuple
 
 import numpy as np
 import pandas as pd
@@ -10,7 +9,7 @@ from pyg4ometry.geant4.solid import Box, Tubs
 from pygeosimplify.simplify.cylinder import Cylinder
 
 
-def init_world(material: Material, X: float = 40000, Y: float = 40000, Z: float = 80000) -> Tuple[Box, Registry]:
+def init_world(material: Material, X: float = 40000, Y: float = 40000, Z: float = 80000) -> tuple[Box, Registry]:
     # registry to store gdml data
     reg = Registry()
 
@@ -24,7 +23,7 @@ def init_world(material: Material, X: float = 40000, Y: float = 40000, Z: float 
 
 def check_world_overlap(
     world: Box, print_output: bool = True, recursive: bool = False, coplanar: bool = False, debugIO: bool = False
-) -> Tuple[int, List[str]]:
+) -> tuple[int, list[str]]:
     world.overlapChecked = False
 
     import io
@@ -57,7 +56,7 @@ def check_pairwise_overlaps(
     recursive: bool = False,
     coplanar: bool = False,
     debugIO: bool = False,
-) -> Tuple[int, list[list[str]]]:
+) -> tuple[int, list[list[str]]]:
     layer_pairs = list(combinations(cyl_dict.keys(), 2))
     n_total_overlaps = 0
     total_overlap_list = []
@@ -107,7 +106,7 @@ def add_cylinder_dict_to_reg(registry: Registry, world_log: LogicalVolume, cyl_d
 
 def check_cyl_dict_overlaps(
     cyl_dict: dict, print_output: bool = True, recursive: bool = False, coplanar: bool = False, debugIO: bool = False
-) -> Tuple[int, List[str]]:
+) -> tuple[int, list[str]]:
     material = MaterialPredefined("G4_Galactic")
     world_logic, reg = init_world(material)
 

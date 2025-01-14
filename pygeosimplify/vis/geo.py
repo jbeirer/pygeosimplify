@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
@@ -17,13 +17,13 @@ from pygeosimplify.vis.scene import CellScene
 def plot_geometry(  # noqa: C901
     df: pd.DataFrame,
     ax: Axes3D = None,
-    layer_list: Optional[List[int]] = None,
-    eta_range: Optional[List] = None,
-    phi_range: Optional[List] = None,
-    axis_labels: Optional[List] = None,
-    color: Optional[str] = None,
+    layer_list: list[int] | None = None,
+    eta_range: list | None = None,
+    phi_range: list | None = None,
+    axis_labels: list | None = None,
+    color: str | None = None,
     unit_scale: float = 1,
-    cell_energy_col: Optional[str] = None,
+    cell_energy_col: str | None = None,
     unit_scale_energy: float = 1,
     energy_label: str = "Cell Energy",
     color_map: str = "gist_heat_r",
@@ -75,7 +75,7 @@ def plot_geometry(  # noqa: C901
 
     if not cell_energy_col:
         # Create a color dict mapping a layer to a color
-        layer_color_dict = dict(zip(layer_list, get_colors(len(layer_list), rng=0)))
+        layer_color_dict = dict(zip(layer_list, get_colors(len(layer_list), rng=0), strict=False))
         # If color is specifically provided, override the color dict
         if color:
             layer_color_dict = {layer: color for layer in layer_list}
@@ -124,7 +124,7 @@ def plot_geometry(  # noqa: C901
     return ax
 
 
-def filter_df_eta_phi(df: pd.DataFrame, eta_range: List, phi_range: List) -> pd.DataFrame:
+def filter_df_eta_phi(df: pd.DataFrame, eta_range: list, phi_range: list) -> pd.DataFrame:
     """
     Filter a DataFrame based on the given eta and phi ranges.
 
@@ -148,10 +148,10 @@ def add_cells_to_scene(
     df: pd.DataFrame,
     scene: CellScene,
     unit_scale: float,
-    unit_scale_energy: Optional[float] = 1,
-    layer_color_dict: Optional[Dict] = None,
-    colormap: Optional[Any] = None,
-    norm: Optional[mcolors.Normalize] = None,
+    unit_scale_energy: float | None = 1,
+    layer_color_dict: dict | None = None,
+    colormap: Any | None = None,
+    norm: mcolors.Normalize | None = None,
 ) -> None:
     """
     Adds cells to a given scene.
