@@ -13,7 +13,7 @@ packages = [
 ]
 
 requires-python = ">=3.9,<3.14"
-dynamic = ["dependencies"]
+dynamic = ["requires-python", "dependencies"]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.14"
