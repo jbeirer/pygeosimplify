@@ -12,7 +12,8 @@ from pygeosimplify.utils.message_type import MessageType as mt
 
 class SimplifiedDetector:
     def __init__(self, min_layer_dist: float = 1, envelope_width: float = 100) -> None:
-        self.layers = {}  # type: dict[str, GeoLayer]
+        # self.layers = {}  # type: dict[str, GeoLayer]
+        self.is_layer_continuous_in_z = {}  # type: dict[str, bool]
         self.cylinders = CylinderGroup()
         self.processed = False
         self.envelope = {}  # type: dict[str, Cylinder]
@@ -131,7 +132,7 @@ class SimplifiedDetector:
 
         # Create the negative z cylinders from the positive halfspace
         for idx, cyl in cyl_dict_pos_z.items():
-            if self.layers[idx].is_continuous_in_z():
+            if self.is_layer_continuous_in_z[idx]:
                 cyl.zmin = 0
 
             neg_z_cyl = Cylinder(cyl.rmin, cyl.rmax, -cyl.zmax, -cyl.zmin, cyl.is_barrel)
@@ -176,7 +177,8 @@ class SimplifiedDetector:
             raise Exception(f"Layer {layer.idx} already exists in the simplified detector")
 
         # Add layer to the layer dictionary
-        self.layers[layer.idx] = layer
+        # self.layers[layer.idx] = layer
+        self.is_layer_continuous_in_z[layer.idx] = layer.is_continuous_in_z()
         # Set layer envelope
         self.cylinders.envelope[layer.idx] = layer.get_cell_envelope()
         # Get overlap-resolved thinned cylinders
