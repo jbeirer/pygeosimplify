@@ -12,7 +12,7 @@ def test_add_layer(atlas_calo_geo):  # noqa: F811
     layer = GeoLayer(atlas_calo_geo, layer_idx=9)
     detector.add_layer(layer)
 
-    assert layer.idx in detector.layers
+    assert layer.idx in detector.is_layer_continuous_in_z
     assert layer.idx in detector.cylinders.envelope
     assert layer.idx in detector.cylinders.thinned
     assert detector.processed == False
