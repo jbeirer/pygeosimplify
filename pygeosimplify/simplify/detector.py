@@ -12,7 +12,6 @@ from pygeosimplify.utils.message_type import MessageType as mt
 
 class SimplifiedDetector:
     def __init__(self, min_layer_dist: float = 1, envelope_width: float = 100) -> None:
-        # self.layers = {}  # type: dict[str, GeoLayer]
         self.is_layer_continuous_in_z = {}  # type: dict[str, bool]
         self.cylinders = CylinderGroup()
         self.processed = False
