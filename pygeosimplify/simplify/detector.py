@@ -176,9 +176,6 @@ class SimplifiedDetector:
             raise Exception(f"Layer {layer.idx} already exists in the simplified detector")
 
         # Add layer to the layer dictionary
-        # comment out for now to save memory
-        # self.layers[layer.idx] = layer
-
         # Check if layer is continuous in z
         self.is_layer_continuous_in_z[layer.idx] = layer.is_continuous_in_z()
         # Set layer envelope
