@@ -1,5 +1,3 @@
-from typing import List, Optional, Tuple, Union
-
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
@@ -38,12 +36,12 @@ class CellScene:
     """
 
     def __init__(self) -> None:
-        self.cell_list = []  # type: List[Cell]
+        self.cell_list: list[Cell] = []
 
     def add_cell(
         self,
         cell: Cell,
-        facecolor: Union[tuple[float, float, float], str] = "tab:orange",
+        facecolor: tuple[float, float, float] | str = "tab:orange",
         alpha: float = 0.1,
         edgecolor: tuple = (1, 1, 1, 1),
         edgewidth: float = 1,
@@ -70,8 +68,8 @@ class CellScene:
     def plot(
         self,
         ax: Axes3D = None,
-        axis_limits: Optional[List[Tuple[float, float]]] = None,
-        axis_labels: Optional[List[str]] = None,
+        axis_limits: list[tuple[float, float]] | None = None,
+        axis_labels: list[str] | None = None,
     ) -> Axes3D:
         if self.n_cells() == 0:
             raise RuntimeWarning("No cells to plot. Add cells using the add_cell method.")
@@ -104,7 +102,7 @@ class CellScene:
             ax.set_zlabel(axis_labels[2])
 
         for cell in tqdm(self.cell_list):
-            if type(cell.vertices[0]) == np.ndarray:
+            if type(cell.vertices[0]) is np.ndarray:
                 raw_vertices = cell.vertices
             else:
                 # Convert to raw vertices if cell coordinates are provided in specificy coordinate system

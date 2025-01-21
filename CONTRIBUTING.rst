@@ -87,7 +87,7 @@ development. Please note this documentation assumes you already have
    .. code-block:: bash
 
         poetry install
-        poetry shell
+        eval $(poetry env activate)
 
 | 4. Install pre-commit to run linters/formatters at commit time:
 

@@ -1,5 +1,3 @@
-from typing import List, Tuple, Union
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -79,9 +77,7 @@ class GeoLayer:
                 return coordinate_system
         raise Exception(f"Could not infer set coordinate system found for layer {self.idx}.")
 
-    def _get_cells(
-        self, df: pd.DataFrame
-    ) -> Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell], List[RPhiZCell]]:
+    def _get_cells(self, df: pd.DataFrame) -> list[XYZCell] | list[EtaPhiRCell] | list[EtaPhiZCell] | list[RPhiZCell]:
         """
         Returns a list of cell objects representing the cells in the layer.
 
@@ -98,29 +94,29 @@ class GeoLayer:
         if self.coordinate_system == "XYZ":
             return [
                 XYZCell(dx, dy, dz, pos=XYZ(x, y, z))
-                for dx, dy, dz, x, y, z in zip(df.dx, df.dy, df.dz, df.x, df.y, df.z)
+                for dx, dy, dz, x, y, z in zip(df.dx, df.dy, df.dz, df.x, df.y, df.z, strict=False)
             ]
         elif self.coordinate_system == "EtaPhiR":
             return [
                 EtaPhiRCell(deta, dphi, dr, pos=EtaPhiR(eta, phi, r))
-                for deta, dphi, dr, eta, phi, r in zip(df.deta, df.dphi, df.dr, df.eta, df.phi, df.r)
+                for deta, dphi, dr, eta, phi, r in zip(df.deta, df.dphi, df.dr, df.eta, df.phi, df.r, strict=False)
             ]
         elif self.coordinate_system == "EtaPhiZ":
             return [
                 EtaPhiZCell(deta, dphi, dz, pos=EtaPhiZ(eta, phi, z))
-                for deta, dphi, dz, eta, phi, z in zip(df.deta, df.dphi, df.dz, df.eta, df.phi, df.z)
+                for deta, dphi, dz, eta, phi, z in zip(df.deta, df.dphi, df.dz, df.eta, df.phi, df.z, strict=False)
             ]
         elif self.coordinate_system == "RPhiZ":
             return [
                 RPhiZCell(dr, dphi, dz, pos=RPhiZ(r, phi, z))
-                for dr, dphi, dz, r, phi, z in zip(df.dr, df.dphi, df.dz, df.r, df.phi, df.z)
+                for dr, dphi, dz, r, phi, z in zip(df.dr, df.dphi, df.dz, df.r, df.phi, df.z, strict=False)
             ]
         else:
             raise Exception(f"Invalid coordinate system {self.coordinate_system}.")
 
     def _cell_vertices_rz(
-        self, cells: Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell], List[RPhiZCell]]
-    ) -> Tuple[List[float], List[float]]:
+        self, cells: list[XYZCell] | list[EtaPhiRCell] | list[EtaPhiZCell] | list[RPhiZCell]
+    ) -> tuple[list[float], list[float]]:
         """
         Returns the r and z values of the cell vertices in the layer.
 
@@ -152,7 +148,7 @@ class GeoLayer:
         return r_values, z_values
 
     def _min_max_rz_extent(
-        self, cells: Union[List[XYZCell], List[EtaPhiRCell], List[EtaPhiZCell], List[RPhiZCell]]
+        self, cells: list[XYZCell] | list[EtaPhiRCell] | list[EtaPhiZCell] | list[RPhiZCell]
     ) -> dict:
         """
         Returns a dictionary containing the minimum and maximum values of r and z coordinates of the cells in the layer.
@@ -221,8 +217,8 @@ class GeoLayer:
 
     def plot_cell_vertices_rz(
         self,
-        ax: Union[None, plt.Axes] = None,
-        color: Union[tuple[float, float, float], str] = "tab:blue",
+        ax: None | plt.Axes = None,
+        color: tuple[float, float, float] | str = "tab:blue",
         marker_size: float = 0.01,
         x_label: str = "z",
         y_label: str = "r",
@@ -262,7 +258,7 @@ class GeoLayer:
         return ax
 
     def plot_symmetrized_cylinder(
-        self, cyl: Cylinder, ax: Axes3D = None, color: Union[tuple[float, float, float], str] = "black"
+        self, cyl: Cylinder, ax: Axes3D = None, color: tuple[float, float, float] | str = "black"
     ) -> Axes3D:
         # If layer is continuous in z, plot as single cylinder
         if self.is_continuous_in_z():
@@ -275,7 +271,7 @@ class GeoLayer:
             plot_cylinder(cyl_pos_z_halfspace, ax=ax, color=color)
             plot_cylinder(cyl_neg_z_halfspace, ax=ax, color=color)
 
-    def plot_thinned_cylinder(self, ax: Axes3D = None, color: Union[tuple[float, float, float], str] = "red") -> Axes3D:
+    def plot_thinned_cylinder(self, ax: Axes3D = None, color: tuple[float, float, float] | str = "red") -> Axes3D:
         """
         Plots the thinned version of the layer in 3D space.
 
@@ -301,7 +297,7 @@ class GeoLayer:
 
         return ax
 
-    def plot_cell_envelope(self, ax: Axes3D = None, color: Union[tuple[float, float, float], str] = "red") -> Axes3D:
+    def plot_cell_envelope(self, ax: Axes3D = None, color: tuple[float, float, float] | str = "red") -> Axes3D:
         """
         Plots the envelope of the cells in the layer in 3D space.
 
