@@ -12,19 +12,20 @@ packages = [
   { include = "pygeosimplify" }
 ]
 
-requires-python = ">=3.10,<3.13"
+requires-python = ">=3.9,<3.13"
 dynamic = ["dependencies"]
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.13"
-uproot = "^5.5.1"
+python = ">=3.9,<3.13"
+uproot = "^5.6.0"
 pandas = "^2.2.3"
-numpy = "^2.2.1"
-matplotlib = "^3.10.0"
-scipy = "^1.15.1"
+numpy = "^2.0.2"
+matplotlib = "^3.9.0"
+scipy = "^1.13.1"
 tqdm = "^4.67.1"
 distinctipy = "^1.3.4"
-pyg4ometry = "^1.3.2"
+pyg4ometry = "1.3.2"
+
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.4"
@@ -41,12 +42,12 @@ mkdocs-material = "^9.5.49"
 mkdocstrings = {extras = ["python"], version = "^0.27.0"}
 
 [build-system]
-requires = ["poetry-core>=2.0.1"]
+requires = ["poetry-core>=2.1.1"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 120
-target-version = ['py312']
+target-version = ['py39']
 preview = true
 
 [tool.mypy]
@@ -69,7 +70,7 @@ filterwarnings = [
 ]
 
 [tool.ruff]
-target-version = "py312"
+target-version = "py39"
 line-length = 120
 fix = true
 lint.select = [
@@ -116,7 +117,9 @@ lint.ignore = [
     # Avoid specifying long messages outside the exception class
     "TRY003",
     # B017 Do not assert blind exception: `Exception`
-    "B017"
+    "B017",
+    # Use `X | Y` for type annotations
+    "UP007"
 ]
 
 [tool.coverage.report]

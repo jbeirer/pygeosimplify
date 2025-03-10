@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional, Union
 
 import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
@@ -16,14 +16,14 @@ from pygeosimplify.vis.scene import CellScene
 
 def plot_geometry(  # noqa: C901
     df: pd.DataFrame,
-    ax: Axes3D = None,
-    layer_list: list[int] | None = None,
-    eta_range: list | None = None,
-    phi_range: list | None = None,
-    axis_labels: list | None = None,
-    color: str | None = None,
+    ax: Union[None, Axes3D] = None,
+    layer_list: Optional[list[int]] = None,
+    eta_range: Optional[list] = None,
+    phi_range: Optional[list] = None,
+    axis_labels: Optional[list] = None,
+    color: Optional[str] = None,
     unit_scale: float = 1,
-    cell_energy_col: str | None = None,
+    cell_energy_col: Optional[str] = None,
     unit_scale_energy: float = 1,
     energy_label: str = "Cell Energy",
     color_map: str = "gist_heat_r",
@@ -34,10 +34,10 @@ def plot_geometry(  # noqa: C901
     Parameters:
         df (pd.DataFrame): The DataFrame containing the geometry data.
         ax (Axes3D, optional): The 3D axes to plot on. If not provided, a new figure and axes will be created.
-        layer_list (List[int], optional): The list of layers to consider. If not provided, all layers will be considered.
-        eta_range (List, optional): The range of eta values to filter the data. If not provided, the default range is [-5, 5].
-        phi_range (List, optional): The range of phi values to filter the data. If not provided, the default range is [0, np.pi].
-        axis_labels (List, optional): The labels for the x, y, and z axes. If not provided, the default labels are ["x", "y", "z"].
+        layer_list (list[int], optional): The list of layers to consider. If not provided, all layers will be considered.
+        eta_range (list, optional): The range of eta values to filter the data. If not provided, the default range is [-5, 5].
+        phi_range (list, optional): The range of phi values to filter the data. If not provided, the default range is [0, np.pi].
+        axis_labels (list, optional): The labels for the x, y, and z axes. If not provided, the default labels are ["x", "y", "z"].
         color (str, optional): The color to use for the cells. If not provided, colors will be automatically assigned based on the layers.
         unit_scale (float, optional): The scale factor for the unit of measurement. Default is 1.
         cell_energy_col (str, optional): The name of the column containing the cell energy values. If provided, the cells will be colored based on the energy values.
@@ -75,7 +75,7 @@ def plot_geometry(  # noqa: C901
 
     if not cell_energy_col:
         # Create a color dict mapping a layer to a color
-        layer_color_dict = dict(zip(layer_list, get_colors(len(layer_list), rng=0), strict=False))
+        layer_color_dict = dict(zip(layer_list, get_colors(len(layer_list), rng=0)))
         # If color is specifically provided, override the color dict
         if color:
             layer_color_dict = {layer: color for layer in layer_list}
@@ -117,7 +117,8 @@ def plot_geometry(  # noqa: C901
     # Regularize x,y limits so that limits are identical for x and y (to avoid distortions)
     minMaxX = vis.min_max_cell_list_extent(0)
     minMaxY = vis.min_max_cell_list_extent(1)
-    minMax = [min(minMaxX[0], minMaxY[0]), max(minMaxX[1], minMaxY[1])]
+    minMax: tuple[float, float] = (min(minMaxX[0], minMaxY[0]), max(minMaxX[1], minMaxY[1]))
+
     ax.set_xlim(minMax)
     ax.set_ylim(minMax)
 
@@ -130,8 +131,8 @@ def filter_df_eta_phi(df: pd.DataFrame, eta_range: list, phi_range: list) -> pd.
 
     Args:
         df (pd.DataFrame): The DataFrame to filter.
-        eta_range (List): A list containing the minimum and maximum eta values.
-        phi_range (List): A list containing the minimum and maximum phi values.
+        eta_range (list): A list containing the minimum and maximum eta values.
+        phi_range (list): A list containing the minimum and maximum phi values.
 
     Returns:
         pd.DataFrame: The filtered DataFrame.
@@ -148,10 +149,10 @@ def add_cells_to_scene(
     df: pd.DataFrame,
     scene: CellScene,
     unit_scale: float,
-    unit_scale_energy: float | None = 1,
-    layer_color_dict: dict | None = None,
-    colormap: Any | None = None,
-    norm: mcolors.Normalize | None = None,
+    unit_scale_energy: Optional[float] = 1,
+    layer_color_dict: Optional[dict] = None,
+    colormap: Optional[Any] = None,
+    norm: Optional[mcolors.Normalize] = None,
 ) -> None:
     """
     Adds cells to a given scene.
@@ -161,7 +162,7 @@ def add_cells_to_scene(
         scene (CellScene): The scene to which the cells will be added.
         unit_scale (float): The scale factor for the cell units.
         unit_scale_energy (Optional[float], optional): The scale factor for the cell energy units. Defaults to 1.
-        layer_color_dict (Optional[Dict], optional): A dictionary mapping layer names to colors. Defaults to None.
+        layer_color_dict (Optional[dict], optional): A dictionary mapping layer names to colors. Defaults to None.
         colormap (Optional[Any], optional): The colormap used to map cell energy values to colors. Defaults to None.
         norm (Optional[mcolors.Normalize], optional): The normalization function used for the colormap. Defaults to None.
     """

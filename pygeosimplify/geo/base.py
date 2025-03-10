@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Union
 
 import numpy as np
 
@@ -61,7 +61,7 @@ class Cell(VertexSet):
     def __init__(
         self,
         vertices: np.ndarray,
-        facecolor: tuple[float, float, float] | str = "tab:orange",
+        facecolor: Union[tuple[float, float, float], str] = "tab:orange",
         alpha: float = 0.1,
         edgecolor: tuple = (1, 1, 1, 1),
         edgewidth: float = 1,

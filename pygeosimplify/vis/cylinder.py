@@ -1,3 +1,5 @@
+from typing import Union
+
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
@@ -60,7 +62,7 @@ def generate_cylinder_endcap_points(rmin: float, rmax: float, z: float, linspace
 def plot_cylinder(
     cylinder: Cylinder,
     ax: Axes3D = None,
-    color: tuple[float, float, float] | str = "black",
+    color: Union[tuple[float, float, float], str] = "black",
     alpha: float = 0.2,
     linspace_count: int = 300,
 ) -> Axes3D:
