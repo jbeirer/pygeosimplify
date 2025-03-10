@@ -1,3 +1,5 @@
+from typing import Union
+
 import pandas as pd
 
 from pygeosimplify.simplify.cylinder import Cylinder
@@ -155,7 +157,7 @@ def get_cylinder_envelope(df: pd.DataFrame, min_dist: float, envelope_width: flo
     return envelope_dict
 
 
-def get_cyl_limiting_r_extension(df: pd.DataFrame, layer: pd.DataFrame, side: str = "OUT") -> Cylinder | None:
+def get_cyl_limiting_r_extension(df: pd.DataFrame, layer: pd.DataFrame, side: str = "OUT") -> Union[Cylinder, None]:
     if side not in ["OUT", "IN"]:
         raise ValueError("side must be either OUT or IN")
 
@@ -193,7 +195,7 @@ def get_cyl_limiting_r_extension(df: pd.DataFrame, layer: pd.DataFrame, side: st
     return limiting_cyl
 
 
-def get_cyl_limiting_z_extension(df: pd.DataFrame, layer: pd.DataFrame, side: str = "RIGHT") -> Cylinder | None:
+def get_cyl_limiting_z_extension(df: pd.DataFrame, layer: pd.DataFrame, side: str = "RIGHT") -> Union[Cylinder, None]:
     if side not in ["RIGHT", "LEFT"]:
         raise ValueError("side must be either RIGHT or LEFT")
 

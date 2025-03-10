@@ -117,7 +117,9 @@ lint.ignore = [
     # Avoid specifying long messages outside the exception class
     "TRY003",
     # B017 Do not assert blind exception: `Exception`
-    "B017"
+    "B017",
+    # Use `X | Y` for type annotations
+    "UP007"
 ]
 
 [tool.coverage.report]

@@ -1,3 +1,5 @@
+from typing import Union
+
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
@@ -14,7 +16,7 @@ class CellScene:
 
     Attributes:
     -----------
-    cell_list : List[Cell]
+    cell_list : list[Cell]
         A list of Cell objects to be plotted in the scene.
 
     Methods:
@@ -31,7 +33,7 @@ class CellScene:
     min_max_cell_list_extent(dimIdx: int) -> tuple[float, float]
         Returns the minimum and maximum extent of the cell_list along the specified dimension.
 
-    plot(ax: Axes3D = None, axisLabels: List[str] = []) -> Axes3D
+    plot(ax: Axes3D = None, axisLabels: list[str] = []) -> Axes3D
         Plots the cells in the cell_list in a 3D plot with specified axis labels.
     """
 
@@ -41,7 +43,7 @@ class CellScene:
     def add_cell(
         self,
         cell: Cell,
-        facecolor: tuple[float, float, float] | str = "tab:orange",
+        facecolor: Union[tuple[float, float, float], str] = "tab:orange",
         alpha: float = 0.1,
         edgecolor: tuple = (1, 1, 1, 1),
         edgewidth: float = 1,
@@ -68,8 +70,8 @@ class CellScene:
     def plot(
         self,
         ax: Axes3D = None,
-        axis_limits: list[tuple[float, float]] | None = None,
-        axis_labels: list[str] | None = None,
+        axis_limits: Union[list[tuple[float, float]], None] = None,
+        axis_labels: Union[list[str], None] = None,
     ) -> Axes3D:
         if self.n_cells() == 0:
             raise RuntimeWarning("No cells to plot. Add cells using the add_cell method.")
