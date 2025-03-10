@@ -16,7 +16,7 @@ from pygeosimplify.vis.scene import CellScene
 
 def plot_geometry(  # noqa: C901
     df: pd.DataFrame,
-    ax: Axes3D = None,
+    ax: None | Axes3D = None,
     layer_list: list[int] | None = None,
     eta_range: list | None = None,
     phi_range: list | None = None,
@@ -118,8 +118,8 @@ def plot_geometry(  # noqa: C901
     minMaxX = vis.min_max_cell_list_extent(0)
     minMaxY = vis.min_max_cell_list_extent(1)
     minMax = [min(minMaxX[0], minMaxY[0]), max(minMaxX[1], minMaxY[1])]
-    ax.set_xlim(minMax)
-    ax.set_ylim(minMax)
+    ax.set_xlim(tuple(minMax))
+    ax.set_ylim(tuple(minMax))
 
     return ax
 
