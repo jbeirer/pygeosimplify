@@ -117,7 +117,8 @@ def plot_geometry(  # noqa: C901
     # Regularize x,y limits so that limits are identical for x and y (to avoid distortions)
     minMaxX = vis.min_max_cell_list_extent(0)
     minMaxY = vis.min_max_cell_list_extent(1)
-    minMax = [min(minMaxX[0], minMaxY[0]), max(minMaxX[1], minMaxY[1])]
+    minMax: tuple[float, float] = (min(minMaxX[0], minMaxY[0]), max(minMaxX[1], minMaxY[1]))
+
     ax.set_xlim(minMax)
     ax.set_ylim(minMax)
 
