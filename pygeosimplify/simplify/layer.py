@@ -56,6 +56,8 @@ class GeoLayer:
             A pandas dataframe containing the cell information for the layer.
         layer_idx : int
             The index of the layer.
+        thinned_layer_width : float, optional
+            The width of the thinned cylinder, by default 10.
         """
         self.df = df[df["layer"] == layer_idx]
         self.idx = str(layer_idx)
@@ -211,11 +213,26 @@ class GeoLayer:
             center_r = cyl.rmin + (cyl.rmax - cyl.rmin) * 0.5
             cyl.rmin = center_r - 0.5 * layer_width
             cyl.rmax = center_r + 0.5 * layer_width
+
+            # Make sure that the cylinder does not go into maximum cell extensions
+            max_cell_r_width = abs(cyl.rmax - cyl.rmin)
+            if layer_width > max_cell_r_width:
+                raise ValueError(
+                    f"Layer width {layer_width} is larger than maximum cell extension {max_cell_r_width}. Please choose a smaller layer width."
+                )
+
         else:
             # For endcap layers we thin down the z thickness of the cylinder with dz = layer_width and z = zmin + (zmax - zmin)/2
             center_z = cyl.zmin + (cyl.zmax - cyl.zmin) * 0.5
             cyl.zmin = center_z - 0.5 * layer_width
             cyl.zmax = center_z + 0.5 * layer_width
+
+            # Make sure that the cylinder does not go into maximum cell extensions
+            max_cell_z_width = abs(cyl.zmax - cyl.zmin)
+            if layer_width > max_cell_z_width:
+                raise ValueError(
+                    f"Layer width {layer_width} is larger than maximum cell extension {max_cell_z_width}. Please choose a smaller layer width."
+                )
 
         return cyl
 
@@ -287,6 +304,8 @@ class GeoLayer:
             The matplotlib 3D axes object to plot on, by default None.
         color : Union[tuple[float, float, float], str], optional
             The color of the cylinder, by default 'red'.
+        thinned_layer_width : float, optional
+            The width of the thinned cylinder, by default 10.
 
         Returns:
         --------
@@ -343,6 +362,8 @@ class GeoLayer:
             Whether to plot a thinned down version of the cells in the layer, by default False.
         color : str, optional
             The color of the cells, by default 'red'.
+        thinned_layer_width : float, optional
+            The width of the thinned cylinder, by default 10.
 
         Returns:
         --------
