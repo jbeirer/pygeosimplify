@@ -6,6 +6,7 @@
 [![codecov](https://codecov.io/gh/jbeirer/pygeosimplify/graph/badge.svg?token=ZCJV384TXF)](https://codecov.io/gh/jbeirer/pygeosimplify)
 [![Commit activity](https://img.shields.io/github/commit-activity/m/jbeirer/pygeosimplify)](https://img.shields.io/github/commit-activity/m/jbeirer/pygeosimplify)
 [![License](https://img.shields.io/github/license/jbeirer/pygeosimplify)](https://img.shields.io/github/license/jbeirer/pygeosimplify)
+[![DOI](https://zenodo.org/badge/707731497.svg)](https://doi.org/10.5281/zenodo.14308339)
 
 
 Welcome to pyGeoSimplify!
@@ -24,6 +25,9 @@ from pygeosimplify.simplify.detector import SimplifiedDetector
 
 # Set names of branches that specify coordinate system of cells
 pgs.set_coordinate_branch("XYZ", "isCartesian")
+pgs.set_coordinate_branch("EtaPhiR", "isCylindrical")
+pgs.set_coordinate_branch("EtaPhiZ", "isECCylindrical")
+pgs.set_coordinate_branch("RPhiZ", "isECCylindricalRPhiZ")
 
 # Load geometry
 geo = pgs.load_geometry("DetectorCells.root", tree_name='treeName')
@@ -32,8 +36,10 @@ geo = pgs.load_geometry("DetectorCells.root", tree_name='treeName')
 detector = SimplifiedDetector()
 
 # Add dector layers to detector
-layer = GeoLayer(geo, layer_idx)
-detector.add_layer(layer)
+n_layer = max(geo.layer) + 1
+for i_layer in range(0, n_layer):
+	layer = GeoLayer(geo, layer_idx = i_layer, thinned_layer_width = 1)
+	detector.add_layer(layer)
 
 # Process detector
 detector.process()
