@@ -46,7 +46,7 @@ class GeoLayer:
         Checks whether the layer is approximately continuous in z around z=0.
     """
 
-    def __init__(self, df: pd.DataFrame, layer_idx: int):
+    def __init__(self, df: pd.DataFrame, layer_idx: int, thinned_layer_width: float = 10):
         """
         Initializes a GeoLayer object.
 
@@ -56,6 +56,8 @@ class GeoLayer:
             A pandas dataframe containing the cell information for the layer.
         layer_idx : int
             The index of the layer.
+        thinned_layer_width : float, optional
+            The width of the thinned cylinder, by default 10.
         """
         self.df = df[df["layer"] == layer_idx]
         self.idx = str(layer_idx)
@@ -63,7 +65,7 @@ class GeoLayer:
         self.is_barrel = self.df.isBarrel.all()
         self.cells = self._get_cells(self.df)
         self.extent = self._min_max_rz_extent(self.cells)
-        self.thinned_cylinder = self.get_thinned_cylinder()
+        self.thinned_cylinder = self.get_thinned_cylinder(thinned_layer_width)
 
     def _get_coordinate_system(self) -> str:
         """
@@ -211,11 +213,26 @@ class GeoLayer:
             center_r = cyl.rmin + (cyl.rmax - cyl.rmin) * 0.5
             cyl.rmin = center_r - 0.5 * layer_width
             cyl.rmax = center_r + 0.5 * layer_width
+
+            # Make sure that the cylinder does not go into maximum cell extensions
+            max_cell_r_width = abs(cyl.rmax - cyl.rmin)
+            if layer_width > max_cell_r_width:
+                raise ValueError(
+                    f"Layer width {layer_width} is larger than maximum cell extension {max_cell_r_width}. Please choose a smaller layer width."
+                )
+
         else:
             # For endcap layers we thin down the z thickness of the cylinder with dz = layer_width and z = zmin + (zmax - zmin)/2
             center_z = cyl.zmin + (cyl.zmax - cyl.zmin) * 0.5
             cyl.zmin = center_z - 0.5 * layer_width
             cyl.zmax = center_z + 0.5 * layer_width
+
+            # Make sure that the cylinder does not go into maximum cell extensions
+            max_cell_z_width = abs(cyl.zmax - cyl.zmin)
+            if layer_width > max_cell_z_width:
+                raise ValueError(
+                    f"Layer width {layer_width} is larger than maximum cell extension {max_cell_z_width}. Please choose a smaller layer width."
+                )
 
         return cyl
 
@@ -275,7 +292,9 @@ class GeoLayer:
             plot_cylinder(cyl_pos_z_halfspace, ax=ax, color=color)
             plot_cylinder(cyl_neg_z_halfspace, ax=ax, color=color)
 
-    def plot_thinned_cylinder(self, ax: Axes3D = None, color: Union[tuple[float, float, float], str] = "red") -> Axes3D:
+    def plot_thinned_cylinder(
+        self, ax: Axes3D = None, color: Union[tuple[float, float, float], str] = "red", thinned_layer_width: float = 10
+    ) -> Axes3D:
         """
         Plots the thinned version of the layer in 3D space.
 
@@ -285,6 +304,8 @@ class GeoLayer:
             The matplotlib 3D axes object to plot on, by default None.
         color : Union[tuple[float, float, float], str], optional
             The color of the cylinder, by default 'red'.
+        thinned_layer_width : float, optional
+            The width of the thinned cylinder, by default 10.
 
         Returns:
         --------
@@ -295,7 +316,7 @@ class GeoLayer:
             fig = plt.figure()
             ax = fig.add_subplot(111, projection="3d")
 
-        cyl = self.get_thinned_cylinder()
+        cyl = self.get_thinned_cylinder(thinned_layer_width)
 
         self.plot_symmetrized_cylinder(cyl, ax=ax, color=color)
 
@@ -327,7 +348,9 @@ class GeoLayer:
 
         return ax
 
-    def plot(self, ax: Axes3D = None, thinned: bool = False, color: str = "red") -> Axes3D:
+    def plot(
+        self, ax: Axes3D = None, thinned: bool = False, color: str = "red", thinned_layer_width: float = 10
+    ) -> Axes3D:
         """
         Plots the cells in the layer and either the cylinder envelope or the thinned down approximation in 3D space.
 
@@ -339,6 +362,8 @@ class GeoLayer:
             Whether to plot a thinned down version of the cells in the layer, by default False.
         color : str, optional
             The color of the cells, by default 'red'.
+        thinned_layer_width : float, optional
+            The width of the thinned cylinder, by default 10.
 
         Returns:
         --------
@@ -353,7 +378,7 @@ class GeoLayer:
         plot_geometry(self.df, ax=ax, color=color)
 
         # Get either the envelope of the cells or the thinned down version of it
-        cyl = self.get_thinned_cylinder() if thinned else self.get_cell_envelope()
+        cyl = self.get_thinned_cylinder(thinned_layer_width) if thinned else self.get_cell_envelope()
         # plot the cylinder
         self.plot_symmetrized_cylinder(cyl, ax=ax)
 
