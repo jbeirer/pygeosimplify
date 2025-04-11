@@ -46,7 +46,7 @@ class GeoLayer:
         Checks whether the layer is approximately continuous in z around z=0.
     """
 
-    def __init__(self, df: pd.DataFrame, layer_idx: int):
+    def __init__(self, df: pd.DataFrame, layer_idx: int, thinned_layer_width: float = 10):
         """
         Initializes a GeoLayer object.
 
@@ -63,7 +63,7 @@ class GeoLayer:
         self.is_barrel = self.df.isBarrel.all()
         self.cells = self._get_cells(self.df)
         self.extent = self._min_max_rz_extent(self.cells)
-        self.thinned_cylinder = self.get_thinned_cylinder()
+        self.thinned_cylinder = self.get_thinned_cylinder(thinned_layer_width)
 
     def _get_coordinate_system(self) -> str:
         """
@@ -275,7 +275,9 @@ class GeoLayer:
             plot_cylinder(cyl_pos_z_halfspace, ax=ax, color=color)
             plot_cylinder(cyl_neg_z_halfspace, ax=ax, color=color)
 
-    def plot_thinned_cylinder(self, ax: Axes3D = None, color: Union[tuple[float, float, float], str] = "red") -> Axes3D:
+    def plot_thinned_cylinder(
+        self, ax: Axes3D = None, color: Union[tuple[float, float, float], str] = "red", thinned_layer_width: float = 10
+    ) -> Axes3D:
         """
         Plots the thinned version of the layer in 3D space.
 
@@ -295,7 +297,7 @@ class GeoLayer:
             fig = plt.figure()
             ax = fig.add_subplot(111, projection="3d")
 
-        cyl = self.get_thinned_cylinder()
+        cyl = self.get_thinned_cylinder(thinned_layer_width)
 
         self.plot_symmetrized_cylinder(cyl, ax=ax, color=color)
 
@@ -327,7 +329,9 @@ class GeoLayer:
 
         return ax
 
-    def plot(self, ax: Axes3D = None, thinned: bool = False, color: str = "red") -> Axes3D:
+    def plot(
+        self, ax: Axes3D = None, thinned: bool = False, color: str = "red", thinned_layer_width: float = 10
+    ) -> Axes3D:
         """
         Plots the cells in the layer and either the cylinder envelope or the thinned down approximation in 3D space.
 
@@ -353,7 +357,7 @@ class GeoLayer:
         plot_geometry(self.df, ax=ax, color=color)
 
         # Get either the envelope of the cells or the thinned down version of it
-        cyl = self.get_thinned_cylinder() if thinned else self.get_cell_envelope()
+        cyl = self.get_thinned_cylinder(thinned_layer_width) if thinned else self.get_cell_envelope()
         # plot the cylinder
         self.plot_symmetrized_cylinder(cyl, ax=ax)
 
