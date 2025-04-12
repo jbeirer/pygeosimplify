@@ -179,7 +179,7 @@ class SimplifiedDetector:
         # Set layer envelope
         self.cylinders.envelope[layer.idx] = layer.get_cell_envelope()
         # Get overlap-resolved thinned cylinders
-        self.cylinders.thinned[layer.idx] = layer.get_thinned_cylinder()
+        self.cylinders.thinned[layer.idx] = layer.thinned_cylinder
 
     def process(self) -> None:
         if self.processed:
