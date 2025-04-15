@@ -21,7 +21,8 @@ class SimplifiedDetector:
         if cyl_type not in ["thinned", "envelope", "processed"]:
             raise Exception(f"Invalid cylinder type {cyl_type}. Must be one of: thinned, cell_envelope, post_processed")
 
-        cyl_dict = getattr(self.cylinders, cyl_type)  # type: dict[str, Cylinder]
+        # type: dict[str, Cylinder]
+        cyl_dict = getattr(self.cylinders, cyl_type)
 
         return cyl_dict
 
@@ -68,7 +69,8 @@ class SimplifiedDetector:
                     "diff": abs((endcap.zmin - self.min_dist) - barrel.zmax),
                     "locked": barrel.is_locked("zmax"),
                     "action": lambda barrel=barrel, endcap=endcap: (
-                        setattr(barrel, "zmax", endcap.zmin - self.min_dist),  # type: ignore[func-returns-value]
+                        # type: ignore[func-returns-value]
+                        setattr(barrel, "zmax", endcap.zmin - self.min_dist),
                         barrel.lock("zmax"),
                     ),
                 },
@@ -80,7 +82,8 @@ class SimplifiedDetector:
                     "diff": abs((barrel.rmin - self.min_dist) - endcap.rmax),
                     "locked": endcap.is_locked("rmax"),
                     "action": lambda barrel=barrel, endcap=endcap: (
-                        setattr(endcap, "rmax", barrel.rmin - self.min_dist),  # type: ignore[func-returns-value]
+                        # type: ignore[func-returns-value]
+                        setattr(endcap, "rmax", barrel.rmin - self.min_dist),
                         endcap.lock("rmax"),
                     ),
                 },
@@ -92,7 +95,8 @@ class SimplifiedDetector:
                     "diff": abs(endcap.rmin - (barrel.rmax + self.min_dist)),
                     "locked": endcap.is_locked("rmin"),
                     "action": lambda barrel=barrel, endcap=endcap: (
-                        setattr(endcap, "rmin", barrel.rmax + self.min_dist),  # type: ignore[func-returns-value]
+                        # type: ignore[func-returns-value]
+                        setattr(endcap, "rmin", barrel.rmax + self.min_dist),
                         endcap.lock("rmin"),
                     ),
                 },
@@ -103,7 +107,8 @@ class SimplifiedDetector:
 
             # Choose the option with the lowest difference in values
             if available_options:
-                best_option = min(available_options, key=lambda x: x["diff"])  # type: ignore[arg-type, return-value]
+                # type: ignore[arg-type, return-value]
+                best_option = min(available_options, key=lambda x: x["diff"])
                 print(f"Choosing {best_option['name']} with diff {best_option['diff']}\n")
                 # Apply the best resolution option
                 best_option["action"]()  # type: ignore[operator]
@@ -202,16 +207,11 @@ class SimplifiedDetector:
         self._merge_barrel()
 
     def check_overlaps(
-        self,
-        cyl_type: str = "thinned",
-        print_output: bool = True,
-        recursive: bool = False,
-        coplanar: bool = False,
-        debugIO: bool = False,
+        self, cyl_type: str = "thinned", print_output: bool = True, recursive: bool = False, coplanar: bool = False
     ) -> tuple[int, list[list[str]]]:
         cyl_dict = self._get_cylinder_dict(cyl_type)
 
-        return check_pairwise_overlaps(cyl_dict, print_output, recursive, coplanar, debugIO)
+        return check_pairwise_overlaps(cyl_dict, print_output, recursive, coplanar)
 
     def save_to_gdml(self, cyl_type: str = "processed", output_path: str = "simplified_detector.gmdl") -> None:
         if not self.processed:
