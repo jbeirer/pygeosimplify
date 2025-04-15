@@ -202,16 +202,11 @@ class SimplifiedDetector:
         self._merge_barrel()
 
     def check_overlaps(
-        self,
-        cyl_type: str = "thinned",
-        print_output: bool = True,
-        recursive: bool = False,
-        coplanar: bool = False,
-        debugIO: bool = False,
+        self, cyl_type: str = "thinned", print_output: bool = True, recursive: bool = False, coplanar: bool = False
     ) -> tuple[int, list[list[str]]]:
         cyl_dict = self._get_cylinder_dict(cyl_type)
 
-        return check_pairwise_overlaps(cyl_dict, print_output, recursive, coplanar, debugIO)
+        return check_pairwise_overlaps(cyl_dict, print_output, recursive, coplanar)
 
     def save_to_gdml(self, cyl_type: str = "processed", output_path: str = "simplified_detector.gmdl") -> None:
         if not self.processed:

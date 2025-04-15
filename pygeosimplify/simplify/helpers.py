@@ -1,4 +1,6 @@
 from itertools import combinations
+from re import Match
+from typing import Optional
 
 import numpy as np
 import pandas as pd
@@ -9,7 +11,9 @@ from pyg4ometry.geant4.solid import Box, Tubs
 from pygeosimplify.simplify.cylinder import Cylinder
 
 
-def init_world(material: Material, X: float = 40000, Y: float = 40000, Z: float = 80000) -> tuple[Box, Registry]:
+def init_world(
+    material: Material, X: float = 40000, Y: float = 40000, Z: float = 80000
+) -> tuple[LogicalVolume, Registry]:
     # registry to store gdml data
     reg = Registry()
 
@@ -22,61 +26,123 @@ def init_world(material: Material, X: float = 40000, Y: float = 40000, Z: float 
 
 
 def check_world_overlap(
-    world: Box, print_output: bool = True, recursive: bool = False, coplanar: bool = False, debugIO: bool = False
-) -> tuple[int, list[str]]:
-    world.overlapChecked = False
+    world: LogicalVolume, print_output: bool = True, recursive: bool = False, coplanar: bool = False
+) -> tuple[int, list[list[str]]]:
+    """
+    Check for overlaps in the world volume using the logging-based approach of newer pyg4ometry.
 
+    Args:
+        world: The logical volume to check
+        print_output: Whether to print the captured output
+        recursive: Whether to check recursively
+        coplanar: Whether to check for coplanar overlaps
+
+    Returns:
+        Tuple of (number of overlaps, list of overlapping volume names)
+    """
     import io
-    from contextlib import redirect_stdout
-
-    f = io.StringIO()
-    with redirect_stdout(f):
-        world.checkOverlaps(nOverlapsDetected=[0], recursive=recursive, coplanar=coplanar, debugIO=debugIO)
-
-    # String containing overlap information from pyg4ometry
-    overlap_str = f.getvalue()
-    if print_output:
-        print(overlap_str)
-
+    import logging
     import re
 
-    # Holds pairwise list of overlapping volumes
-    overlap_list = re.findall("Layer_(.*?)_Phys", overlap_str)
-    # Add Layer prefix to each element
-    overlap_list = list(overlap_list)
-    # Get number of overlaps from string
-    n_overlaps = [int(s) for s in overlap_str.split() if s.isdigit()].pop()
+    # Reset overlap check status
+    world.overlapChecked = False
 
-    return n_overlaps, overlap_list
+    # Create a capture for logging
+    log_capture = io.StringIO()
+    log_handler = logging.StreamHandler(log_capture)
+
+    # Get pyg4ometry logger
+    logger = logging.getLogger("pyg4ometry")
+
+    # Store original configuration
+    original_handlers = logger.handlers.copy()
+    original_level = logger.level
+
+    # Set up logging capture
+    logger.handlers = [log_handler]
+    logger.setLevel(logging.DEBUG)  # Capture all log levels
+
+    try:
+        # Initialize overlap counter
+        overlap_count = [0]
+
+        # Run the overlap check
+        world.checkOverlaps(recursive=recursive, coplanar=coplanar, nOverlapsDetected=overlap_count)
+
+        # Get the number of overlaps directly from the counter
+        n_overlaps = overlap_count[0]
+
+        # Get the log output
+        log_output = log_capture.getvalue()
+
+        if print_output:
+            print(log_output)
+
+        # Extract overlap pairs using regex
+        # Look for the specific error message format that indicates overlaps
+        overlap_pairs: list[list[str]] = []
+
+        # Find all overlap lines
+        overlap_lines = re.findall(
+            r"OVERLAP DETECTED> overlap between daughters of .*? (Layer_.*?_Phys) (Layer_.*?_Phys)", log_output
+        )
+
+        for pair in overlap_lines:
+            # Extract the actual layer names without the "Layer_" prefix and "_Phys" suffix
+            first_match: Optional[Match[str]] = re.search(r"Layer_(.*?)_Phys", pair[0])
+            second_match: Optional[Match[str]] = re.search(r"Layer_(.*?)_Phys", pair[1])
+
+            if first_match and second_match:
+                first = first_match.group(1)
+                second = second_match.group(1)
+                overlap_pairs.append([first, second])
+
+        return n_overlaps, overlap_pairs
+
+    finally:
+        # Restore original logger configuration
+        logger.handlers = original_handlers
+        logger.setLevel(original_level)
 
 
 def check_pairwise_overlaps(
-    cyl_dict: dict[str, Cylinder],
-    print_output: bool = True,
-    recursive: bool = False,
-    coplanar: bool = False,
-    debugIO: bool = False,
+    cyl_dict: dict[str, Cylinder], print_output: bool = True, recursive: bool = False, coplanar: bool = False
 ) -> tuple[int, list[list[str]]]:
+    """
+    Check for pairwise overlaps between cylinders.
+
+    Args:
+        cyl_dict: Dictionary of cylinders to check
+        print_output: Whether to print the captured output
+        recursive: Whether to check recursively
+        coplanar: Whether to check for coplanar overlaps
+
+    Returns:
+        Tuple of (number of overlaps, list of overlapping volume pairs)
+    """
     layer_pairs = list(combinations(cyl_dict.keys(), 2))
     n_total_overlaps = 0
-    total_overlap_list = []
+    total_overlap_list: list[list[str]] = []
+
     for pair in layer_pairs:
-        cyl_name_a, cyl_name_b = pair[0], pair[1]
+        cyl_name_a, cyl_name_b = pair
         cyl_a, cyl_b = cyl_dict[cyl_name_a], cyl_dict[cyl_name_b]
 
         # Build a test dictionary containing two cylinders to test for overlaps
         cyl_test_dict = {cyl_name_a: cyl_a, cyl_name_b: cyl_b}
 
-        n_overlaps, overlap_list = check_cyl_dict_overlaps(cyl_test_dict, print_output, recursive, coplanar, debugIO)
+        n_overlaps, overlap_list = check_cyl_dict_overlaps(cyl_test_dict, print_output, recursive, coplanar)
 
         if n_overlaps > 0:
             n_total_overlaps += n_overlaps
-            total_overlap_list.append(overlap_list)
+            for overlap_pair in overlap_list:
+                if overlap_pair not in total_overlap_list:
+                    total_overlap_list.append(overlap_pair)
 
     return n_total_overlaps, total_overlap_list
 
 
-def add_cylinder_to_reg(name: str, registry: Registry, world: Box, cyl: Cylinder, material: Material) -> None:
+def add_cylinder_to_reg(name: str, registry: Registry, world: LogicalVolume, cyl: Cylinder, material: Material) -> None:
     """! Adds a cylinder positioned around the z-axis defined by minimum and maximum R / Z values to the registry.
     Note: zmin, zmax can be negative.
     """
@@ -105,8 +171,20 @@ def add_cylinder_dict_to_reg(registry: Registry, world_log: LogicalVolume, cyl_d
 
 
 def check_cyl_dict_overlaps(
-    cyl_dict: dict, print_output: bool = True, recursive: bool = False, coplanar: bool = False, debugIO: bool = False
-) -> tuple[int, list[str]]:
+    cyl_dict: dict, print_output: bool = True, recursive: bool = False, coplanar: bool = False
+) -> tuple[int, list[list[str]]]:
+    """
+    Check for overlaps in a dictionary of cylinders.
+
+    Args:
+        cyl_dict: Dictionary of cylinders to check
+        print_output: Whether to print the captured output
+        recursive: Whether to check recursively
+        coplanar: Whether to check for coplanar overlaps
+
+    Returns:
+        Tuple of (number of overlaps, list of overlapping volume pairs)
+    """
     material = MaterialPredefined("G4_Galactic")
     world_logic, reg = init_world(material)
 
@@ -114,7 +192,7 @@ def check_cyl_dict_overlaps(
     add_cylinder_dict_to_reg(reg, world_logic, cyl_dict, material)
 
     # Check for overlaps
-    n_overlaps, overlap_list = check_world_overlap(world_logic, print_output, recursive, coplanar, debugIO)
+    n_overlaps, overlap_list = check_world_overlap(world_logic, print_output, recursive, coplanar)
 
     return n_overlaps, overlap_list
 
