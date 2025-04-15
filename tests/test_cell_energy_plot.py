@@ -7,6 +7,7 @@ from pygeosimplify.cfg.test_data import CELL_ENERGY_DATA_DIR, CELL_ENERGY_DATA_T
 
 @pytest.fixture(name="atlas_cells_with_energy")
 def test_load_geometry():
+    # Note: this file still used old CS naming convention
     pgs.set_coordinate_branch("XYZ", "isCartesian")
     pgs.set_coordinate_branch("EtaPhiR", "isCylindrical")
     pgs.set_coordinate_branch("EtaPhiZ", "isECCylindrical")

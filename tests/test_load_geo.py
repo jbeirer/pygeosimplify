@@ -48,7 +48,7 @@ def test_load_invalid_geometry(tmpdir):
     reset_coordinate_branches()
     # Create an empty file with only coordinate branches
     file = uproot.create(f"{tmpdir}/invalid_file.root")
-    file.mktree("treeName", {"isXYZ": "int", "isCylindrical": "int", "isECCylindrical": "int"})
+    file.mktree("treeName", {"isXYZ": "int", "isEtaPhiR": "int", "isEtaPhiZ": "int"})
 
     # XYZ
     pgs.set_coordinate_branch("XYZ", "isXYZ")
@@ -60,7 +60,7 @@ def test_load_invalid_geometry(tmpdir):
     reset_coordinate_branches()
 
     # EtaPhiR
-    pgs.set_coordinate_branch("EtaPhiR", "isCylindrical")
+    pgs.set_coordinate_branch("EtaPhiR", "isEtaPhiR")
 
     with pytest.raises(Exception):
         pgs.load_geometry(f"{tmpdir}/invalid_file.root", "treeName")
@@ -69,7 +69,7 @@ def test_load_invalid_geometry(tmpdir):
     reset_coordinate_branches()
 
     # EtaPhiZ
-    pgs.set_coordinate_branch("EtaPhiZ", "isECCylindrical")
+    pgs.set_coordinate_branch("EtaPhiZ", "isEtaPhiZ")
 
     assert {"eta", "phi", "z", "deta", "dphi", "dz"} <= set(pgs.cfg.config.required_branches)
     reset_coordinate_branches()
