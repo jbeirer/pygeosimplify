@@ -9,15 +9,17 @@ from pygeosimplify.cfg.test_data import ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TRE
 @pytest.fixture(name="atlas_calo_geo")
 def test_load_geometry():
     reset_coordinate_branches()
-    pgs.set_coordinate_branch("XYZ", "isCartesian")
-    pgs.set_coordinate_branch("EtaPhiR", "isCylindrical")
-    pgs.set_coordinate_branch("EtaPhiZ", "isECCylindrical")
+    pgs.set_coordinate_branch("XYZ", "isXYZ")
+    pgs.set_coordinate_branch("EtaPhiR", "isEtaPhiR")
+    pgs.set_coordinate_branch("EtaPhiZ", "isEtaPhiZ")
+    pgs.set_coordinate_branch("RPhiZ", "isRPhiZ")
 
     df = pgs.load_geometry(ATLAS_CALO_DATA_DIR, ATLAS_CALO_DATA_TREE_NAME)
-    assert len(df.columns) == 18
-    assert pgs.cfg.config.coordinate_branch_names["XYZ"] == "isCartesian"
-    assert pgs.cfg.config.coordinate_branch_names["EtaPhiR"] == "isCylindrical"
-    assert pgs.cfg.config.coordinate_branch_names["EtaPhiZ"] == "isECCylindrical"
+    assert len(df.columns) == 19
+    assert pgs.cfg.config.coordinate_branch_names["XYZ"] == "isXYZ"
+    assert pgs.cfg.config.coordinate_branch_names["EtaPhiR"] == "isEtaPhiR"
+    assert pgs.cfg.config.coordinate_branch_names["EtaPhiZ"] == "isEtaPhiZ"
+    assert pgs.cfg.config.coordinate_branch_names["RPhiZ"] == "isRPhiZ"
     return df
 
 
@@ -25,7 +27,7 @@ def test_load_geometry_uproot():
     reset_coordinate_branches()
     tree = uproot.open(f"{ATLAS_CALO_DATA_DIR}:{ATLAS_CALO_DATA_TREE_NAME}")
     nKeys = len(tree.keys())
-    assert nKeys == 18
+    assert nKeys == 19
 
 
 def test_load_geometry_without_setting_coordinate_branch():
@@ -46,10 +48,10 @@ def test_load_invalid_geometry(tmpdir):
     reset_coordinate_branches()
     # Create an empty file with only coordinate branches
     file = uproot.create(f"{tmpdir}/invalid_file.root")
-    file.mktree("treeName", {"isCartesian": "int", "isCylindrical": "int", "isECCylindrical": "int"})
+    file.mktree("treeName", {"isXYZ": "int", "isEtaPhiR": "int", "isEtaPhiZ": "int"})
 
     # XYZ
-    pgs.set_coordinate_branch("XYZ", "isCartesian")
+    pgs.set_coordinate_branch("XYZ", "isXYZ")
 
     with pytest.raises(Exception):
         pgs.load_geometry(f"{tmpdir}/invalid_file.root", "treeName")
@@ -58,7 +60,7 @@ def test_load_invalid_geometry(tmpdir):
     reset_coordinate_branches()
 
     # EtaPhiR
-    pgs.set_coordinate_branch("EtaPhiR", "isCylindrical")
+    pgs.set_coordinate_branch("EtaPhiR", "isEtaPhiR")
 
     with pytest.raises(Exception):
         pgs.load_geometry(f"{tmpdir}/invalid_file.root", "treeName")
@@ -67,7 +69,7 @@ def test_load_invalid_geometry(tmpdir):
     reset_coordinate_branches()
 
     # EtaPhiZ
-    pgs.set_coordinate_branch("EtaPhiZ", "isECCylindrical")
+    pgs.set_coordinate_branch("EtaPhiZ", "isEtaPhiZ")
 
     assert {"eta", "phi", "z", "deta", "dphi", "dz"} <= set(pgs.cfg.config.required_branches)
     reset_coordinate_branches()

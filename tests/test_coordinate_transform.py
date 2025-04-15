@@ -6,36 +6,36 @@ from pygeosimplify.coordinate.definitions import XYZ, EtaPhiR, EtaPhiZ, RPhiZ
 
 def test_set_coordinate_branch():
     # Test setting a coordinate branch for a valid coordinate system
-    set_coordinate_branch("XYZ", "isCartesian")
-    set_coordinate_branch("EtaPhiR", "isCylindrical")
-    set_coordinate_branch("EtaPhiZ", "isECCylindrical")
-    set_coordinate_branch("RPhiZ", "isECCylindricalRPhiZ")
-    assert coordinate_branch_names["XYZ"] == "isCartesian"
-    assert coordinate_branch_names["EtaPhiR"] == "isCylindrical"
-    assert coordinate_branch_names["EtaPhiZ"] == "isECCylindrical"
-    assert coordinate_branch_names["RPhiZ"] == "isECCylindricalRPhiZ"
+    set_coordinate_branch("XYZ", "isXYZ")
+    set_coordinate_branch("EtaPhiR", "isEtaPhiR")
+    set_coordinate_branch("EtaPhiZ", "isEtaPhiZ")
+    set_coordinate_branch("RPhiZ", "isRPhiZ")
+    assert coordinate_branch_names["XYZ"] == "isXYZ"
+    assert coordinate_branch_names["EtaPhiR"] == "isEtaPhiR"
+    assert coordinate_branch_names["EtaPhiZ"] == "isEtaPhiZ"
+    assert coordinate_branch_names["RPhiZ"] == "isRPhiZ"
 
     # Test setting coordinate branch via dict
     set_coordinate_branch_dict(
         {
-            "XYZ": "isCartesian",
-            "EtaPhiR": "isCylindrical",
-            "EtaPhiZ": "isECCylindrical",
-            "RPhiZ": "isECCylindricalRPhiZ",
+            "XYZ": "isXYZ",
+            "EtaPhiR": "isEtaPhiR",
+            "EtaPhiZ": "isEtaPhiZ",
+            "RPhiZ": "isRPhiZ",
         }
     )
-    assert coordinate_branch_names["XYZ"] == "isCartesian"
-    assert coordinate_branch_names["EtaPhiR"] == "isCylindrical"
-    assert coordinate_branch_names["EtaPhiZ"] == "isECCylindrical"
-    assert coordinate_branch_names["RPhiZ"] == "isECCylindricalRPhiZ"
+    assert coordinate_branch_names["XYZ"] == "isXYZ"
+    assert coordinate_branch_names["EtaPhiR"] == "isEtaPhiR"
+    assert coordinate_branch_names["EtaPhiZ"] == "isEtaPhiZ"
+    assert coordinate_branch_names["RPhiZ"] == "isRPhiZ"
 
     # Test setting a unsupported coordinate system
     with pytest.raises(ValueError):
-        set_coordinate_branch("invalidCoordinateSystem", "isCartesian")
+        set_coordinate_branch("invalidCoordinateSystem", "isXYZ")
 
     # Test setting unsupported coordinate system with dict
     with pytest.raises(ValueError):
-        set_coordinate_branch_dict({"invalidCoordinateSystem": "isCartesian"})
+        set_coordinate_branch_dict({"invalidCoordinateSystem": "isXYZ"})
 
 
 def test_XYZ_to_RPhiZ():
