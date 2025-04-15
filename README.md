@@ -24,10 +24,10 @@ from pygeosimplify.simplify.layer import GeoLayer
 from pygeosimplify.simplify.detector import SimplifiedDetector
 
 # Set names of branches that specify coordinate system of cells
-pgs.set_coordinate_branch("XYZ", "isCartesian")
-pgs.set_coordinate_branch("EtaPhiR", "isCylindrical")
-pgs.set_coordinate_branch("EtaPhiZ", "isECCylindrical")
-pgs.set_coordinate_branch("RPhiZ", "isECCylindricalRPhiZ")
+pgs.set_coordinate_branch("XYZ", "isXYZ")
+pgs.set_coordinate_branch("EtaPhiR", "isEtaPhiR")
+pgs.set_coordinate_branch("EtaPhiZ", "isEtaPhiZ")
+pgs.set_coordinate_branch("RPhiZ", "isRPhiZ")
 
 # Load geometry
 geo = pgs.load_geometry("DetectorCells.root", tree_name='treeName')
