@@ -19,6 +19,7 @@ def test_load_geometry():
     assert pgs.cfg.config.coordinate_branch_names["XYZ"] == "isXYZ"
     assert pgs.cfg.config.coordinate_branch_names["EtaPhiR"] == "isEtaPhiR"
     assert pgs.cfg.config.coordinate_branch_names["EtaPhiZ"] == "isEtaPhiZ"
+    assert pgs.cfg.config.coordinate_branch_names["RPhiZ"] == "isRPhiZ"
     return df
 
 
