@@ -1,14 +1,14 @@
-[![Downloads](https://static.pepy.tech/badge/pygeosimplify)](https://pepy.tech/projects/pygeosimplify)
-
 <img src=https://github.com/jbeirer/pygeosimplify/raw/main/docs/logo.svg alt="Logo" width="250">
 
 
 [![Release](https://img.shields.io/github/v/release/jbeirer/pygeosimplify)](https://img.shields.io/github/v/release/jbeirer/pygeosimplify)
 [![Build status](https://img.shields.io/github/actions/workflow/status/jbeirer/pygeosimplify/main.yml?branch=main)](https://github.com/jbeirer/pygeosimplify/actions/workflows/main.yml?query=branch%3Amain)
 [![codecov](https://codecov.io/gh/jbeirer/pygeosimplify/graph/badge.svg?token=ZCJV384TXF)](https://codecov.io/gh/jbeirer/pygeosimplify)
-[![Activity](https://img.shields.io/github/commit-activity/m/jbeirer/pygeosimplify)](https://img.shields.io/github/commit-activity/m/jbeirer/pygeosimplify)
+[![Activity](https://img.shields.io/github/commit-activity/m/jbeirer/pygeosimplify?label=activity)](https://img.shields.io/github/commit-activity/m/jbeirer/pygeosimplify)
 [![License](https://img.shields.io/github/license/jbeirer/pygeosimplify)](https://img.shields.io/github/license/jbeirer/pygeosimplify)
 [![DOI](https://zenodo.org/badge/707731497.svg)](https://doi.org/10.5281/zenodo.14308339)
+[![Downloads](https://static.pepy.tech/badge/pygeosimplify)](https://pepy.tech/projects/pygeosimplify)
+
 
 Welcome to pyGeoSimplify!
 
