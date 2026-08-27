@@ -49,14 +49,14 @@ def generate_cylinder_endcap_points(rmin: float, rmax: float, z: float, linspace
     radii = np.linspace(rmin, rmax, linspace_count)
 
     # Create a grid of points in polar coordinates
-    theta, radii = np.meshgrid(theta, radii)
+    theta_grid, radii_grid = np.meshgrid(theta, radii)
 
     # Convert polar coordinates to Cartesian coordinates
-    x = radii * np.cos(theta)
-    y = radii * np.sin(theta)
-    z = np.full_like(y, z)  # Z coordinate remains constant
+    x = radii_grid * np.cos(theta_grid)
+    y = radii_grid * np.sin(theta_grid)
+    z_values = np.full_like(y, z)  # Z coordinate remains constant
 
-    return x, y, z
+    return x, y, z_values
 
 
 def plot_cylinder(
