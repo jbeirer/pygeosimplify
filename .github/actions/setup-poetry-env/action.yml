@@ -5,7 +5,7 @@ inputs:
    python-version:
      required: false
      description: "The python version to use"
-     default: "3.12"
+     default: "3.13"
 
 runs:
   using: "composite"
@@ -18,7 +18,7 @@ runs:
     - name: Install Poetry
       uses: snok/install-poetry@v1
       with:
-        version: 2.1.1
+        version: 2.4.1
         virtualenvs-in-project: true
 
     - name: Load cached venv

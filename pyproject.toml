@@ -1,6 +1,6 @@
 [project]
 name = "pygeosimplify"
-version = "0.0.2"
+version = "0.0.20"
 description = "Python package for automatic, cell-based inference of clash-free simplified detector geometry."
 authors = [
   { name = "Joshua Falco Beirer", email = "jbeirer@cern.ch" }
@@ -12,11 +12,11 @@ packages = [
   { include = "pygeosimplify" }
 ]
 
-requires-python = ">=3.9,<3.13"
+requires-python = ">=3.9,<4.0"
 dynamic = ["dependencies"]
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.13"
+python = ">=3.9,<4.0"
 uproot = "^5.6.0"
 pandas = "^2.2.3"
 numpy = "^2.0.2"
@@ -41,7 +41,7 @@ mkdocs-material = "^9.5.49"
 mkdocstrings = {extras = ["python"], version = "^0.27.0"}
 
 [build-system]
-requires = ["poetry-core>=2.1.1"]
+requires = ["poetry-core>=2.4.1"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.black]
@@ -72,7 +72,9 @@ filterwarnings = [
 target-version = "py39"
 line-length = 120
 fix = true
-lint.select = [
+
+[tool.ruff.lint]
+select = [
     # flake8-2020
     "YTT",
     # flake8-bandit
@@ -104,7 +106,7 @@ lint.select = [
     # tryceratops
     "TRY",
 ]
-lint.ignore = [
+ignore = [
     # LineTooLong
     "E501",
     # DoNotAssignLambda
