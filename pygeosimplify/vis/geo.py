@@ -75,7 +75,7 @@ def plot_geometry(  # noqa: C901
 
     if not cell_energy_col:
         # Create a color dict mapping a layer to a color
-        layer_color_dict = dict(zip(layer_list, get_colors(len(layer_list), rng=0)))
+        layer_color_dict = dict(zip(layer_list, get_colors(len(layer_list), rng=0), strict=False))
         # If color is specifically provided, override the color dict
         if color:
             layer_color_dict = {layer: color for layer in layer_list}
