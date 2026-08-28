@@ -1,4 +1,4 @@
-from typing import Any, Optional, Union
+from typing import Any, Union
 
 import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
@@ -16,14 +16,14 @@ from pygeosimplify.vis.scene import CellScene
 
 def plot_geometry(  # noqa: C901
     df: pd.DataFrame,
-    ax: Union[None, Axes3D] = None,
-    layer_list: Optional[list[int]] = None,
-    eta_range: Optional[list] = None,
-    phi_range: Optional[list] = None,
-    axis_labels: Optional[list] = None,
-    color: Optional[str] = None,
+    ax: Union[Axes3D, None] = None,
+    layer_list: list[int] | None = None,
+    eta_range: list | None = None,
+    phi_range: list | None = None,
+    axis_labels: list | None = None,
+    color: str | None = None,
     unit_scale: float = 1,
-    cell_energy_col: Optional[str] = None,
+    cell_energy_col: str | None = None,
     unit_scale_energy: float = 1,
     energy_label: str = "Cell Energy",
     color_map: str = "gist_heat_r",
@@ -75,10 +75,10 @@ def plot_geometry(  # noqa: C901
 
     if not cell_energy_col:
         # Create a color dict mapping a layer to a color
-        layer_color_dict = dict(zip(layer_list, get_colors(len(layer_list), rng=0)))
+        layer_color_dict = dict(zip(layer_list, get_colors(len(layer_list), rng=0), strict=False))
         # If color is specifically provided, override the color dict
         if color:
-            layer_color_dict = {layer: color for layer in layer_list}
+            layer_color_dict = dict.fromkeys(layer_list, color)
         add_cells_to_scene(
             df=df,
             scene=vis,
@@ -149,10 +149,10 @@ def add_cells_to_scene(
     df: pd.DataFrame,
     scene: CellScene,
     unit_scale: float,
-    unit_scale_energy: Optional[float] = 1,
-    layer_color_dict: Optional[dict] = None,
-    colormap: Optional[Any] = None,
-    norm: Optional[mcolors.Normalize] = None,
+    unit_scale_energy: float | None = 1,
+    layer_color_dict: dict | None = None,
+    colormap: Any | None = None,
+    norm: mcolors.Normalize | None = None,
 ) -> None:
     """
     Adds cells to a given scene.
