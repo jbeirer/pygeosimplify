@@ -238,7 +238,7 @@ class GeoLayer:
 
     def plot_cell_vertices_rz(
         self,
-        ax: Union[None, plt.Axes] = None,
+        ax: Union[plt.Axes, None] = None,
         color: Union[tuple[float, float, float], str] = "tab:blue",
         marker_size: float = 0.01,
         x_label: str = "z",
