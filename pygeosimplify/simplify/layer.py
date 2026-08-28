@@ -100,22 +100,22 @@ class GeoLayer:
         if self.coordinate_system == "XYZ":
             return [
                 XYZCell(dx, dy, dz, pos=XYZ(x, y, z))
-                for dx, dy, dz, x, y, z in zip(df.dx, df.dy, df.dz, df.x, df.y, df.z)
+                for dx, dy, dz, x, y, z in zip(df.dx, df.dy, df.dz, df.x, df.y, df.z, strict=False)
             ]
         elif self.coordinate_system == "EtaPhiR":
             return [
                 EtaPhiRCell(deta, dphi, dr, pos=EtaPhiR(eta, phi, r))
-                for deta, dphi, dr, eta, phi, r in zip(df.deta, df.dphi, df.dr, df.eta, df.phi, df.r)
+                for deta, dphi, dr, eta, phi, r in zip(df.deta, df.dphi, df.dr, df.eta, df.phi, df.r, strict=False)
             ]
         elif self.coordinate_system == "EtaPhiZ":
             return [
                 EtaPhiZCell(deta, dphi, dz, pos=EtaPhiZ(eta, phi, z))
-                for deta, dphi, dz, eta, phi, z in zip(df.deta, df.dphi, df.dz, df.eta, df.phi, df.z)
+                for deta, dphi, dz, eta, phi, z in zip(df.deta, df.dphi, df.dz, df.eta, df.phi, df.z, strict=False)
             ]
         elif self.coordinate_system == "RPhiZ":
             return [
                 RPhiZCell(dr, dphi, dz, pos=RPhiZ(r, phi, z))
-                for dr, dphi, dz, r, phi, z in zip(df.dr, df.dphi, df.dz, df.r, df.phi, df.z)
+                for dr, dphi, dz, r, phi, z in zip(df.dr, df.dphi, df.dz, df.r, df.phi, df.z, strict=False)
             ]
         else:
             raise Exception(f"Invalid coordinate system {self.coordinate_system}.")
@@ -238,7 +238,7 @@ class GeoLayer:
 
     def plot_cell_vertices_rz(
         self,
-        ax: Union[None, plt.Axes] = None,
+        ax: Union[plt.Axes, None] = None,
         color: Union[tuple[float, float, float], str] = "tab:blue",
         marker_size: float = 0.01,
         x_label: str = "z",

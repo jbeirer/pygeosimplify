@@ -1,6 +1,5 @@
 from itertools import combinations
 from re import Match
-from typing import Optional
 
 import numpy as np
 import pandas as pd
@@ -89,8 +88,8 @@ def check_world_overlap(
 
         for pair in overlap_lines:
             # Extract the actual layer names without the "Layer_" prefix and "_Phys" suffix
-            first_match: Optional[Match[str]] = re.search(r"Layer_(.*?)_Phys", pair[0])
-            second_match: Optional[Match[str]] = re.search(r"Layer_(.*?)_Phys", pair[1])
+            first_match: Match[str] | None = re.search(r"Layer_(.*?)_Phys", pair[0])
+            second_match: Match[str] | None = re.search(r"Layer_(.*?)_Phys", pair[1])
 
             if first_match and second_match:
                 first = first_match.group(1)
