@@ -1227,42 +1227,42 @@ tests = ["pytest", "pytest-cov", "pytest-xdist"]
 
 [[package]]
 name = "debugpy"
-version = "1.8.21"
+version = "1.8.22"
 description = "An implementation of the Debug Adapter Protocol for Python"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "debugpy-1.8.21-cp310-cp310-macosx_15_0_x86_64.whl", hash = "sha256:8eeab7b5462f683452c57c0126aaa5ec4e974ddb705f39ba87dff8818c8e08f9"},
-    {file = "debugpy-1.8.21-cp310-cp310-manylinux_2_34_x86_64.whl", hash = "sha256:0fddfdc130ac6d8bfc0415b0409822fa901c8f310e5c945ac5653a0352532344"},
-    {file = "debugpy-1.8.21-cp310-cp310-win32.whl", hash = "sha256:72b5d676c4cbfac3bac5bb01c138a4656e843f93f03ce2a5f4e394ad49fbee73"},
-    {file = "debugpy-1.8.21-cp310-cp310-win_amd64.whl", hash = "sha256:a7fe47fd23da57b9e0bec3f4a8ee65a2dc55782455ed7f2141d75ab5d2eaeef5"},
-    {file = "debugpy-1.8.21-cp311-cp311-macosx_15_0_universal2.whl", hash = "sha256:da456226c7b4c69e35dbe35dcee6623d912000a77816db7856a41af1c72a0264"},
-    {file = "debugpy-1.8.21-cp311-cp311-manylinux_2_34_x86_64.whl", hash = "sha256:f68b891688e61bdc08b8d364d919ff0051e0b94657b39dcd027bc3173edb7cdc"},
-    {file = "debugpy-1.8.21-cp311-cp311-win32.whl", hash = "sha256:f843a8b08c2edeaf9b1582eed4f25441af21a297c22ff16bf76a662557aa9c9e"},
-    {file = "debugpy-1.8.21-cp311-cp311-win_amd64.whl", hash = "sha256:84c564d8cc701d41843b29a92814c1f1bef6798724ca9d675c284ad9f6a547d7"},
-    {file = "debugpy-1.8.21-cp312-cp312-macosx_15_0_universal2.whl", hash = "sha256:9f96713896f39c3dff0ee841f47320c3f2983d33c341e009361bb0ebc79adc4e"},
-    {file = "debugpy-1.8.21-cp312-cp312-manylinux_2_34_x86_64.whl", hash = "sha256:c193d474f0a211191f2b4449d2d06157c689013035bd952f3b617e0ef422b176"},
-    {file = "debugpy-1.8.21-cp312-cp312-win32.whl", hash = "sha256:4743373c1cac7f9e74a1b9915bf1dbe0e900eca657ffb170ae07ac8363205ae9"},
-    {file = "debugpy-1.8.21-cp312-cp312-win_amd64.whl", hash = "sha256:bd7ba9dd3daa7c2f942c6ca8d4695a16bf9ac16b63615261c7982bc74f7ed20c"},
-    {file = "debugpy-1.8.21-cp313-cp313-macosx_15_0_universal2.whl", hash = "sha256:13678151fc401e2d68c9880b91e28714f797d40422994572b24560ef80910a88"},
-    {file = "debugpy-1.8.21-cp313-cp313-manylinux_2_34_x86_64.whl", hash = "sha256:ecbd158386c31ffe71d46f72d44d56e66331ab9b16cad649156d514368f23ab2"},
-    {file = "debugpy-1.8.21-cp313-cp313-win32.whl", hash = "sha256:2c2ae706dec41d99a9ca1f7ebc987a83e65578363be6f6b3ac9067504917fae1"},
-    {file = "debugpy-1.8.21-cp313-cp313-win_amd64.whl", hash = "sha256:aa648733047443eb1d07682c4ef287d36a54507b643ffdf38b09a3ef002c72a0"},
-    {file = "debugpy-1.8.21-cp314-cp314-macosx_15_0_universal2.whl", hash = "sha256:9bb2a685287a2ac9b181cde89edcec64845cb51de7faaa75badb9a698bc24782"},
-    {file = "debugpy-1.8.21-cp314-cp314-manylinux_2_34_x86_64.whl", hash = "sha256:3d6922439bf33fd38a3e2c447869ebc7b97da5cd3d329ff1ef9bc06c4903437e"},
-    {file = "debugpy-1.8.21-cp314-cp314-win32.whl", hash = "sha256:15d4963bd5ffa48f0da0947fd06757fa7621945048a14ad7705431566d3c0e7c"},
-    {file = "debugpy-1.8.21-cp314-cp314-win_amd64.whl", hash = "sha256:fe0744a12353406de0ae8ccff0d0a4a666f00801a3db8fd04e7a5f761cd520e8"},
-    {file = "debugpy-1.8.21-cp38-cp38-macosx_15_0_x86_64.whl", hash = "sha256:0042da0ecd0a8b50dc4a54395ecd870d258d73fa18776f50c91fdcabdcad2675"},
-    {file = "debugpy-1.8.21-cp38-cp38-manylinux_2_34_x86_64.whl", hash = "sha256:ffd932c6796afadab6993ec96745918a8cb2444dbd392074f769db5ea40ab440"},
-    {file = "debugpy-1.8.21-cp38-cp38-win32.whl", hash = "sha256:4e7c2d784d78ad4b71a5f8cd7b59c167719ec8a7a0211dbb3eb1bfeda78bc4e2"},
-    {file = "debugpy-1.8.21-cp38-cp38-win_amd64.whl", hash = "sha256:aa9d941d6dfe3d0407e4b3ca0b9ec466030e260fbf1174094f68785680f66db6"},
-    {file = "debugpy-1.8.21-cp39-cp39-macosx_15_0_x86_64.whl", hash = "sha256:9f5171176a0084b95d2ebe55a4d1f7b2a75b74c5dbec577ebd3a85c740551c36"},
-    {file = "debugpy-1.8.21-cp39-cp39-manylinux_2_34_x86_64.whl", hash = "sha256:f15c10084f9861b5e8414a48f18f8e4aadf51a98a59e72c16aa28281ca994672"},
-    {file = "debugpy-1.8.21-cp39-cp39-win32.whl", hash = "sha256:4e70cc8b5079f885cb43910924ee0aab73b8b6b2a14eff23afdd9895d86e79eb"},
-    {file = "debugpy-1.8.21-cp39-cp39-win_amd64.whl", hash = "sha256:e935f9dc0501be523c8a8e1853c39432e1354e9ece717ae5998fd2371c4542c3"},
-    {file = "debugpy-1.8.21-py2.py3-none-any.whl", hash = "sha256:b1e37d333663c8851516a47364ef473da127f9caebe4417e6df6f5825a7e9a92"},
-    {file = "debugpy-1.8.21.tar.gz", hash = "sha256:a3c53278e84c94e11bd87c53970ec391d1a67396c8b22609fcac576520e611a6"},
+    {file = "debugpy-1.8.22-cp310-cp310-macosx_15_0_x86_64.whl", hash = "sha256:fa47099176d1d612bef69e9f74658a5687a9f05bd80fb5710f99959bace85735"},
+    {file = "debugpy-1.8.22-cp310-cp310-manylinux_2_34_x86_64.whl", hash = "sha256:7bf29e0d8ce80b100d37fb333e1b193b790d962739f3067796c2b03ffdc9afee"},
+    {file = "debugpy-1.8.22-cp310-cp310-win32.whl", hash = "sha256:56b877b37ed73f0bf53ba7afc394816ff1eb5d701bae24a24ed9e1ea6f7ce34f"},
+    {file = "debugpy-1.8.22-cp310-cp310-win_amd64.whl", hash = "sha256:1bd0c6df3c68c0a3f71db8baa3780a953abb65537ec4b3bc6b935ad5b3b3d45c"},
+    {file = "debugpy-1.8.22-cp311-cp311-macosx_15_0_universal2.whl", hash = "sha256:66e4ac3d6e7026e83e7d93d7ee2f51dd4a4e8dff673578d424e60796893e5b2c"},
+    {file = "debugpy-1.8.22-cp311-cp311-manylinux_2_34_x86_64.whl", hash = "sha256:192b73e8d53bbd60225220c0943627bf249ac93d0ea3090e23c45f3e0ceb6a35"},
+    {file = "debugpy-1.8.22-cp311-cp311-win32.whl", hash = "sha256:745e1800ec2961e5660c1a317c0a20e28c0fef4de36c04f17a21c33f2b37a92a"},
+    {file = "debugpy-1.8.22-cp311-cp311-win_amd64.whl", hash = "sha256:1e76339d5510bc17e9181dba9577508afcb21aad5728f1a55ef74d7d97d255f3"},
+    {file = "debugpy-1.8.22-cp312-cp312-macosx_15_0_universal2.whl", hash = "sha256:4ad076f4f66cb8acb79e4384d48b1ea60a0b1957aa0b1112d4887ea3a4df60e0"},
+    {file = "debugpy-1.8.22-cp312-cp312-manylinux_2_34_x86_64.whl", hash = "sha256:8a697acec45dbc70d17fb5d9f4f61989fc294d273c69de487fd10cb35fdd75eb"},
+    {file = "debugpy-1.8.22-cp312-cp312-win32.whl", hash = "sha256:12bc7f368182b517cf26c76a2393fff65354e365fa1552b6241e66edff17997b"},
+    {file = "debugpy-1.8.22-cp312-cp312-win_amd64.whl", hash = "sha256:371a4ba4a5975eb958393903f3254cf983da7b1c7c178b3f987ee427f42515e3"},
+    {file = "debugpy-1.8.22-cp313-cp313-macosx_15_0_universal2.whl", hash = "sha256:c21dd7e1ec22556bb41dc3bf6b86c603e440ec889c4acb27d7206354b2106c54"},
+    {file = "debugpy-1.8.22-cp313-cp313-manylinux_2_34_x86_64.whl", hash = "sha256:c1ffb9953708b648ecf6acd2e5ad2c002bf68785ed618197dd4463a2a7226f39"},
+    {file = "debugpy-1.8.22-cp313-cp313-win32.whl", hash = "sha256:ba810a66b437e3c43ca0ce0892404f010338286263ca8e5108442d76a9485337"},
+    {file = "debugpy-1.8.22-cp313-cp313-win_amd64.whl", hash = "sha256:f49b1d6cecf326b63c06d7f517e4a6642777f758c58cb799e7bc5a6dd74721c2"},
+    {file = "debugpy-1.8.22-cp314-cp314-macosx_15_0_universal2.whl", hash = "sha256:e6744ac1850c73c2ba7b29a126cf9ab74efd1831190720e8fee17ef5389c8f5d"},
+    {file = "debugpy-1.8.22-cp314-cp314-manylinux_2_34_x86_64.whl", hash = "sha256:0c1104233340196e5cbf5514e7dfdbb98968e730cfd7fdd6f3d72a082be838a9"},
+    {file = "debugpy-1.8.22-cp314-cp314-win32.whl", hash = "sha256:feea785c7bbeb8cfd5b01a63f9061c899dc468c8be81671141a29305774fa294"},
+    {file = "debugpy-1.8.22-cp314-cp314-win_amd64.whl", hash = "sha256:d593a330297332ec435f3965c448b6d500e03f33675cf2063178bc76377a788e"},
+    {file = "debugpy-1.8.22-cp315-cp315-macosx_15_0_universal2.whl", hash = "sha256:a9eca6ab09a61534e923064400081e016f7e1d8430cc6e8b7a9cecd2f59e2b07"},
+    {file = "debugpy-1.8.22-cp315-cp315-manylinux_2_34_x86_64.whl", hash = "sha256:b7dbde1fb822d100802d505b2aed6d0813b1a0a2015d495cb8798b2215d5d1e5"},
+    {file = "debugpy-1.8.22-cp315-cp315-win32.whl", hash = "sha256:225d063f81708c2546999e7edfac0198b2d5c2f144797dc64858f867948633e0"},
+    {file = "debugpy-1.8.22-cp315-cp315-win_amd64.whl", hash = "sha256:b17a4896520f1c6da09ce76ec8215df0b85b0b6f3617526a4c65c2315340875a"},
+    {file = "debugpy-1.8.22-cp39-cp39-macosx_15_0_x86_64.whl", hash = "sha256:cba7b99573ee41f9510c6deeff1cdd0c333748b9dd63d5016413dd57ba9a4593"},
+    {file = "debugpy-1.8.22-cp39-cp39-manylinux_2_34_x86_64.whl", hash = "sha256:3b7c328cb47b4e2f2b40801936daf8150f88dcb4ffef5080ff119270f0d23626"},
+    {file = "debugpy-1.8.22-cp39-cp39-win32.whl", hash = "sha256:ffeeaf4dfe1534375902040df32a4c48f721fd35a4d4d337ac72a44d4176075b"},
+    {file = "debugpy-1.8.22-cp39-cp39-win_amd64.whl", hash = "sha256:92fc425308a08f601f3c69afb4719767f9b898276f44b97e6942a713c4c32740"},
+    {file = "debugpy-1.8.22-py2.py3-none-any.whl", hash = "sha256:a9e9d3550e15ca479c59333e90845029190531f0cacfedab3b815a57bd913947"},
+    {file = "debugpy-1.8.22.tar.gz", hash = "sha256:e489c7268e1c7b41e13b438d9c533d2a7af73fb59bf8cd30fead8286c1c39c4e"},
 ]
 
 [[package]]
@@ -1539,7 +1539,7 @@ version = "2.1.0"
 description = "Copy your docs directly to the gh-pages branch."
 optional = false
 python-versions = "*"
-groups = ["dev", "docs"]
+groups = ["docs"]
 files = [
     {file = "ghp-import-2.1.0.tar.gz", hash = "sha256:9c535c4c61193c2df8871222567d7fd7e5014d835f97dc7b7439069e2413d343"},
     {file = "ghp_import-2.1.0-py3-none-any.whl", hash = "sha256:8337dd7b50877f163d4c0289bc1f1c7f127550241988d568c1db512c4324a619"},
@@ -1557,7 +1557,7 @@ version = "2.2.0"
 description = "Signatures for entire Python programs. Extract the structure, the frame, the skeleton of your project, to generate API documentation or find breaking changes in your API."
 optional = false
 python-versions = ">=3.10"
-groups = ["dev", "docs"]
+groups = ["docs"]
 files = [
     {file = "griffelib-2.2.0-py3-none-any.whl", hash = "sha256:d71c3bc2bbed9f958488634fe788b843a9f705d6d2838ca32cd6c25eeb64dfc4"},
     {file = "griffelib-2.2.0.tar.gz", hash = "sha256:e1bc36fe9cd21d4b6b659b456346755e4cfdc5676c0a5214083126ee12612b3c"},
@@ -1802,7 +1802,7 @@ version = "3.1.6"
 description = "A very fast and expressive template engine."
 optional = false
 python-versions = ">=3.7"
-groups = ["dev", "docs"]
+groups = ["docs"]
 files = [
     {file = "jinja2-3.1.6-py3-none-any.whl", hash = "sha256:85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67"},
     {file = "jinja2-3.1.6.tar.gz", hash = "sha256:0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"},
@@ -2164,7 +2164,7 @@ version = "3.10.3"
 description = "Python implementation of John Gruber's Markdown."
 optional = false
 python-versions = ">=3.10"
-groups = ["dev", "docs"]
+groups = ["docs"]
 files = [
     {file = "markdown-3.10.3-py3-none-any.whl", hash = "sha256:fa6c92a00a4a3c98b22728c64a935ae1928250ae65058a6ded814d2cc29a4cea"},
     {file = "markdown-3.10.3.tar.gz", hash = "sha256:3589362618f743188b4d955b874402bc814f4f83f544dc207719f4baa7d9c45f"},
@@ -2180,7 +2180,7 @@ version = "3.0.3"
 description = "Safely add untrusted strings to HTML/XML markup."
 optional = false
 python-versions = ">=3.9"
-groups = ["dev", "docs"]
+groups = ["docs"]
 files = [
     {file = "markupsafe-3.0.3-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:2f981d352f04553a7171b8e44369f2af4055f888dfb147d55e42d29e29e74559"},
     {file = "markupsafe-3.0.3-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:e1c1493fb6e50ab01d20a22826e57520f1284df32f2d8601fdd90b6304601419"},
@@ -2376,7 +2376,7 @@ version = "1.3.4"
 description = "A deep merge function for 🐍."
 optional = false
 python-versions = ">=3.6"
-groups = ["dev", "docs"]
+groups = ["docs"]
 files = [
     {file = "mergedeep-1.3.4-py3-none-any.whl", hash = "sha256:70775750742b25c0d8f36c55aed03d24c3384d17c951b3175d898bd778ef0307"},
     {file = "mergedeep-1.3.4.tar.gz", hash = "sha256:0096d52e9dad9939c3d975a774666af186eda617e6ca84df4c94dec30004f2a8"},
@@ -2388,7 +2388,7 @@ version = "1.6.1"
 description = "Project documentation with Markdown."
 optional = false
 python-versions = ">=3.8"
-groups = ["dev", "docs"]
+groups = ["docs"]
 files = [
     {file = "mkdocs-1.6.1-py3-none-any.whl", hash = "sha256:db91759624d1647f3f34aa0c3f327dd2601beae39a366d6e064c03468d35c20e"},
     {file = "mkdocs-1.6.1.tar.gz", hash = "sha256:7b432f01d928c084353ab39c57282f29f92136665bdd6abf7c1ec8d822ef86f2"},
@@ -2419,7 +2419,7 @@ version = "1.4.4"
 description = "Automatically link across pages in MkDocs."
 optional = false
 python-versions = ">=3.9"
-groups = ["dev", "docs"]
+groups = ["docs"]
 files = [
     {file = "mkdocs_autorefs-1.4.4-py3-none-any.whl", hash = "sha256:834ef5408d827071ad1bc69e0f39704fa34c7fc05bc8e1c72b227dfdc5c76089"},
     {file = "mkdocs_autorefs-1.4.4.tar.gz", hash = "sha256:d54a284f27a7346b9c38f1f852177940c222da508e66edc816a0fa55fc6da197"},
@@ -2436,7 +2436,7 @@ version = "0.2.2"
 description = "An extra command for MkDocs that infers required PyPI packages from `plugins` in mkdocs.yml"
 optional = false
 python-versions = ">=3.9"
-groups = ["dev", "docs"]
+groups = ["docs"]
 files = [
     {file = "mkdocs_get_deps-0.2.2-py3-none-any.whl", hash = "sha256:e7878cbeac04860b8b5e0ca31d3abad3df9411a75a32cde82f8e44b6c16ff650"},
     {file = "mkdocs_get_deps-0.2.2.tar.gz", hash = "sha256:8ee8d5f316cdbbb2834bc1df6e69c08fe769a83e040060de26d3c19fad3599a1"},
@@ -2495,7 +2495,7 @@ version = "1.0.6"
 description = "Automatic documentation from sources, for MkDocs."
 optional = false
 python-versions = ">=3.10"
-groups = ["dev", "docs"]
+groups = ["docs"]
 files = [
     {file = "mkdocstrings-1.0.6-py3-none-any.whl", hash = "sha256:2703708697487d1b6d6d7b412e176fa436edf120c1bf81dc9e126b12d00893c7"},
     {file = "mkdocstrings-1.0.6.tar.gz", hash = "sha256:a0b8c2bdd29a6416c80d717aa369bbf7831946bd9f23c2a66db1b1dbe7693dbd"},
@@ -2521,7 +2521,7 @@ version = "2.0.9"
 description = "A Python handler for mkdocstrings."
 optional = false
 python-versions = ">=3.10"
-groups = ["dev", "docs"]
+groups = ["docs"]
 files = [
     {file = "mkdocstrings_python-2.0.9-py3-none-any.whl", hash = "sha256:c0233eff3f84d78110df50541918e7ec2bcff8e1614faddea34290a90321a416"},
     {file = "mkdocstrings_python-2.0.9.tar.gz", hash = "sha256:ae945637dc0618c6beedbee169f10c0234b77f322c53db3fc9fb4c29b3013038"},
@@ -3298,7 +3298,7 @@ version = "11.0.2"
 description = "Extension pack for Python Markdown."
 optional = false
 python-versions = ">=3.10"
-groups = ["dev", "docs"]
+groups = ["docs"]
 files = [
     {file = "pymdown_extensions-11.0.2-py3-none-any.whl", hash = "sha256:259910762019732caa1dfd76f3faa62c59f191d46573e80bcb1d13c0f675bbe5"},
     {file = "pymdown_extensions-11.0.2.tar.gz", hash = "sha256:9506fcbe66fa355a775b768084334238dd6805020ac4b92bea0c0dda6f8f223d"},
@@ -3538,7 +3538,7 @@ version = "1.1"
 description = "A custom YAML tag for referencing environment variables in YAML files."
 optional = false
 python-versions = ">=3.9"
-groups = ["dev", "docs"]
+groups = ["docs"]
 files = [
     {file = "pyyaml_env_tag-1.1-py3-none-any.whl", hash = "sha256:17109e1a528561e32f026364712fee1264bc2ea6715120891174ed1b980d2e04"},
     {file = "pyyaml_env_tag-1.1.tar.gz", hash = "sha256:2eb38b75a2d21ee0475d6d97ec19c63287a7e140231e4214969d0eac923cd7ff"},
@@ -4093,7 +4093,7 @@ version = "6.0.0"
 description = "Filesystem events monitoring"
 optional = false
 python-versions = ">=3.9"
-groups = ["dev", "docs"]
+groups = ["docs"]
 files = [
     {file = "watchdog-6.0.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:d1cdb490583ebd691c012b3d6dae011000fe42edb7a82ece80965b42abd61f26"},
     {file = "watchdog-6.0.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:bc64ab3bdb6a04d69d4023b29422170b74681784ffb9463ed4870cf2f3e66112"},
