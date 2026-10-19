@@ -252,14 +252,14 @@ extras = ["regex"]
 
 [[package]]
 name = "cachetools"
-version = "7.2.1"
+version = "7.2.3"
 description = "Extensible memoizing collections and decorators"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "cachetools-7.2.1-py3-none-any.whl", hash = "sha256:63aa53dfe7473c10cccdd5a01dedf76ef2c4b73a58840d9396e7d0752cbdac3b"},
-    {file = "cachetools-7.2.1.tar.gz", hash = "sha256:b1a7537025c06abf96fcc1443e496af9a3fb95e774e70e1f0af226f73f7f2dcc"},
+    {file = "cachetools-7.2.3-py3-none-any.whl", hash = "sha256:85ef9d2703918bedf7f88caa0b06bb3bb7a71360eb0b05c20796b89fede6e30c"},
+    {file = "cachetools-7.2.3.tar.gz", hash = "sha256:e6fafd06de4a5bd915ff7d247588ea497e28c9a568c62db8678d9a5f11515a9a"},
 ]
 
 [[package]]
