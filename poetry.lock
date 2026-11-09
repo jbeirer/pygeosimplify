@@ -4125,46 +4125,56 @@ typing-extensions = {version = ">=4.16", markers = "python_version < \"3.11\""}
 
 [[package]]
 name = "vtk"
-version = "9.7.1"
+version = "9.7.2"
 description = "VTK is an open-source toolkit for 3D computer graphics, image processing, and visualization"
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "vtk-9.7.1-cp310-cp310-macosx_10_10_x86_64.whl", hash = "sha256:a1ff281d4c8e5e979b900051b916e0b0a13e0f52306c8abb4237ae88ea401a13"},
-    {file = "vtk-9.7.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:10548061a05bb54602e5b80a089d15e74988b63b81196c9ae5c7cbaba66f018d"},
-    {file = "vtk-9.7.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:bd607a72d656e3fc8f3076bf5cb32b3c67706376d51b2ca54ca0ee69524ae45c"},
-    {file = "vtk-9.7.1-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:a021a436163d15c7324f68b54e629fe96debdc993748b6a7f7d37c8fae37e7b7"},
-    {file = "vtk-9.7.1-cp310-cp310-win_amd64.whl", hash = "sha256:431d23a97bbe19eb666418d292ce2b870f92ac3f8e3bde396020402045362b86"},
-    {file = "vtk-9.7.1-cp311-cp311-macosx_10_10_x86_64.whl", hash = "sha256:b0172db8ba38030fbcd0d381d92beb462ad86aba8e6bc2d3024ca7e69c7f90bf"},
-    {file = "vtk-9.7.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:7d52b50a0da720e1c58236ea13164eb878ca12239fdb412ed3ae6c07d2bc69a1"},
-    {file = "vtk-9.7.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:d5d642e5f0cdb213e2eff5d6de93d0b783a0a05ecd968c15805fde65f6df9926"},
-    {file = "vtk-9.7.1-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:c760e6f7a2cff2236fe4b4b58ce0c6433a7421c0e3443bd30586fd58a27a0268"},
-    {file = "vtk-9.7.1-cp311-cp311-win_amd64.whl", hash = "sha256:ef4d99933652b708e7a6f0830c6705977313986bbe719bf8d4636bb15a2eb27f"},
-    {file = "vtk-9.7.1-cp312-cp312-macosx_10_10_x86_64.whl", hash = "sha256:bac36fd483cc5ff51d49c347a551933232a6788be2f7dd1604540e6fdb717e40"},
-    {file = "vtk-9.7.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:ce93d04e363b26955b661e482c02b5ddd38c11af1b6c7af4395c2ef6baab6b0d"},
-    {file = "vtk-9.7.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:04740a3bc2d492327d650fb9c4a9ff54e80f3a064d5ce677ef48c3b08fa96bcd"},
-    {file = "vtk-9.7.1-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:830f3e3042d381fed96a7f013645f5b667700d63f843133260c8f5ec2915bdb3"},
-    {file = "vtk-9.7.1-cp312-cp312-win_amd64.whl", hash = "sha256:64a50b972240f477c864a0d16dfc247e7f540b007ec4016b76cb8f112f62a66b"},
-    {file = "vtk-9.7.1-cp313-cp313-macosx_10_10_x86_64.whl", hash = "sha256:3b54251c92e9a78766f5aec3d423c53e94991f9c34307a97c560e9c94eccad81"},
-    {file = "vtk-9.7.1-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:a634727aab72ee68d8f231e9004823a928ef7583810e90a7add7fcbec157ef65"},
-    {file = "vtk-9.7.1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:22e4912ee5fc36c212baf8c179c7cdc16aef6540ace3ca8eb0669395f2791fc0"},
-    {file = "vtk-9.7.1-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:74c92cecb9b1bf78b569cb013f2e4d76087415734e01ac91328619b8a6395fcc"},
-    {file = "vtk-9.7.1-cp313-cp313-win_amd64.whl", hash = "sha256:997589ce7cfffaae539c4a6c35ce1852d902bde35c2928fb74cb994e261916a7"},
-    {file = "vtk-9.7.1-cp314-cp314-macosx_10_10_x86_64.whl", hash = "sha256:1af433e675fbfb40776f75f1bfc36cd4ef4c8a53c412df8ad941df181d78fd94"},
-    {file = "vtk-9.7.1-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:121c3e7d7cde330d590cf879b1c536eabeb127f71f6d402c8e61324cb5100e98"},
-    {file = "vtk-9.7.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:5125ec5516d6017c8ebaa2defb1ade83736aba870d740346fa7abd1f1f98b6ef"},
-    {file = "vtk-9.7.1-cp314-cp314-manylinux_2_28_aarch64.whl", hash = "sha256:4fe1f1f67cc4ebd98a1dbf413fa7956f0e95c1690e132c4fd48aff97f852b9d0"},
-    {file = "vtk-9.7.1-cp314-cp314-win_amd64.whl", hash = "sha256:9e62a104551929676e40e21dcb4b1dca1f5e9bf882913b8864aabcb4834f535c"},
-    {file = "vtk-9.7.1-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:54858d15dc5d42a85285e3e79993c93439f414c694f8466f9c3522af083ef1e9"},
-    {file = "vtk-9.7.1-cp314-cp314t-manylinux_2_28_aarch64.whl", hash = "sha256:06511e9b82056babea5277e6c7af5f61fe5105fd2957b8321b1ef6b264977ceb"},
+    {file = "vtk-9.7.2-cp310-cp310-macosx_10_15_x86_64.whl", hash = "sha256:53d611d109afc5fb37cfddd92bc7f95d3b05a7653eba5287da95ca2032d664f0"},
+    {file = "vtk-9.7.2-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:b26738cf943a3cda1b49e34d65ac94ce04e54cac74d3fb8cedfdec8f63bf790f"},
+    {file = "vtk-9.7.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:4328759e9e9f6f7e8fa6aae90319a8a17eae2ae37d8a87289a4e84c56cf652e8"},
+    {file = "vtk-9.7.2-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:883056f3d480eb1502389013d8445447d4fe737aba45677a67c44fa9ac8522be"},
+    {file = "vtk-9.7.2-cp310-cp310-win_amd64.whl", hash = "sha256:b6a82b5eb8292a9427df7002daf0773ceacf9e776c6ba05267cf62bb62760238"},
+    {file = "vtk-9.7.2-cp311-cp311-macosx_10_15_x86_64.whl", hash = "sha256:0b7c62860c840f31dabbb5c0e57ca251d1526c27e3e55175d027993ec1aff513"},
+    {file = "vtk-9.7.2-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:3684b2974e19d3d3e582fe4f4ceaf07733475377fdf27fc78a1f824957baa621"},
+    {file = "vtk-9.7.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:44a82736a303fa6a157d412b8e09abac87cdc64193e135bbf80831d41955075d"},
+    {file = "vtk-9.7.2-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:37c6d0faa1bf89c6beab21b8b5745dd783b85f83e54b0e20d6261f3147fc7454"},
+    {file = "vtk-9.7.2-cp311-cp311-win_amd64.whl", hash = "sha256:eb9362c228bc6347c302301b486ff185a5fba5947f6e23fc76f776136f361885"},
+    {file = "vtk-9.7.2-cp312-cp312-macosx_10_15_x86_64.whl", hash = "sha256:d907a521bd611069e5cd205355184fd3e46e9d1c37e4c2d2b62db12e9711d800"},
+    {file = "vtk-9.7.2-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:8d7da1779e3e6f3bf49cecbef97f1d4aa33a3f1a222e5f5a9b2e38bfe5a5e560"},
+    {file = "vtk-9.7.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:2a68d4c3fe9bc710cb27f59f32a1ed3aba6e1993a1f35fa9b8e0096f3e7c48b5"},
+    {file = "vtk-9.7.2-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:6bbd68b84ac59cf155c68ba59347cb92038f680b394fc069e7b8542016feb0f0"},
+    {file = "vtk-9.7.2-cp312-cp312-win_amd64.whl", hash = "sha256:f775824c19dd8abf243e666dc78f57a63a025ca1b37426b16d545822f6b83518"},
+    {file = "vtk-9.7.2-cp313-cp313-macosx_10_15_x86_64.whl", hash = "sha256:7e63af5118db0875492681cd3b647ae3284cde45635b02375a3147774c0947db"},
+    {file = "vtk-9.7.2-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:b794ab0bf566521b7b20f05007b2fe8a05125ff1199f954d3a39412105f6de3e"},
+    {file = "vtk-9.7.2-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:706b3a457844f348d22333191711fb799023cf2e4d02748396f6218b0210bd1b"},
+    {file = "vtk-9.7.2-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:76b1ee144ed00a2eb691f811ee9be034aef28e5e4d8b52d4758439cce050c71b"},
+    {file = "vtk-9.7.2-cp313-cp313-win_amd64.whl", hash = "sha256:6e5b3b8aa24fc09f5e7bc981fb7ef7858f860d169f7182c8d5eb272863b9009f"},
+    {file = "vtk-9.7.2-cp314-cp314-macosx_10_15_x86_64.whl", hash = "sha256:f1aa9705c07ecb80ee5e1c30810ed3a3c88ffe33577fbe1ef6ba28eeed24fb5b"},
+    {file = "vtk-9.7.2-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:135664d0d4dfd140fc5df2d1a8a949f5c0abf1c8d83822013f5d86bb938f9ac5"},
+    {file = "vtk-9.7.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:8a762b8d6a711f1e8c9c58f319efc3aa3d7d4f97902e0045f1a4ccf2849e9345"},
+    {file = "vtk-9.7.2-cp314-cp314-manylinux_2_28_aarch64.whl", hash = "sha256:df103b630d300895e66b8c498196c843943b37cccc9317049326a5f79b7aaa86"},
+    {file = "vtk-9.7.2-cp314-cp314-win_amd64.whl", hash = "sha256:38bda6a2034aaea9bf8d413148bd4941dd2e52629ad2ee69110f9455ca75ce87"},
+    {file = "vtk-9.7.2-cp314-cp314t-macosx_10_15_x86_64.whl", hash = "sha256:22871e6aa88706d23eb9da0a6da4f89d054ebbc27bee24b7e50228512cc1ea2c"},
+    {file = "vtk-9.7.2-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:c24b39e8c7a470a3a27588605bb1f7e12318b848df63d207164fc2ad3e25a37a"},
+    {file = "vtk-9.7.2-cp314-cp314t-manylinux_2_28_aarch64.whl", hash = "sha256:862e052d62a42aa97e1b0d3b8fe4a9b95a18136ea909d5112e102c90133d83ab"},
+    {file = "vtk-9.7.2-cp314-cp314t-win_amd64.whl", hash = "sha256:1249996567497327c9c614ada34273405a97a0717e92e3a61fcdb8bdc4cb7a0d"},
+    {file = "vtk-9.7.2-cp315-cp315-macosx_10_15_x86_64.whl", hash = "sha256:40b2dc090ed36961f97cce9161fbf251231380148bde2c98d0325696d7aea884"},
+    {file = "vtk-9.7.2-cp315-cp315-macosx_11_0_arm64.whl", hash = "sha256:c6ccc66a5e82397741d4853d111fd08138f1058781d24abec327e82e8a5ab535"},
+    {file = "vtk-9.7.2-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:bbca763380132652029cfa9898a66db9da3d50c8ba1260ecf43bcb5421aa2e09"},
+    {file = "vtk-9.7.2-cp315-cp315-manylinux_2_28_aarch64.whl", hash = "sha256:f4452d47b842bd786e0c102eb0b521f98e5463f5df3d377cdf977d26661504f8"},
+    {file = "vtk-9.7.2-cp315-cp315-win_amd64.whl", hash = "sha256:6256f7ddcef3747fa31f83afbf3596d46c675d5847a63596950098c2f666189d"},
+    {file = "vtk-9.7.2-cp315-cp315t-macosx_10_15_x86_64.whl", hash = "sha256:2ba8292644e448d51f3b485d9f9fe6188ef828d188b5b38decd0bd15257886b7"},
+    {file = "vtk-9.7.2-cp315-cp315t-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:631e2d81cf6bba6243a5641c30f7b2bc0091983fe9970a2a8b6e89008d2fe33f"},
+    {file = "vtk-9.7.2-cp315-cp315t-manylinux_2_28_aarch64.whl", hash = "sha256:91a3f6347ceca2b8c143632c09b24d04da6a861b5d8abd702e8999411e7d1ec0"},
 ]
 
 [package.dependencies]
 matplotlib = ">=2.0.0"
 
 [package.extras]
-numpy = ["numpy (>=1.9)"]
+numpy = ["numpy (>=2.0)"]
 web = ["wslink (>=1.0.4)"]
 
 [[package]]
